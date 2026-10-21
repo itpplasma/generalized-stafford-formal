@@ -1,0 +1,13 @@
+Symplectic Stafford formalization
+
+Copyright 2026 ITP Plasma contributors.
+
+This distribution includes the Lean formalization and its verification
+metadata. Third-party dependencies retain their own copyright and license
+notices in their respective distributions.
+
+Generalized Stafford
+
+Derived from the Mathlib-only Symplectic Stafford proof at
+0e55a8059cc923ef39d6ddb66c5b6f6a2682b46b, with generalized filtration
+hypotheses and a new namespace. See docs/provenance.md.
