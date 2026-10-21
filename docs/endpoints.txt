@@ -1,5 +1,6 @@
 GeneralizedStafford.FilteredAlgebraData.targetA
 GeneralizedStafford.FilteredAlgebraData.targetA_left
+GeneralizedStafford.FilteredAlgebraData.targetA_left_affine
 GeneralizedStafford.FilteredAlgebraData.Ph_all
 GeneralizedStafford.FilteredAlgebraData.ore_condition
 GeneralizedStafford.FilteredAlgebraData.isRightFractions

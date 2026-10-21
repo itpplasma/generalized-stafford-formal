@@ -1,11 +1,17 @@
-# Candidate declaration map
+# Written proof and Lean correspondence
 
-Reviewed correspondence: **pending**. The mathematical authority is the
-[research proof dossier](https://github.com/itpplasma/generalized-stafford/blob/main/docs/proof.md).
-Its current note is an outline, not a completed written proof. The table below
-identifies imported declarations for candidate proof steps; it does not certify
-whole-proof correspondence or concrete applicability. The original manuscript
-section references in imported code are retained as historical locators.
+The machine-readable [paper-lean-map.json](paper-lean-map.json) records 19
+correspondence cards for the commutative-symbol proof and consequences,
+40 declaration references and all 19 audited endpoints. It pins an immutable
+[research dossier](https://github.com/itpplasma/generalized-stafford) commit
+and fingerprints all proof sources, dependency pins and audit inputs.
+
+Each card separates statement equivalence from proof-route correspondence.
+The actual-symbol card maps all ten fields, including exact kernels,
+surjectivity and multiplication. Rank cards identify weaker right-Ore written
+hypotheses where Lean retains bilateral ones. Source identity and declaration
+ownership pass executable checks; semantic correspondence rests on the
+recorded mathematical comparison, not hashes alone.
 
 | Mathematical step | Lean declaration | Source |
 | --- | --- | --- |
@@ -17,16 +23,18 @@ section references in imported code are retained as historical locators.
 | Common-colon support union | `FilteredAlgebraData.support_union` | [Induction](../GeneralizedStafford/Induction.lean) |
 | Two-call dimension descent | `FilteredAlgebraData.Ph_all` | [Induction](../GeneralizedStafford/Induction.lean) |
 | Degree-zero extraction and affine identity | `FilteredAlgebraData.one_mem_of_grIdeal_eq_top`, `targetA` | [Induction](../GeneralizedStafford/Induction.lean) |
-| Opposite-handed identity | `FilteredAlgebraData.targetA_left` | [Opposite](../GeneralizedStafford/Opposite.lean) |
+| Opposite-handed identity | `FilteredAlgebraData.targetA_left_affine` (full affine), `targetA_left` (legacy) | [Opposite](../GeneralizedStafford/Opposite.lean) |
 | Same-divisor, generation and cancellation consequences | `FilteredAlgebraData.s38`, `torsion_cyclic`, `stable_range`, `stably_free`, `cancellation` | [ConsequencesForU](../GeneralizedStafford/ConsequencesForU.lean) |
 | Universal exported statement | `universalStatement` | [Main](../GeneralizedStafford/Main.lean) |
 
-All declarations above are in `GeneralizedStafford`. The configured endpoint
-axiom audit will cover the theorem, producer and representative consequences. The statement
-audit prints the generalized data, so accidental restoration of connectedness
-or finite-dimensional-piece hypotheses is visible in its output. These checks
-do not replace semantic review of changed hypotheses.
 
-The Weyl, smooth-affine differential-operator and Laurent–Euler applications
-are proposed specializations. Their written structural proofs, statement
-comparison and concrete Lean adapters remain separate open obligations.
+All declarations are in `GeneralizedStafford`. The new full affine-left
+endpoint closes the earlier mismatch between a full written left identity
+and the older same-divisor-only wrapper. The ten-field interface and exact
+statement are also printed by the statement audit.
+
+The broader weighted-localization theorem, central-finite symbols, crossed
+products, coordinate and geometric adapters, projective transport, finite-top
+extensions and effective constructions are not claimed as formalized here.
+The source map records these omissions explicitly. Human review and full
+programme completion remain open in the two repositories' PLAN files.

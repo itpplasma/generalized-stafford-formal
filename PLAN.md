@@ -2,38 +2,52 @@
 
 Updated: 21 October 2026. Private repository; work on `main`.
 
-## Authority and scope
+The [research PLAN](https://github.com/itpplasma/generalized-stafford/blob/main/PLAN.md)
+owns mathematical status. This file owns formal implementation and executable
+verification. The research dossier now has a complete commutative-symbol
+proof, independently audited by agents, and stronger written extensions.
+Human review and literature attribution remain separate obligations.
 
-The mathematical research authority is
-[Generalized Stafford PLAN](https://github.com/itpplasma/generalized-stafford/blob/main/PLAN.md).
-That repository owns the written proof and dependency tree. This PLAN owns
-formal implementation and executable verification status only.
+## Verified scope
 
-The imported experiment weakens the Symplectic filtration fields to
-`one_mem_zero`, with no connectedness or finite-dimensional-piece fields.
-The original modules and exact pins are preserved. No new mathematical or
-Lean proof development is part of this infrastructure setup.
+The library proves the affine identity for simple algebras over infinite
+central fields with exhaustive unital nonnegative multiplicative filtrations
+and actual commutative Noetherian domain symbols of finite Krull dimension.
+It assumes neither connectedness nor finite-dimensional filtration pieces.
+The symbol interface specifies surjectivity, exact kernels and multiplication;
+it does not substitute an unrelated graded ring for the associated graded.
 
-## Evidence and gates
+Both affine orientations are exported. `targetA_left_affine` gives
+`1=R*d+S*d*(B+a*H)`; the older `targetA_left` remains available.
+Generation, rank and cancellation consequences are also included.
 
-| Gate | State | Evidence or obligation |
+| Gate | State | Evidence or remaining obligation |
 | --- | --- | --- |
-| Source preservation and attribution | CHECKED | Import fingerprints agree; LICENSE, NOTICE and provenance retained. |
-| Dependency configuration | CHECKED | Exact Lean/Mathlib and transitive manifest pins checked locally. |
-| Predecessor isolated experiment | REPORTED PASS | Earlier full build and endpoint axiom audit; distinct namespace/checkout. |
-| Renamed library replay | PENDING | Run scripts/verify.sh; no full Lean build in this infrastructure task. |
-| Informal statement versus data interface | OPEN | Audit actual filtration/grading assumptions and quantified conclusion. |
-| Written-proof correspondence | OPEN | Complete research dossier, review its dependency bridges, then pin and map each claim. |
-| Concrete applications | OPEN | Weyl/Symplectic comparison and global differential-operator/Laurent–Euler structural adapters. |
-| Publication or registry | DEFERRED | Separate decisions after the mathematical and formal gates. |
+| Import and dependency identity | CHECKED | Import fingerprints, upstream attribution, exact toolchain and dependency pins retained. |
+| Renamed library replay | PASSED | Full native replay at d6a0eaba9dbef273a324fed8e0018728f92296db; affine-left source patch replay also passed. |
+| Endpoint axiom closure | PASSED | All 19 endpoints pass with only propext, Classical.choice and Quot.sound; audits use --trust=0. |
+| Actual-symbol statement interface | REVIEWED | Ten fields mapped explicitly to the written filtration; see paper-lean-map.json. |
+| Written-to-Lean source map | CHECKED BASELINE | 19 correspondence cards, 40 declaration references and all 19 endpoints; immutable paper revision and 22 formal input fingerprints. Owner audit passes; source drift fails. |
+| Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters and effective constructions are outside this library. |
+| Concrete geometric adapters | OPEN | Written applications exist; concrete Lean specializations remain absent. |
+| Independent human review | OPEN | Agent proof audits are not human review. |
+| Palomar and publication | DEFERRED | No registration or release performed. |
 
-The initial verifier failed before compilation because default Python 3.9 lacks
-`tomllib`. Infrastructure now checks Python >=3.11 and accepts `PYTHON`; this
-repair is not a successful Lean replay. The declaration map is provisional.
+The exact source map, source hashes and scope exceptions are in
+[paper-lean-map.json](docs/paper-lean-map.json). This pins a comparison
+baseline; it does not certify future research commits or infer semantic
+correspondence from hashes. The written rank proofs sometimes use weaker
+one-sided hypotheses than the current Lean statements, as recorded per card.
 
-## Next action
+## Verification and next work
 
-Complete the written abstract proof and application audit in the research
-repository before further Lean development. A bounded replay of this unchanged
-import may subsequently establish its migrated build status; it cannot close
-semantic, literature or human-review gates by itself.
+`PYTHON=python3.14 scripts/verify.sh` checks pins and source identities, builds
+once, audits declaration owners and prints statement types and axiom closures.
+The full proof replay preceded the map-only additions; their static check and
+generated Lean owner audit were run separately on the same proof sources.
+See [verification](docs/verification.md) for commands and evidence limits.
+
+Maintain the reviewed written proof before formalizing a stronger producer.
+The next mathematical work is controlled source construction and literature
+comparison, not renaming the existing existential theorem as an algorithm.
+No private-repository heavy GitHub Actions workflow is configured.

@@ -18,7 +18,8 @@ public import Mathlib.Algebra.Module.Equiv.Opposite
 The opposite algebra `Uᵐᵒᵖ` with the same filtration satisfies the standing
 hypotheses, with associated graded ring `Gᵒᵖ = G` (commutative).  Hence the
 affine same-divisor theorem also holds in `Uᵐᵒᵖ`, which reads in `U` as the
-left-handed identity `1 = R d + S d F`.
+left-handed affine identity `1 = R d + S d (B + a H)`, and its
+same-divisor specialization `1 = R d + S d F`.
 -/
 
 namespace GeneralizedStafford
@@ -83,6 +84,18 @@ def op : FilteredAlgebraData k Uᵐᵒᵖ G 𝒜 where
     rw [unop_mul, D.grAt_mul' (add_comm j i) hy hx, mul_comm]
 
 variable [IsDomain G] [IsNoetherianRing G] [IsSimpleRing U] [Infinite k]
+
+include D in
+/-- **The left-handed affine same-divisor identity**, with the prescribed
+source family `B + a H`, from the affine theorem in the opposite algebra. -/
+theorem targetA_left_affine (hdim : ringKrullDim G < ⊤) (d a : U)
+    (hd : d ≠ 0) (ha : a ≠ 0) (B : U) :
+    ∃ H R S : U, 1 = R * d + S * d * (B + a * H) := by
+  obtain ⟨H, R, S, h⟩ := D.op.targetA hdim (MulOpposite.op d) (MulOpposite.op a)
+    (by simpa using hd) (by simpa using ha) (MulOpposite.op B)
+  refine ⟨unop H, unop R, unop S, ?_⟩
+  have := congrArg unop h
+  simpa [unop_mul, mul_assoc] using this
 
 include D in
 /-- **The left-handed same-divisor identity** `1 = R d + S d F` in `U`,

@@ -26,8 +26,16 @@ The predecessor replay archive had SHA-256
 b394d0aa6f6a59849db7effbd00aed66aac1a2081092c61246f3bcff18695fd8;
 the three-file patch had SHA-256
 4be9f69433c6841b07b6ce4fc41c95a6205ad8070d1a611525ca0da712b9139d.
-The configured verifier rebuilds the renamed tree directly; that replay is
-pending and must not be inferred from the historical logs. The current written
-research authority is [Generalized Stafford](https://github.com/itpplasma/generalized-stafford),
-whose complete written proof and application audits remain open. No generated cache, host-specific link, or prior release
-metadata is required by a fresh clone.
+The renamed tree passed its own full native replay, including a subsequent
+full replay of the added affine-left endpoint. The 19 endpoint audits use only
+the three standard Lean axioms. The new source map records exact protected
+file identities separately from the import fingerprints.
+
+The written authority is
+[Generalized Stafford](https://github.com/itpplasma/generalized-stafford).
+Its commutative-symbol proof and applications have complete written arguments
+and agent audits. Its stronger central-finite, weighted-localization and
+crossed-product results are not present in this Lean library. Source-map
+identity, semantic review, human review and novelty remain distinct. No
+generated cache, host-specific link or prior release metadata is required by
+a fresh clone.
