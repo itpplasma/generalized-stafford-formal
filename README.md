@@ -17,7 +17,8 @@ left-handed identity and module consequences are included.
 The full library replay and all 19 endpoint axiom audits passed. A pinned
 paper-to-Lean map checks source identity and declaration ownership. Broader
 written central-finite, weighted-localization and crossed-product theorems,
-concrete geometric adapters and effective algorithms remain outside the
+categorical localization, the finite-integer GR-Krull candidate, concrete
+geometric adapters and constructive Weyl algorithms and bounds remain outside the
 current formal scope. Human review and release are still open.
 
 - [Current state](PLAN.md)

@@ -28,7 +28,7 @@ Generation, rank and cancellation consequences are also included.
 | Endpoint axiom closure | PASSED | All 19 endpoints pass with only propext, Classical.choice and Quot.sound; audits use --trust=0. |
 | Actual-symbol statement interface | REVIEWED | Ten fields mapped explicitly to the written filtration; see paper-lean-map.json. |
 | Written-to-Lean source map | CHECKED BASELINE | 19 correspondence cards, 40 declaration references and all 19 endpoints; immutable paper revision and 22 formal input fingerprints. Owner audit passes; source drift fails. |
-| Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters and effective constructions are outside this library. |
+| Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters, categorical localization, the finite-integer GR-Krull candidate and constructive Weyl results are outside this library. |
 | Concrete geometric adapters | OPEN | Written applications exist; concrete Lean specializations remain absent. |
 | Independent human review | OPEN | Agent proof audits are not human review. |
 | Palomar and publication | DEFERRED | No registration or release performed. |
@@ -48,6 +48,7 @@ generated Lean owner audit were run separately on the same proof sources.
 See [verification](docs/verification.md) for commands and evidence limits.
 
 Maintain the reviewed written proof before formalizing a stronger producer.
-The next mathematical work is controlled source construction and literature
-comparison, not renaming the existing existential theorem as an algorithm.
+The research dossier now contains written constructive Weyl algorithms and
+quantitative comparisons. Their implementation and formalization remain open,
+as do the broader constructive producer and classical-source comparison.
 No private-repository heavy GitHub Actions workflow is configured.

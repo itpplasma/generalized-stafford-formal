@@ -4,11 +4,11 @@
   "sources": {
     "paper": {
       "repository": "itpplasma/generalized-stafford",
-      "commit": "f2004a32ebe3e4626164f38400c3e4ea168322f9",
+      "commit": "4c06c0bab51644daec6e6b881123319f3ac67d0b",
       "files": [
         {
           "path": "docs/proof.md",
-          "sha256": "68facb7bcafe88dd57bea7052452e0f5feda795957f8c9ba73187c4c3351922a"
+          "sha256": "01fe8b3663e37bfb0a08d1a9c10c5a5c3a1f2a613cb0f82d5927a319d904070e"
         },
         {
           "path": "docs/proof-filtered.md",
@@ -681,9 +681,14 @@
       "reason": "The current library has neither the weighted localization interface nor the central-finite/crossed-product producers. Completed written qualitative results are distinct from unproved intrinsic and arbitrary-twist candidates."
     },
     {
-      "reference": "Explicit algorithms, coefficient/degree bounds and whole-presentation tradeoffs",
-      "status": "written constructive suffix and research targets; not formalized",
-      "reason": "Existential Lean witnesses and finite-exception proofs are not executable source-selection algorithms or quantitative complexity theorems."
+      "reference": "Categorical Gabriel-quotient localization and finite-integer right Gabriel–Rentschler Krull candidate (docs/categorical-localization.md; docs/intrinsic-finite-krull.md)",
+      "status": "written and model-audited; not formalized; intrinsic candidate unpromoted",
+      "reason": "The current library uses actual commutative-symbol Ore fractions, not categorical localizations or a Gabriel–Rentschler dimension producer. Human review and classical-source priority comparison remain open."
+    },
+    {
+      "reference": "Controlled chart sources; polarized Weyl normalization and descent algorithm; rank–multiplicity and bounded coordinate search; Stafford38-plus-Aschenbrenner–Leykin affine Weyl degree baseline",
+      "status": "written constructive theorems and algorithms; not implemented or formalized here",
+      "reason": "Existential Lean witnesses do not verify the PBW algorithms, numerical bounds or certificate costs. The baseline uses the separate unpublished Stafford38 prescribed-source theorem. Improved bounds, bit complexity and practical usefulness remain separate research obligations."
     },
     {
       "reference": "Smooth differential, Lie–Rinehart, Laurent–Euler, projective transport and intermediate-overring adapters",

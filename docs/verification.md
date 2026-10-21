@@ -27,6 +27,13 @@ source mismatch and passed a generated Lean declaration-owner audit for all
 sources. Logs and source-identity evidence remain under ignored
 `.lake/verification/`.
 
+The constructive-Weyl dossier update is pinned at
+4c06c0bab51644daec6e6b881123319f3ac67d0b. Its refreshed map passes all
+source and anchor checks. The generated owner audit is byte-identical to
+the previous one and also passes `lean --trust=0`. No protected Lean or
+dependency input changed, so the full proof build above is reused.
+The new categorical and constructive results remain explicit omissions.
+
 ## Correspondence checks
 
 The default map check reads immutable Git objects from the private research

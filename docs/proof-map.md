@@ -35,6 +35,7 @@ statement are also printed by the statement audit.
 
 The broader weighted-localization theorem, central-finite symbols, crossed
 products, coordinate and geometric adapters, projective transport, finite-top
-extensions and effective constructions are not claimed as formalized here.
+extensions, categorical localization, the finite-integer GR-Krull candidate
+and constructive Weyl algorithms and bounds are not formalized here.
 The source map records these omissions explicitly. Human review and full
 programme completion remain open in the two repositories' PLAN files.
