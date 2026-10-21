@@ -9,9 +9,12 @@ record = json.loads(Path('dependency-pins.json').read_text())
 if Path('lean-toolchain').read_text().strip() != record['lean_toolchain']:
     raise SystemExit('Lean toolchain pin mismatch')
 requires = {r['name']: r for r in tomllib.loads(Path('lakefile.toml').read_text()).get('require', [])}
-packages = {p['name']: p for p in json.loads(Path('lake-manifest.json').read_text()).get('packages', [])}
-if set(requires) != {'mathlib'} or set(record['packages']) != {'mathlib'}:
-    raise SystemExit('current release must have Mathlib as its sole direct dependency')
+package_list = json.loads(Path('lake-manifest.json').read_text()).get('packages', [])
+packages = {p['name']: p for p in package_list}
+if len(package_list) != len(packages):
+    raise SystemExit('manifest contains duplicate packages (Mathlib must be shared)')
+if set(requires) != {'mathlib', 'algebraicAnalysis'}:
+    raise SystemExit('expected direct Mathlib and AlgebraicAnalysis dependencies')
 if set(requires) != set(record['packages']):
     raise SystemExit('direct dependency names differ from reviewed pin record')
 for name, expected in record['packages'].items():
@@ -25,9 +28,27 @@ for name, expected in record['packages'].items():
         raise SystemExit(f'{name}: manifest pin mismatch')
 mathlib_manifest = json.loads(Path('.lake/packages/mathlib/lake-manifest.json').read_text())
 closure = {p['name']: p for p in mathlib_manifest.get('packages', [])}
-if set(packages) != {'mathlib'} | set(closure):
-    raise SystemExit('release manifest is not exactly the pinned Mathlib dependency closure')
+if set(packages) != set(requires) | set(closure):
+    raise SystemExit('manifest is not exactly the direct dependencies and Mathlib closure')
 for name, expected in closure.items():
     if any(packages[name].get(key) != expected.get(key) for key in ('type', 'url', 'rev')):
         raise SystemExit(f'{name}: release manifest differs from pinned Mathlib dependency closure')
-print(f'pins: exact Lean, sole direct Mathlib pin and {len(closure)} pinned transitive dependencies')
+upstream = Path('.lake/packages/algebraicAnalysis')
+if (upstream / 'lean-toolchain').read_text().strip() != record['lean_toolchain']:
+    raise SystemExit('AlgebraicAnalysis Lean toolchain differs')
+upstream_requires = tomllib.loads((upstream / 'lakefile.toml').read_text())['require']
+if len(upstream_requires) != 1 or upstream_requires[0]['name'] != 'mathlib':
+    raise SystemExit('unexpected AlgebraicAnalysis direct dependency closure')
+shared = upstream_requires[0]
+if (shared['git'].removesuffix('.git') != record['packages']['mathlib']['url']
+        or shared['rev'] != record['packages']['mathlib']['revision']):
+    raise SystemExit('AlgebraicAnalysis must use the same pinned Mathlib')
+upstream_packages = json.loads((upstream / 'lake-manifest.json').read_text())['packages']
+if {p['name'] for p in upstream_packages} != {'mathlib'} | set(closure):
+    raise SystemExit('unexpected AlgebraicAnalysis manifest closure')
+for pkg in upstream_packages:
+    shared = packages[pkg['name']]
+    if (pkg['type'] != shared['type'] or pkg['rev'] != shared['rev']
+            or pkg['url'].removesuffix('.git') != shared['url'].removesuffix('.git')):
+        raise SystemExit(f'{pkg["name"]}: AlgebraicAnalysis manifest closure differs')
+print(f'pins: exact Lean, AlgebraicAnalysis, ONE shared Mathlib and {len(closure)} transitive dependencies')

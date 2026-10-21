@@ -25,6 +25,10 @@
         {
           "path": "docs/projective-anchored-width.md",
           "sha256": "b290ca16d20f8d9800eb3e2ca7119e2c88849c259fee9f5c9eaf76bf8678489b"
+        },
+        {
+          "path": "docs/fixed-anchor-gluing.md",
+          "sha256": "960c86d35c4ed19362e7dc149d06b4fdcad7397728c452f98f51e8fd361e59d6"
         }
       ],
       "access": "Private written research repository; default checks read immutable Git objects at the recorded commit. Formal-only mode explicitly skips those private source checks."
@@ -32,11 +36,11 @@
     "formal": {
       "repository": "itpplasma/generalized-stafford-formal",
       "base_revision": "d6a0eaba9dbef273a324fed8e0018728f92296db",
-      "revision_note": "Existing reviewed sources are retained; projective-width additions and their audit inputs are fingerprinted explicitly. The base revision is provenance, not a substitute for file identity. Build and axiom closure do not imply independent semantic or human review.",
+      "revision_note": "Existing endpoint statements are retained. Generic pencils are consumed from pinned AlgebraicAnalysis after downstream copy removal. Fixed-anchor additions prove finite germ source selection, one-stratum generation, activated pencils, the deviation-zero affine identity and dimension-one consequences. Positive-deviation two-call assembly and the omega S1/cyclicity corollary remain open. Build and axiom closure do not imply semantic or human review.",
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "06a35d73a14c44b77ed530f2e61ebd3c6a7b43d07d1ab5afa9e2d60fc59faf6f"
+          "sha256": "0e0df9e6c12d3cd1304be187b6eb872ce8db73005ba96c8606601debf8c2254e"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -55,8 +59,24 @@
           "sha256": "18785bafd21adbce6ad1b6fce8126f328f84e4c64c01a022a8cae0c4fcf6eb9b"
         },
         {
-          "path": "GeneralizedStafford/DivisionPencil.lean",
-          "sha256": "a8603aa324fbf8f15782437838ddd41a98a013bd8be547196550f34ced2da7fd"
+          "path": "GeneralizedStafford/FixedAnchor/Corollaries.lean",
+          "sha256": "e6ada14f3f9f8276419217237b43f6448e4031c00acbc9ec2b2bbba5e0ea50b7"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
+          "sha256": "2a8680a1f0c93c8a5816cf30dcaa62c61d89dad49c6261e9be6b997398edb41a"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/GermTests.lean",
+          "sha256": "5c133db1edf7cae6d3f3fb9da2b9cbfd36b1a048f34ec4707948cc86045cc4b7"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/Pencils.lean",
+          "sha256": "85c8ef8d69f39d78da76c5359ce6edb2b631593c0f6c749ea772eeee9389136b"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "sha256": "58a61ec313eea6bd97ee8c323b21bfb21f0fe78b4491e67efdb1ac8cdd65a4a1"
         },
         {
           "path": "GeneralizedStafford/Induction.lean",
@@ -72,7 +92,7 @@
         },
         {
           "path": "GeneralizedStafford/NoFiniteRank.lean",
-          "sha256": "469eddf18e4ecfdcb98d764e84d2296ab2909552c3e398e4207502c969be3e75"
+          "sha256": "fae3a2d4b640f105245e6855e80d33d845abb8cb312a43eefff21b8bf80cc4d8"
         },
         {
           "path": "GeneralizedStafford/Opposite.lean",
@@ -116,7 +136,7 @@
         },
         {
           "path": "GeneralizedStafford/SourceSelection.lean",
-          "sha256": "9fa8d1bf648428726ea9d7867d483f1d969d805066c3c64e07b38730c0f08310"
+          "sha256": "945d3c67181db7ef875ad0b7f5fb89dbed3f8e98cbc24e9f45823c2aff387f1c"
         },
         {
           "path": "GeneralizedStafford/Test.lean",
@@ -124,19 +144,19 @@
         },
         {
           "path": "dependency-pins.json",
-          "sha256": "ecef01b3e3cdb5ec84bb61d92443b6f442e25ad102cd0e8f68d83038c5668a7a"
+          "sha256": "bfc2e809476194330c727cb59fd1d9f5fb7c12535f7e9611fe0a890ee58ff253"
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "d08136720ac46b0cde467080893c7a49436b5920473d3067fac7e2b275fce7d9"
+          "sha256": "b3f13005ff9be7dacb6b835d2607d41752b233a9c479210fb99241d33749afbc"
         },
         {
           "path": "lake-manifest.json",
-          "sha256": "1a50d44755c2100fba4f2291e8bca923e1ee2413dcef382688db5f0184be4755"
+          "sha256": "fde3b7ecec2c00a9cace3bed3b00190fe2cd1f5451a687d296a12cae933f6e13"
         },
         {
           "path": "lakefile.toml",
-          "sha256": "48efbfbe13c19ce5b5bc6cd7f09e38f90789f25a3ecb39767505792613c8c246"
+          "sha256": "d602fe43911dd020ecff247bf426f03191d85135c950150271bddae2ffdfd0fe"
         },
         {
           "path": "lean-toolchain",
@@ -144,7 +164,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "5e760e39d96dc3e97b096aff6f1cfa4bb4b96aa4329d9fc6af39528c27b513d1"
+          "sha256": "149588f6f1e4459bdc7f60df848d86d8c6650fffb73b03448b4a219695468351"
         }
       ]
     }
@@ -219,7 +239,28 @@
     "GeneralizedStafford.ProjectiveWidth.FreeAnchoredWidthBound",
     "GeneralizedStafford.ProjectiveWidth.projective_anchored_width",
     "GeneralizedStafford.ProjectiveWidth.free_anchored_width",
-    "GeneralizedStafford.ProjectiveWidth.rank_two_three"
+    "GeneralizedStafford.ProjectiveWidth.rank_two_three",
+    "GeneralizedStafford.FixedAnchor.affine_of_devLE_one",
+    "GeneralizedStafford.FixedAnchor.s38_of_devLE_one",
+    "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_one",
+    "GeneralizedStafford.FixedAnchor.exists_affine_small_with_tests",
+    "GeneralizedStafford.FixedAnchor.affine_of_devLE_zero_with_tests",
+    "GeneralizedStafford.FixedAnchor.affine_of_devLE_zero",
+    "GeneralizedStafford.FixedAnchor.section_central_scalar",
+    "GeneralizedStafford.FixedAnchor.oppositeCentralField",
+    "GeneralizedStafford.FixedAnchor.exists_affine_germ_tests",
+    "GeneralizedStafford.FixedAnchor.exists_affine_epic_tests",
+    "GeneralizedStafford.FixedAnchor.activated_germ_test_finite",
+    "GeneralizedStafford.FixedAnchor.activated_germ_pencil_finite",
+    "GeneralizedStafford.FixedAnchor.germ_pencil_finite",
+    "GeneralizedStafford.FixedAnchor.small_serre",
+    "GeneralizedStafford.FixedAnchor.refined_small",
+    "GeneralizedStafford.FixedAnchor.refined_devLE",
+    "GeneralizedStafford.FixedAnchor.quotient_devLE",
+    "GeneralizedStafford.FixedAnchor.recursion_data",
+    "GeneralizedStafford.FixedAnchor.affine_update",
+    "GeneralizedStafford.FixedAnchor.coefficients_of_small_zero",
+    "GeneralizedStafford.FixedAnchor.principal_quotient_finite_of_omega"
   ],
   "items": [
     {
@@ -876,6 +917,110 @@
         "torsion"
       ],
       "notes": "Conditional on scalar S1 (the existing S38), a left Ore condition and a Mathlib OreSet on the opposite-domain nonzero divisors. Right modules use A-op scalars. Rank is finite dimension of the actual Ore-localized image. Finite projective P, every injective a and every prescribed list of floor(n/r) offsets give floor(n/r)+1 displayed terms. The matrix ring adapter preserves multiplication order. Includes rank two in M_3(A). No split image or source-selection assumption is added. Sections 3-5 (integral Morita transfer, sharp lower bounds, marked-image equality criteria) are not claimed here. This worker correspondence card awaits independent semantic review; source/owner/axiom checks alone cannot supply it."
+    },
+    {
+      "id": "fixed-anchor-intermediate",
+      "title": "Fixed-anchor finite germ tests, colon bounds, activated pencils and deviation-zero affine S1",
+      "paper": [
+        {
+          "path": "docs/fixed-anchor-gluing.md",
+          "anchor": "## 2. The mixed-anchor colon lemma"
+        },
+        {
+          "path": "docs/fixed-anchor-gluing.md",
+          "anchor": "## 3. Induction with the anchor fixed"
+        }
+      ],
+      "statement_relation": "partial",
+      "route_relation": "similar",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Corollaries.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_devLE_one"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Corollaries.lean",
+          "name": "GeneralizedStafford.FixedAnchor.s38_of_devLE_one"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Corollaries.lean",
+          "name": "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_one"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
+          "name": "GeneralizedStafford.FixedAnchor.exists_affine_small_with_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_devLE_zero_with_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_devLE_zero"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/GermTests.lean",
+          "name": "GeneralizedStafford.FixedAnchor.section_central_scalar"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/GermTests.lean",
+          "name": "GeneralizedStafford.FixedAnchor.oppositeCentralField"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/GermTests.lean",
+          "name": "GeneralizedStafford.FixedAnchor.exists_affine_germ_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/GermTests.lean",
+          "name": "GeneralizedStafford.FixedAnchor.exists_affine_epic_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Pencils.lean",
+          "name": "GeneralizedStafford.FixedAnchor.activated_germ_test_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Pencils.lean",
+          "name": "GeneralizedStafford.FixedAnchor.activated_germ_pencil_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Pencils.lean",
+          "name": "GeneralizedStafford.FixedAnchor.germ_pencil_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.small_serre"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.refined_small"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.refined_devLE"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.quotient_devLE"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.recursion_data"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_update"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.coefficients_of_small_zero"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.principal_quotient_finite_of_omega"
+        }
+      ],
+      "depends_on": [],
+      "notes": "Actual R-op module germs only, not arbitrary categorical tests. Centrality is Algebra k R with k an infinite field; right Noetherianity is IsNoetherian R-op R. The top-stratum theorem carries any finite family of bounded ordinary torsion epic germ tests. Deviation zero gives the integral affine identity; ring deviation <=1 supplies S38 and finite ordinary torsion cyclicity. This is a complete intermediate package, not the positive-deviation fixed-anchor induction or omega S1. Next concrete bridge: for W=R/J, v=q_J(fd), u=q_J(gd), derive joint injectivity of h |-> (hv,(hu)L) against each retained critical factor from the second-call epic test q_I(gdL); then assemble the uniform two-call bound-lowering step with old-test pencil preservation. No independent correspondence or human review is claimed."
     }
   ],
   "omitted_paper_claims": [
@@ -913,6 +1058,11 @@
       "reference": "Projective anchored width Sections 3-5: integral Morita transfer, sharp lower bounds and marked-image equality criteria",
       "status": "not formalized in the projective-width worker extension",
       "reason": "The conditional existence theorem in Sections 1-2 is formalized. Morita equivalences, necessity and optimality, and Ext obstruction criteria are separate targets."
+    },
+    {
+      "reference": "Fixed-anchor affine S1 for finite positive principal-quotient deviation, and S1/torsion cyclicity under deviation at most omega (docs/fixed-anchor-gluing.md)",
+      "status": "partial intrinsic germ formalization; full induction and omega consequences remain open",
+      "reason": "Finite tests, finite critical separation, colon bounds, exact recursive substitutions, one-stratum generation and activated germ pencils are implemented. The mixed-anchor second-call test still needs to be connected to joint injectivity, followed by uniform two-call bound-lowering and finite iteration. No arbitrary categorical-test correspondence is claimed."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."

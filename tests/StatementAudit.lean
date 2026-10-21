@@ -21,3 +21,13 @@ open GeneralizedStafford
 #check @ProjectiveWidth.projective_anchored_width
 #check @ProjectiveWidth.matrix_anchored_width
 #check @ProjectiveWidth.matrix_rank_two_three
+
+-- Intrinsic fixed-anchor intermediate endpoints; no positive-deviation S1 is claimed.
+#check @FixedAnchor.recursion_data
+#check @FixedAnchor.exists_affine_germ_tests
+#check @FixedAnchor.exists_affine_epic_tests
+#check @FixedAnchor.exists_affine_small_with_tests
+#check @FixedAnchor.affine_of_devLE_zero
+#check @FixedAnchor.activated_germ_pencil_finite
+#check @FixedAnchor.affine_of_devLE_one
+#check @FixedAnchor.torsion_cyclic_of_devLE_one

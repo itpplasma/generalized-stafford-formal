@@ -1,9 +1,9 @@
 # Written proof and Lean correspondence
 
-The machine-readable [paper-lean-map.json](paper-lean-map.json) records 20
+The machine-readable [paper-lean-map.json](paper-lean-map.json) records 21
 correspondence cards for the commutative-symbol proof and consequences,
-71 declaration references and all 50 audited declarations (19 original
-endpoints and 31 projective-width additions). It pins an immutable
+92 declaration references and all 71 audit entries (19 original
+endpoints, 31 projective-width additions and 21 fixed-anchor intermediates). It pins an immutable
 [research dossier](https://github.com/itpplasma/generalized-stafford) commit
 and fingerprints all proof sources, dependency pins and audit inputs.
 
@@ -36,7 +36,7 @@ statement are also printed by the statement audit.
 
 The broader weighted-localization theorem, central-finite symbols, crossed
 products, coordinate and geometric adapters, projective transport, finite-top
-extensions, categorical localization, the finite-integer GR-Krull candidate
+extensions, categorical localization, the full positive-deviation fixed-anchor theorem, omega S1
 and constructive Weyl algorithms and bounds are not formalized here.
 The source map records these omissions explicitly. Human review and full
 programme completion remain open in the two repositories' PLAN files.
@@ -58,3 +58,27 @@ Ore are HYPOTHESES. This worker card awaits independent semantic review and
 does not establish whole-dossier correspondence. In particular, projective
 transport above means integral Morita transfer, which remains outside this
 extension, along with §§4–5's sharp lower bounds and marked-image criteria.
+
+The partial fixed-anchor card maps §§2–3 of `docs/fixed-anchor-gluing.md` at
+the same immutable research revision. The finite test lists consist of actual
+module germs; critical filtrations supply their finite dual lists. The new
+[reduction](../GeneralizedStafford/FixedAnchor/Reduction.lean),
+[germ tests](../GeneralizedStafford/FixedAnchor/GermTests.lean),
+[pencils](../GeneralizedStafford/FixedAnchor/Pencils.lean),
+[top-stratum theorem](../GeneralizedStafford/FixedAnchor/FiniteTop.lean) and
+[dimension-one consequences](../GeneralizedStafford/FixedAnchor/Corollaries.lean)
+cover exact recursive products, colon deviation bounds, affine source selection,
+ordinary/activated pencils, generation at one top stratum, the full affine
+identity for deviation-zero principal quotients and S38/torsion cyclicity when
+the ring has right deviation at most one. The central field is expressed by
+`[Field k] [Infinite k] [Algebra k R]`; right Noetherianity is
+`IsNoetherian Rᵐᵒᵖ R` and quotient bounds are `Module.DevLE`.
+
+The next missing lemma connects the second-call epic test `q_I(gdL)` to joint
+injectivity against the retained critical factors of `R/J`. The uniform
+two-call bound-lowering induction, finite iteration and omega S1/cyclicity
+are still absent. `principal_quotient_finite_of_omega` supplies only the
+principal-quotient bound. This card establishes neither arbitrary categorical
+test correspondence nor whole-proof correspondence; independent semantic
+and human reviews remain open. Generic division pencils are imported from
+the pinned AlgebraicAnalysis leaf module after removing the downstream copies.

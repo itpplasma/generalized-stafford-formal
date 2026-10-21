@@ -8,7 +8,7 @@ Original manuscript section references are retained for correspondence.
 -/
 
 public import GeneralizedStafford.RightFraction
-public import GeneralizedStafford.DivisionPencil
+public import AlgebraicAnalysis.LinearAlgebra.DivisionPencil
 public import Mathlib.RingTheory.SimpleModule.Basic
 public import Mathlib.RingTheory.TwoSidedIdeal.Operations
 public import Mathlib.LinearAlgebra.FiniteDimensional.Basic
@@ -468,7 +468,7 @@ theorem exists_injective_rmul [Infinite k] [IsSimpleRing U] [IsSimpleRing T] [Is
             _ = a⁻¹ • -(y : M) := by rw [eq_neg_of_add_eq_zero_right hya']
         rw [this]
         exact Y₀.smul_mem _ (Y₀.neg_mem y.2)
-    have hfin := pencil_ker_finite (centralEnd (T := T) (M := M) k) (centralEnd_comm k) P' W' hP'
+    have hfin := AlgebraicAnalysis.pencil_ker_finite (centralEnd (T := T) (M := M) k) (centralEnd_comm k) P' W' hP'
     obtain ⟨l, hl⟩ := (hfin.union (Set.finite_singleton (0 : k))).exists_notMem
     have hl0 : l ≠ 0 := fun h0 => hl (Or.inr h0)
     have hlB : ¬ ∃ d, d ≠ 0 ∧ P' d + centralEnd (T := T) (M := M) k l • W' d = 0 := fun h => hl (Or.inl h)

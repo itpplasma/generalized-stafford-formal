@@ -11,7 +11,6 @@ public import GeneralizedStafford.Setting
 public import GeneralizedStafford.RightFraction
 public import GeneralizedStafford.Localization
 public import GeneralizedStafford.Pencil
-public import GeneralizedStafford.DivisionPencil
 public import GeneralizedStafford.NoFiniteRank
 public import GeneralizedStafford.Test
 public import GeneralizedStafford.SourceSelection
@@ -23,13 +22,15 @@ public import GeneralizedStafford.ConsequencesRank
 public import GeneralizedStafford.ConsequencesForU
 public import GeneralizedStafford.Main
 public import GeneralizedStafford.ProjectiveWidth.Matrix
+public import GeneralizedStafford.FixedAnchor.Corollaries
+public import GeneralizedStafford.FixedAnchor.Pencils
 
 @[expose] public section
 
 /-!
 # The general filtered Stafford theorem
 
-This umbrella module imports the generalized Mathlib-only development: the filtered setting and localization package (§§2–3 with the
+This umbrella module imports the generalized filtered development: the filtered setting and localization package (§§2–3 with the
 Zariskian closure Z1–Z9), finite-length source selection and pencils (§4),
 the common colon ideal and the controlled codimension induction (§§5–6),
 opposite transport and the module-theoretic consequences (§7).  The main

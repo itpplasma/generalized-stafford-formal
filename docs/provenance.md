@@ -39,3 +39,12 @@ crossed-product results are not present in this Lean library. Source-map
 identity, semantic review, human review and novelty remain distinct. No
 generated cache, host-specific link or prior release metadata is required by
 a fresh clone.
+
+Generic central-pencil declarations have been removed from the downstream
+`GeneralizedStafford/DivisionPencil.lean` and are now imported from
+`AlgebraicAnalysis.LinearAlgebra.DivisionPencil` in
+[AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis), pinned at
+7295b18a6a6e48940bde139125a96d6a2426864d. Its header records the extraction,
+original authorship and earlier provenance. The historical initial-import
+fingerprints above remain unchanged; current source identity is recorded by
+the dependency pin and paper/Lean map. No upstream LICENSE or NOTICE was changed.

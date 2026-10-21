@@ -233,7 +233,7 @@ theorem source_reduction [Infinite k] [IsSimpleRing U] [IsSimpleRing T] [IsDomai
     have : (rmul (ι (H₁ * t))).comp (ev e) = ev x₁ :=
       LinearMap.ext fun φ => (φ.map_smul _ _).symm
     rwa [this] at hH₁
-  have hB₁ := pencil_ker_finite (centralEnd (T := T) (M := V ⧸ M) k) (centralEnd_comm k) (ev x₁) (ev x) hinj₁
+  have hB₁ := AlgebraicAnalysis.pencil_ker_finite (centralEnd (T := T) (M := V ⧸ M) k) (centralEnd_comm k) (ev x₁) (ev x) hinj₁
   have hxK : Submodule.span Tᵐᵒᵖ {K.mkQ x} = ⊤ := by
     rw [← Set.image_singleton, ← Submodule.map_span, Submodule.map_mkQ_eq_top, sup_comm]
     exact hH
