@@ -21,13 +21,22 @@ Both affine orientations are exported. `targetA_left_affine` gives
 `1=R*d+S*d*(B+a*H)`; the older `targetA_left` remains available.
 Generation, rank and cancellation consequences are also included.
 
+The conditional projective-width extension is VERIFIED by native build and
+axiom audit: over a bilateral Ore domain with scalar S1, a finite projective
+of Ore rank `n` and an endomorphism of localized image rank `r>0` admit the
+full affine anchored identity with `floor(n/r)+1` terms. This includes the
+matrix statement and rank two in `M_3(A)`. Scalar S1 remains a HYPOTHESIS of
+this extension; no new producer is asserted. The worker implementation has
+not received independent semantic or human review.
+
 | Gate | State | Evidence or remaining obligation |
 | --- | --- | --- |
 | Import and dependency identity | CHECKED | Import fingerprints, upstream attribution, exact toolchain and dependency pins retained. |
 | Renamed library replay | PASSED | Full native replay at d6a0eaba9dbef273a324fed8e0018728f92296db; affine-left source patch replay also passed. |
-| Endpoint axiom closure | PASSED | All 19 endpoints pass with only propext, Classical.choice and Quot.sound; audits use --trust=0. |
+| Endpoint axiom closure | PASSED | The original 19 endpoints and all 31 new projective-width declarations pass with only propext, Classical.choice and Quot.sound; audits use --trust=0. |
 | Actual-symbol statement interface | REVIEWED | Ten fields mapped explicitly to the written filtration; see paper-lean-map.json. |
-| Written-to-Lean source map | CHECKED BASELINE | 19 correspondence cards, 40 declaration references and all 19 endpoints; immutable paper revision and 22 formal input fingerprints. Owner audit passes; source drift fails. |
+| Written-to-Lean source map | CHECKED BASELINE | 20 correspondence cards, 71 declaration references and all 50 audited declarations; immutable paper revision and 28 formal input fingerprints. Owner audit passes; semantic review of the new card remains separate. |
+| Conditional projective anchored width | VERIFIED (build/axioms) | `ProjectiveWidth.projective_anchored_width`, `matrix_anchored_width`, and `matrix_rank_two_three`; prescribed-tail generation, exact Ore quotient rank, common integral dual coordinates and projective reconstruction. Morita transfer, sharp lower bounds and marked-image equality criteria remain open. |
 | Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters, categorical localization, the finite-integer GR-Krull candidate and constructive Weyl results are outside this library. |
 | Concrete geometric adapters | OPEN | Written applications exist; concrete Lean specializations remain absent. |
 | Independent human review | OPEN | Agent proof audits are not human review. |

@@ -13,6 +13,19 @@ missing endpoint reports or any other axiom fail verification.
 
 ## Evidence
 
+The projective-width worker extension passed
+`PYTHON=python3.14 scripts/verify.sh` on 21 October 2026, exit 0, at base revision
+dbcb8d48e4349d6bc4d6ea419d1b94c613226450 plus the uncommitted extension.
+The full 2125-job library build, statement audit and declaration-owner audit
+passed. All 50 declarations (19 original endpoints and all 31 new declarations)
+were audited with `--trust=0`; the union of axioms is exactly `propext`,
+`Classical.choice`, `Quot.sound`. The source map checks 20 cards, 71 references,
+5 paper inputs and 28 formal inputs. Logs are ignored under
+`.lake/verification/projective-full-verify.log`, `build.log`, `statement.log`,
+`paper-lean-map.log` and `axioms.log`. These checks verify conditional Lean
+statements, not independent semantic review, lower-bound optimality or a new
+scalar S1 producer.
+
 The renamed library passed a full native replay at
 d6a0eaba9dbef273a324fed8e0018728f92296db. After adding the full affine-left
 endpoint, the full verifier passed again for all 19 endpoints. The three-file

@@ -14,12 +14,20 @@ associated graded of finite Krull dimension. Connectedness and
 finite-dimensional filtration pieces are absent. The full affine
 left-handed identity and module consequences are included.
 
-The full library replay and all 19 endpoint axiom audits passed. A pinned
+The conditional scalar-S1 extension also proves the affine anchored bound
+`floor(n/r)+1` for finite projective right modules over bilateral Ore domains,
+including rank two in `M_3(A)` and general matrices. Ranks use Mathlib's Ore
+localization; scalar S1 remains an explicit hypothesis. See
+[ProjectiveWidth](GeneralizedStafford/ProjectiveWidth/Theorem.lean).
+
+The full library replay and all 50 declaration axiom audits passed (the original
+19 endpoints and 31 new projective-width declarations). A pinned
 paper-to-Lean map checks source identity and declaration ownership. Broader
 written central-finite, weighted-localization and crossed-product theorems,
 categorical localization, the finite-integer GR-Krull candidate, concrete
 geometric adapters and constructive Weyl algorithms and bounds remain outside the
-current formal scope. Human review and release are still open.
+current formal scope. Independent semantic review of the projective-width
+extension, human review and release are still open.
 
 - [Current state](PLAN.md)
 - [Correspondence and its scope](docs/proof-map.md)

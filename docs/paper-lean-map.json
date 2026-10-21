@@ -4,11 +4,11 @@
   "sources": {
     "paper": {
       "repository": "itpplasma/generalized-stafford",
-      "commit": "4c06c0bab51644daec6e6b881123319f3ac67d0b",
+      "commit": "a7591a668fdc90f1422e2a4cd9754082c44d6b60",
       "files": [
         {
           "path": "docs/proof.md",
-          "sha256": "01fe8b3663e37bfb0a08d1a9c10c5a5c3a1f2a613cb0f82d5927a319d904070e"
+          "sha256": "f52acaf830c3cd28bbb413d89ddf40ca4d103951e7e99d282c66f9e8926aa4ec"
         },
         {
           "path": "docs/proof-filtered.md",
@@ -21,6 +21,10 @@
         {
           "path": "docs/rank-consequences.md",
           "sha256": "6300b1923d21b235e0ffe7ed43dacaf3e8e6c41f3a2adfc12ba1533525705795"
+        },
+        {
+          "path": "docs/projective-anchored-width.md",
+          "sha256": "b290ca16d20f8d9800eb3e2ca7119e2c88849c259fee9f5c9eaf76bf8678489b"
         }
       ],
       "access": "Private written research repository; default checks read immutable Git objects at the recorded commit. Formal-only mode explicitly skips those private source checks."
@@ -28,11 +32,11 @@
     "formal": {
       "repository": "itpplasma/generalized-stafford-formal",
       "base_revision": "d6a0eaba9dbef273a324fed8e0018728f92296db",
-      "revision_note": "The source fingerprints identify the exact reviewed files, including the newly added left-affine endpoint. The base revision is provenance, not a substitute for file identity.",
+      "revision_note": "Existing reviewed sources are retained; projective-width additions and their audit inputs are fingerprinted explicitly. The base revision is provenance, not a substitute for file identity. Build and axiom closure do not imply independent semantic or human review.",
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "4953e289d9ccdd2ededb4d2a498e03578f455509cfb610c5e39c03a6a901bac0"
+          "sha256": "06a35d73a14c44b77ed530f2e61ebd3c6a7b43d07d1ab5afa9e2d60fc59faf6f"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -79,6 +83,30 @@
           "sha256": "23b948d84c19f533df0e768a9ff51e3130fa1a9bdba4cf261d4f873bcfcb5735"
         },
         {
+          "path": "GeneralizedStafford/ProjectiveWidth/Denominators.lean",
+          "sha256": "e5b259221c4ca87b77dfd911deb04807770d73a0446eb834f2dbb32743d419e5"
+        },
+        {
+          "path": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "sha256": "84cc05479a3e5d7b0fff166152d93613afc3f3a17acb7980d5b94d04925e08fc"
+        },
+        {
+          "path": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "sha256": "b4dcae22a7c65b3721b04847b1730b146af8b517f1c69cfd0968dbb0445cc80e"
+        },
+        {
+          "path": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "sha256": "0180179d5c5384a63998294b06fe42197cc7dfabc8267d2f2ad62d342646a1dd"
+        },
+        {
+          "path": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "sha256": "893aa156f5d9d49967bfa65d9497861a03e5185b196b050e2f84b0e835141714"
+        },
+        {
+          "path": "GeneralizedStafford/ProjectiveWidth/Theorem.lean",
+          "sha256": "1b4716c2a3ed498a3b6ef7de896aabde997ebeedc22e0f543d2af6e88bfac236"
+        },
+        {
           "path": "GeneralizedStafford/RightFraction.lean",
           "sha256": "63eb17d481e4359ac1e67c27c82d4b1284552fc76bbbae4a308713eddc81ebe0"
         },
@@ -100,7 +128,7 @@
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "997e9911fe0753217cee8e08bf6a396d0672e74823455ff6b776bdffdad90711"
+          "sha256": "d08136720ac46b0cde467080893c7a49436b5920473d3067fac7e2b275fce7d9"
         },
         {
           "path": "lake-manifest.json",
@@ -116,7 +144,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "3d65c5ca895098b3c99c193f5cd44f57c93b6c2c0cbb017d6d2bfccd3e563230"
+          "sha256": "5e760e39d96dc3e97b096aff6f1cfa4bb4b96aa4329d9fc6af39528c27b513d1"
         }
       ]
     }
@@ -160,7 +188,38 @@
     "GeneralizedStafford.FilteredAlgebraData.stable_range",
     "GeneralizedStafford.FilteredAlgebraData.stably_free",
     "GeneralizedStafford.FilteredAlgebraData.cancellation",
-    "GeneralizedStafford.universalStatement"
+    "GeneralizedStafford.universalStatement",
+    "GeneralizedStafford.ProjectiveWidth.integral_functionals",
+    "GeneralizedStafford.ProjectiveWidth.dual_denominator",
+    "GeneralizedStafford.ProjectiveWidth.S1",
+    "GeneralizedStafford.ProjectiveWidth.torsion_prescribed_generator",
+    "GeneralizedStafford.ProjectiveWidth.tail_escape",
+    "GeneralizedStafford.ProjectiveWidth.independent_prescribed_columns",
+    "GeneralizedStafford.ProjectiveWidth.prescribed_generators_succ",
+    "GeneralizedStafford.ProjectiveWidth.prescribed_generators_le",
+    "GeneralizedStafford.ProjectiveWidth.prescribed_generators",
+    "GeneralizedStafford.ProjectiveWidth.matrixEnd",
+    "GeneralizedStafford.ProjectiveWidth.matrixEnd_bijective",
+    "GeneralizedStafford.ProjectiveWidth.matrixEndEquiv",
+    "GeneralizedStafford.ProjectiveWidth.matrixOreRank",
+    "GeneralizedStafford.ProjectiveWidth.matrix_anchored_width",
+    "GeneralizedStafford.ProjectiveWidth.matrix_rank_two_three",
+    "GeneralizedStafford.ProjectiveWidth.locMap_surjective",
+    "GeneralizedStafford.ProjectiveWidth.locMap_mkQ_ker",
+    "GeneralizedStafford.ProjectiveWidth.oreRank_quotient_add",
+    "GeneralizedStafford.ProjectiveWidth.locMap_range",
+    "GeneralizedStafford.ProjectiveWidth.oreRank_range",
+    "GeneralizedStafford.ProjectiveWidth.independent_image_columns",
+    "GeneralizedStafford.ProjectiveWidth.oreRank_subsingleton",
+    "GeneralizedStafford.ProjectiveWidth.oreRank_free",
+    "GeneralizedStafford.ProjectiveWidth.endomorphism_sum_of_range",
+    "GeneralizedStafford.ProjectiveWidth.AffineAnchoredIdentity",
+    "GeneralizedStafford.ProjectiveWidth.reconstruct_of_denominator",
+    "GeneralizedStafford.ProjectiveWidth.localizedImageRank",
+    "GeneralizedStafford.ProjectiveWidth.FreeAnchoredWidthBound",
+    "GeneralizedStafford.ProjectiveWidth.projective_anchored_width",
+    "GeneralizedStafford.ProjectiveWidth.free_anchored_width",
+    "GeneralizedStafford.ProjectiveWidth.rank_two_three"
   ],
   "items": [
     {
@@ -667,6 +726,156 @@
         "target-a"
       ],
       "notes": "No Challenge/Solution pair is present in this repository. This is the current audited library statement, not a Palomar registration or a public clean replay."
+    },
+    {
+      "id": "projective-anchored-width",
+      "title": "Conditional scalar-S1 projective and matrix affine anchored width",
+      "paper": [
+        {
+          "path": "docs/projective-anchored-width.md",
+          "anchor": "## Exact conditional theorem"
+        },
+        {
+          "path": "docs/projective-anchored-width.md",
+          "anchor": "## 1. Prescribed-tail generation"
+        },
+        {
+          "path": "docs/projective-anchored-width.md",
+          "anchor": "## 2. Integral projective reconstruction"
+        }
+      ],
+      "statement_relation": "exact",
+      "route_relation": "same",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Denominators.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.integral_functionals"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Denominators.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.dual_denominator"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.S1"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.torsion_prescribed_generator"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.tail_escape"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.independent_prescribed_columns"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.prescribed_generators_succ"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.prescribed_generators_le"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Generation.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.prescribed_generators"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrixEnd"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrixEnd_bijective"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrixEndEquiv"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrixOreRank"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrix_anchored_width"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Matrix.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.matrix_rank_two_three"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.locMap_surjective"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.locMap_mkQ_ker"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.oreRank_quotient_add"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.locMap_range"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.oreRank_range"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.independent_image_columns"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.oreRank_subsingleton"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Rank.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.oreRank_free"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.endomorphism_sum_of_range"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.AffineAnchoredIdentity"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.reconstruct_of_denominator"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.localizedImageRank"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Reconstruction.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.FreeAnchoredWidthBound"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Theorem.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.projective_anchored_width"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Theorem.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.free_anchored_width"
+        },
+        {
+          "file": "GeneralizedStafford/ProjectiveWidth/Theorem.lean",
+          "name": "GeneralizedStafford.ProjectiveWidth.rank_two_three"
+        }
+      ],
+      "depends_on": [
+        "torsion"
+      ],
+      "notes": "Conditional on scalar S1 (the existing S38), a left Ore condition and a Mathlib OreSet on the opposite-domain nonzero divisors. Right modules use A-op scalars. Rank is finite dimension of the actual Ore-localized image. Finite projective P, every injective a and every prescribed list of floor(n/r) offsets give floor(n/r)+1 displayed terms. The matrix ring adapter preserves multiplication order. Includes rank two in M_3(A). No split image or source-selection assumption is added. Sections 3-5 (integral Morita transfer, sharp lower bounds, marked-image equality criteria) are not claimed here. This worker correspondence card awaits independent semantic review; source/owner/axiom checks alone cannot supply it."
     }
   ],
   "omitted_paper_claims": [
@@ -699,6 +908,11 @@
       "reference": "Written-to-Lean route equality and independent human approval",
       "status": "requires semantic review",
       "reason": "Hashes, anchors, checked declaration names and module owners detect drift and broken references but cannot prove correspondence of informal mathematical meaning."
+    },
+    {
+      "reference": "Projective anchored width Sections 3-5: integral Morita transfer, sharp lower bounds and marked-image equality criteria",
+      "status": "not formalized in the projective-width worker extension",
+      "reason": "The conditional existence theorem in Sections 1-2 is formalized. Morita equivalences, necessity and optimality, and Ext obstruction criteria are separate targets."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."

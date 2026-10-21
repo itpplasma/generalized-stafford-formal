@@ -1,8 +1,9 @@
 # Written proof and Lean correspondence
 
-The machine-readable [paper-lean-map.json](paper-lean-map.json) records 19
+The machine-readable [paper-lean-map.json](paper-lean-map.json) records 20
 correspondence cards for the commutative-symbol proof and consequences,
-40 declaration references and all 19 audited endpoints. It pins an immutable
+71 declaration references and all 50 audited declarations (19 original
+endpoints and 31 projective-width additions). It pins an immutable
 [research dossier](https://github.com/itpplasma/generalized-stafford) commit
 and fingerprints all proof sources, dependency pins and audit inputs.
 
@@ -39,3 +40,21 @@ extensions, categorical localization, the finite-integer GR-Krull candidate
 and constructive Weyl algorithms and bounds are not formalized here.
 The source map records these omissions explicitly. Human review and full
 programme completion remain open in the two repositories' PLAN files.
+
+The new conditional projective-width card covers §§1–2 of
+`docs/projective-anchored-width.md` at research revision
+a7591a668fdc90f1422e2a4cd9754082c44d6b60. The previous four mapped mathematical
+sources retain their statements; the only change in `docs/proof.md` since the
+previous pin consists of literature-attribution paragraphs. This extension
+reuses `S38`, `two_torsion_eq_span_singleton` and finite torsion cyclicity.
+`ProjectiveWidth.prescribed_generators` proves generation with prescribed
+offsets and a nonzero right tail. `projective_anchored_width` then proves
+`floor(n/r)+1` terms for every finite projective of Ore rank `n` and localized
+image rank `r>0`. The noncommutative matrix adapter gives
+`matrix_anchored_width` and the two-term `matrix_rank_two_three`.
+
+These claims are VERIFIED for build and axiom closure; scalar S1 and bilateral
+Ore are HYPOTHESES. This worker card awaits independent semantic review and
+does not establish whole-dossier correspondence. In particular, projective
+transport above means integral Morita transfer, which remains outside this
+extension, along with §§4–5's sharp lower bounds and marked-image criteria.
