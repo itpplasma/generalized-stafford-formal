@@ -33,11 +33,11 @@ not received independent semantic or human review.
 | --- | --- | --- |
 | Import and dependency identity | CHECKED | Import fingerprints, upstream attribution, Lean/Mathlib pins retained; AlgebraicAnalysis pinned at 7295b18a6a6e48940bde139125a96d6a2426864d with one shared Mathlib package. |
 | Renamed library replay | PASSED | Full native replay at d6a0eaba9dbef273a324fed8e0018728f92296db; affine-left source patch replay also passed. |
-| Endpoint axiom closure | PASSED | Cleaned project and AlgebraicAnalysis outputs, full project rebuild and all 71 declaration audits PASSED; only propext, Classical.choice and Quot.sound, with --trust=0. |
+| Endpoint axiom closure | PASSED | Project build and all 87 declaration audits PASSED; unchanged dependency build evidence reused; only propext, Classical.choice and Quot.sound, with --trust=0. |
 | Actual-symbol statement interface | REVIEWED | Ten fields mapped explicitly to the written filtration; see paper-lean-map.json. |
-| Written-to-Lean source map | CHECKED BASELINE | 21 correspondence cards, 92 declaration references and all 71 audit entries; immutable paper revision and 32 formal input fingerprints. The fixed-anchor card is explicitly partial; source/owner checks passed. |
+| Written-to-Lean source map | CHECKED BASELINE | 21 correspondence cards, 113 declaration references and all 87 audit entries; immutable paper revision and 35 formal input fingerprints. The fixed-anchor card is explicitly partial; source/owner checks passed. |
 | Conditional projective anchored width | VERIFIED (build/axioms) | `ProjectiveWidth.projective_anchored_width`, `matrix_anchored_width`, and `matrix_rank_two_three`; prescribed-tail generation, exact Ore quotient rank, common integral dual coordinates and projective reconstruction. Morita transfer, sharp lower bounds and marked-image equality criteria remain open. |
-| Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters, categorical localization, the full positive-deviation fixed-anchor theorem, omega S1 and constructive Weyl results remain outside this library. Finite germ intermediates and dimension-one consequences are now implemented. |
+| Broader written theorems | NOT FORMALIZED | Weighted localizations, central-finite symbols, crossed products, division-coefficient coordinate adapters, arbitrary categorical localization, concrete geometric adapters and constructive Weyl results remain outside this library. The full finite-deviation fixed-anchor and omega scalar endpoints are implemented for actual module germs. |
 | Concrete geometric adapters | OPEN | Written applications exist; concrete Lean specializations remain absent. |
 | Independent human review | OPEN | Agent proof audits are not human review. |
 | Palomar and publication | DEFERRED | No registration or release performed. |
@@ -48,54 +48,56 @@ baseline; it does not certify future research commits or infer semantic
 correspondence from hashes. The written rank proofs sometimes use weaker
 one-sided hypotheses than the current Lean statements, as recorded per card.
 
-## Fixed-anchor integration: complete intermediate package
+## Fixed-anchor integration: finite induction and omega endpoints
 
-The generic central pencil declarations now come from the leaf module
-`AlgebraicAnalysis.LinearAlgebra.DivisionPencil`; their downstream copies are
-removed. The dependency uses the requested unmerged intrinsic-stafford-separation
-head 7295b18a6a6e48940bde139125a96d6a2426864d. Repinning to upstream main after
-that stack merges is a future integration action. Lean and Mathlib are unchanged.
+The dependency remains at the requested AlgebraicAnalysis main revision
+7295b18a6a6e48940bde139125a96d6a2426864d, with unchanged Lean/Mathlib pins.
+Generic division and activated pencils come from its leaf modules.
 
-`GeneralizedStafford.FixedAnchor` proves the mixed-anchor finite-deviation colon
-bound, exact recursion data (`L=T*a*d`, `C=C₀*a*d`, `a'=a*d*T*a` and
-`(H₂*a')*d=(H₂*a)*d*L`), finite affine epic germ-test selection, ordinary and
-activated germ pencils, and one-stratum generation while carrying finite tests.
-The source-selection statement derives finite Schur spaces and torsion sections
-from critical filtrations and actual module deviation, with no hypothesis
-assuming the desired affine source exists.
+`GeneralizedStafford.FixedAnchor.SecondCall` proves that the second-call epic
+test `q_I(gdL)` makes `(fd,gdL)` epic modulo `J`. Epic cancellation gives
+joint injectivity on every retained critical Schur space; `fdL=dC` proves
+`vL=0`. No splitting, lifted generator or source-selection conclusion is assumed.
 
-The strongest integral endpoint is `affine_of_devLE_zero_with_tests`: for a
-simple right Noetherian domain with an infinite central field, an Artinian
-principal quotient gives `1=d*U+(B+H*a)*d*V`, carrying finite epic germ tests.
-`affine_of_devLE_one` supplies universal affine S1 when the right regular module
-has deviation at most one; `s38_of_devLE_one` and
-`torsion_cyclic_of_devLE_one` use the existing consequences. The written dossier
-identifies finite-length S1 as prior. These are intermediate formal results,
-not the requested positive-deviation fixed-anchor theorem.
+`affineBound_step` in `FixedAnchor/Descent.lean`
+lowers the uniform bound from `DevLE e` to `Small e`, carrying every finite
+family of actual bounded Noetherian torsion epic germ tests. Both recursive
+calls keep `d` fixed, using `L=T*a*d`, `C=C₀*a*d`, `a'=a*d*T*a`,
+`F₂=H₂*a'`, `g=H₂*a` and `F₂*d=g*d*L`. The checked colon bound controls
+`R/J`. Activated pencils kill its top stratum, ordinary pencils preserve old
+tests, and infinitude of the central field supplies a scalar outside their
+finite exceptional union. The update is `B+(H+lambda*H₂)*a`.
 
-**Exact next bridge:** put `I=dR+fdR`, `J=dR+fdK`, `W=R/J`,
-`v=q_J(fd)`, `u=q_J(gd)`. Derive joint injectivity of
-`h ↦ (h∘v,(h∘u)L)` on each retained critical Schur space of W from the
-second-call epic test `q_I(gdL)`, using `fdL=dC`. Then assemble the uniform
-two-call step from an affine/test producer bounded by `DevLE e` to one bounded
-by `Small e`, using the checked colon bound and germ pencils, and iterate.
-`principal_quotient_finite_of_omega` proves only the input reduction for the
-omega corollary. Omega S1 and omega torsion cyclicity remain OPEN.
-No correspondence with arbitrary categorical tests, independent semantic
-review, human review or publication is asserted. The supplied worker handoff
-and `formal-scope-BC.md` were absent when work began; the written fixed-anchor
-proof and research PLAN supplied the available authority.
+`affineBound_descend` iterates exactly `N+1` times from `Small (N+1)` to
+`Small 0`. `affine_of_finite_deviation_with_tests` extracts integral `U,V`.
+The plain endpoint `affine_of_finite_deviation` proves, for a simple right
+Noetherian domain with an infinite central field, `d,a!=0` and a finite
+`Module.DevLE` bound on `R/dR`, for every `B`:
+
+    ∃ H U V, 1 = d*U + (B+H*a)*d*V.
+
+`affine_of_devLE_omega` uses AlgebraicAnalysis's `Module.DevLEOmega` principal
+quotient reduction. `s38_of_devLE_omega` and `torsion_cyclic_of_devLE_omega`
+then reuse the existing consequences. The earlier deviation-zero and
+ring-deviation-one endpoints remain available.
+
+This is native build/axiom evidence for actual module germs. Correspondence
+with arbitrary categorical tests, independent semantic review, human review,
+applications and publication remain separate obligations. The supplied
+formal-C handoff was absent on entry; the full formal-B handoff, existing
+files and written fixed-anchor §3 supplied the authority.
 
 ## Verification and next work
 
 `PYTHON=python3.14 scripts/verify.sh` checks pins and source identities, builds
 once, audits declaration owners and prints statement types and axiom closures.
-For formal-B-fixed-anchor, `lake clean generalizedStafford algebraicAnalysis`
-preceded the full 9003-job project build. `PYTHON=python3.14 scripts/verify.sh`
-passed on 21 October 2026 for this uncommitted working tree, including all
-71 axiom reports, statement types and 92 mapped declaration-owner references.
-The exact axiom union is `propext`, `Classical.choice`, `Quot.sound`.
-Logs are ignored under `.lake/verification/` and `.lake/verify-fixed-anchor.log`.
+For formal-C-induction, `PYTHON=python3.14 scripts/verify.sh` passed on
+21 October 2026 for the uncommitted working tree, including the project build,
+87 endpoint axiom reports, statement types and 113 mapped declaration-owner
+references. The axiom union is exactly `propext`, `Classical.choice`, `Quot.sound`.
+This run reuses unchanged dependency build evidence; it is not a new clean
+rebuild of all dependencies. Logs are ignored under `.lake/verification/` and
+`.lake/verify-formal-C-induction.log`. No commit, push or branch was created.
 See [verification](docs/verification.md) for commands and evidence limits.
 
 Maintain the reviewed written proof before formalizing a stronger producer.

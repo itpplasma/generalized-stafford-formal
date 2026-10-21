@@ -36,11 +36,11 @@
     "formal": {
       "repository": "itpplasma/generalized-stafford-formal",
       "base_revision": "d6a0eaba9dbef273a324fed8e0018728f92296db",
-      "revision_note": "Existing endpoint statements are retained. Generic pencils are consumed from pinned AlgebraicAnalysis after downstream copy removal. Fixed-anchor additions prove finite germ source selection, one-stratum generation, activated pencils, the deviation-zero affine identity and dimension-one consequences. Positive-deviation two-call assembly and the omega S1/cyclicity corollary remain open. Build and axiom closure do not imply semantic or human review.",
+      "revision_note": "Existing endpoint statements and exact dependency pins are retained. Fixed-anchor additions now prove the second-call joint-injectivity bridge, uniform two-call descent with finite actual germ tests, N+1-step termination, integral affine S1 for finite principal-quotient deviation, and omega affine/S38/torsion-cyclicity corollaries. Arbitrary categorical-test correspondence, independent semantic review and human review remain open.",
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "0e0df9e6c12d3cd1304be187b6eb872ce8db73005ba96c8606601debf8c2254e"
+          "sha256": "e0e660eec578f95494f75a5ed1f2e78a5cfc61bf5fbb9ae5a41fe3b0e9a4f357"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -63,6 +63,10 @@
           "sha256": "e6ada14f3f9f8276419217237b43f6448e4031c00acbc9ec2b2bbba5e0ea50b7"
         },
         {
+          "path": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "sha256": "52eeea9d96a84854c6d18a120607db0ad36c4a552f024328b06a744944429398"
+        },
+        {
           "path": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
           "sha256": "2a8680a1f0c93c8a5816cf30dcaa62c61d89dad49c6261e9be6b997398edb41a"
         },
@@ -71,12 +75,20 @@
           "sha256": "5c133db1edf7cae6d3f3fb9da2b9cbfd36b1a048f34ec4707948cc86045cc4b7"
         },
         {
+          "path": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "sha256": "23323dcdc1fd7c1bb6b5c643e140088ba9d28a7ea66727e1d5768d65552e9101"
+        },
+        {
           "path": "GeneralizedStafford/FixedAnchor/Pencils.lean",
           "sha256": "85c8ef8d69f39d78da76c5359ce6edb2b631593c0f6c749ea772eeee9389136b"
         },
         {
           "path": "GeneralizedStafford/FixedAnchor/Reduction.lean",
           "sha256": "58a61ec313eea6bd97ee8c323b21bfb21f0fe78b4491e67efdb1ac8cdd65a4a1"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "sha256": "17cc47ffae22f6aa5da6466178b1f6bb73dfd7aaa6f6142c4c4649645eee32c1"
         },
         {
           "path": "GeneralizedStafford/Induction.lean",
@@ -148,7 +160,7 @@
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "b3f13005ff9be7dacb6b835d2607d41752b233a9c479210fb99241d33749afbc"
+          "sha256": "a0ec1c1ea8607447dc549e9fc95d9910b44f69b22787ad02cb8e6b9b6269d397"
         },
         {
           "path": "lake-manifest.json",
@@ -164,7 +176,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "149588f6f1e4459bdc7f60df848d86d8c6650fffb73b03448b4a219695468351"
+          "sha256": "1761d3b53b7bc5df71b350635ee02995e346ba2188da7cc312b70ead7017b08b"
         }
       ]
     }
@@ -260,7 +272,23 @@
     "GeneralizedStafford.FixedAnchor.recursion_data",
     "GeneralizedStafford.FixedAnchor.affine_update",
     "GeneralizedStafford.FixedAnchor.coefficients_of_small_zero",
-    "GeneralizedStafford.FixedAnchor.principal_quotient_finite_of_omega"
+    "GeneralizedStafford.FixedAnchor.principal_quotient_finite_of_omega",
+    "GeneralizedStafford.FixedAnchor.secondCallPair_epic",
+    "GeneralizedStafford.FixedAnchor.secondCall_vL_zero",
+    "GeneralizedStafford.FixedAnchor.secondCall_joint_injective",
+    "GeneralizedStafford.FixedAnchor.secondCall_pencil_finite",
+    "GeneralizedStafford.FixedAnchor.quotient_section_epic_iff",
+    "GeneralizedStafford.FixedAnchor.test_pencil_identity",
+    "GeneralizedStafford.FixedAnchor.EpicGermTest.pencil_finite",
+    "GeneralizedStafford.FixedAnchor.secondCall_small_finite",
+    "GeneralizedStafford.FixedAnchor.affineBound_initial",
+    "GeneralizedStafford.FixedAnchor.affineBound_step",
+    "GeneralizedStafford.FixedAnchor.affineBound_descend",
+    "GeneralizedStafford.FixedAnchor.affine_of_finite_deviation_with_tests",
+    "GeneralizedStafford.FixedAnchor.affine_of_finite_deviation",
+    "GeneralizedStafford.FixedAnchor.affine_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.s38_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_omega"
   ],
   "items": [
     {
@@ -920,7 +948,7 @@
     },
     {
       "id": "fixed-anchor-intermediate",
-      "title": "Fixed-anchor finite germ tests, colon bounds, activated pencils and deviation-zero affine S1",
+      "title": "Fixed-anchor finite-deviation affine S1 and omega consequences for actual module germs",
       "paper": [
         {
           "path": "docs/fixed-anchor-gluing.md",
@@ -1017,10 +1045,94 @@
         {
           "file": "GeneralizedStafford/FixedAnchor/Reduction.lean",
           "name": "GeneralizedStafford.FixedAnchor.principal_quotient_finite_of_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCallPair"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCallPair_epic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCall_vL_zero"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCall_joint_injective"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCall_pencil_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
+          "name": "GeneralizedStafford.FixedAnchor.quotient_section_epic_iff"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.EpicGermTest"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.EpicGermTest.Satisfied"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.test_pencil_identity"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.EpicGermTest.pencil_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.secondCall_small_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.AffineBound"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affineBound_initial"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.canonicalTest"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Descent.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affineBound_step"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affineBound_descend"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_finite_deviation_with_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_finite_deviation"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.affine_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.s38_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Induction.lean",
+          "name": "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_omega"
         }
       ],
       "depends_on": [],
-      "notes": "Actual R-op module germs only, not arbitrary categorical tests. Centrality is Algebra k R with k an infinite field; right Noetherianity is IsNoetherian R-op R. The top-stratum theorem carries any finite family of bounded ordinary torsion epic germ tests. Deviation zero gives the integral affine identity; ring deviation <=1 supplies S38 and finite ordinary torsion cyclicity. This is a complete intermediate package, not the positive-deviation fixed-anchor induction or omega S1. Next concrete bridge: for W=R/J, v=q_J(fd), u=q_J(gd), derive joint injectivity of h |-> (hv,(hu)L) against each retained critical factor from the second-call epic test q_I(gdL); then assemble the uniform two-call bound-lowering step with old-test pencil preservation. No independent correspondence or human review is claimed."
+      "notes": "Actual R-op module germs only; correspondence with arbitrary categorical tests remains open. The second-call canonical epic test implies epicity of (fd,gdL) modulo J, hence joint injectivity on each retained critical Schur space; fdL=dC gives vL=0. Ordinary and activated pencils, the checked colon bound and a central scalar outside the finite exceptional union prove the uniform two-call DevLE e -> Small e step with every old finite germ test preserved. Starting at Small (N+1), N+1 steps give Small 0 and actual integral U,V. The plain finite-principal-quotient affine theorem and omega affine/S38/torsion-cyclicity corollaries are implemented. No independent semantic correspondence or human review is claimed."
     }
   ],
   "omitted_paper_claims": [
@@ -1036,8 +1148,8 @@
     },
     {
       "reference": "Categorical Gabriel-quotient localization and finite-integer right Gabriel–Rentschler Krull candidate (docs/categorical-localization.md; docs/intrinsic-finite-krull.md)",
-      "status": "written and model-audited; not formalized; intrinsic candidate unpromoted",
-      "reason": "The current library uses actual commutative-symbol Ore fractions, not categorical localizations or a Gabriel–Rentschler dimension producer. Human review and classical-source priority comparison remain open."
+      "status": "arbitrary categorical formulation not formalized; actual-module-germ scalar endpoints implemented",
+      "reason": "The FixedAnchor modules implement finite-deviation and omega scalar affine identities via actual module germs. They do not construct arbitrary Gabriel quotient categories or establish full correspondence with categorical tests; human review and classical-source priority comparison remain open."
     },
     {
       "reference": "Controlled chart sources; polarized Weyl normalization and descent algorithm; rank–multiplicity and bounded coordinate search; Stafford38-plus-Aschenbrenner–Leykin affine Weyl degree baseline",
@@ -1060,9 +1172,9 @@
       "reason": "The conditional existence theorem in Sections 1-2 is formalized. Morita equivalences, necessity and optimality, and Ext obstruction criteria are separate targets."
     },
     {
-      "reference": "Fixed-anchor affine S1 for finite positive principal-quotient deviation, and S1/torsion cyclicity under deviation at most omega (docs/fixed-anchor-gluing.md)",
-      "status": "partial intrinsic germ formalization; full induction and omega consequences remain open",
-      "reason": "Finite tests, finite critical separation, colon bounds, exact recursive substitutions, one-stratum generation and activated germ pencils are implemented. The mixed-anchor second-call test still needs to be connected to joint injectivity, followed by uniform two-call bound-lowering and finite iteration. No arbitrary categorical-test correspondence is claimed."
+      "reference": "Fixed-anchor theorem: arbitrary categorical tests and full written-to-germ correspondence (docs/fixed-anchor-gluing.md)",
+      "status": "scalar finite-deviation and omega endpoints formalized; arbitrary categorical-test correspondence open",
+      "reason": "The full two-call induction and omega consequences are implemented for actual module germs. No equivalence with arbitrary admissible Gabriel-quotient tests, independent semantic correspondence audit or human approval is claimed."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."

@@ -2,8 +2,8 @@
 
 The machine-readable [paper-lean-map.json](paper-lean-map.json) records 21
 correspondence cards for the commutative-symbol proof and consequences,
-92 declaration references and all 71 audit entries (19 original
-endpoints, 31 projective-width additions and 21 fixed-anchor intermediates). It pins an immutable
+113 declaration references and all 87 audit entries (19 original
+endpoints, 31 projective-width additions and 37 fixed-anchor declarations). It pins an immutable
 [research dossier](https://github.com/itpplasma/generalized-stafford) commit
 and fingerprints all proof sources, dependency pins and audit inputs.
 
@@ -36,8 +36,9 @@ statement are also printed by the statement audit.
 
 The broader weighted-localization theorem, central-finite symbols, crossed
 products, coordinate and geometric adapters, projective transport, finite-top
-extensions, categorical localization, the full positive-deviation fixed-anchor theorem, omega S1
-and constructive Weyl algorithms and bounds are not formalized here.
+extensions, arbitrary categorical localization, and constructive Weyl algorithms
+and bounds are not formalized here. The finite-deviation and omega scalar
+fixed-anchor endpoints are implemented using actual module germs.
 The source map records these omissions explicitly. Human review and full
 programme completion remain open in the two repositories' PLAN files.
 
@@ -74,11 +75,25 @@ the ring has right deviation at most one. The central field is expressed by
 `[Field k] [Infinite k] [Algebra k R]`; right Noetherianity is
 `IsNoetherian Rᵐᵒᵖ R` and quotient bounds are `Module.DevLE`.
 
-The next missing lemma connects the second-call epic test `q_I(gdL)` to joint
-injectivity against the retained critical factors of `R/J`. The uniform
-two-call bound-lowering induction, finite iteration and omega S1/cyclicity
-are still absent. `principal_quotient_finite_of_omega` supplies only the
-principal-quotient bound. This card establishes neither arbitrary categorical
-test correspondence nor whole-proof correspondence; independent semantic
-and human reviews remain open. Generic division pencils are imported from
-the pinned AlgebraicAnalysis leaf module after removing the downstream copies.
+The [second-call bridge](../GeneralizedStafford/FixedAnchor/SecondCall.lean)
+now proves epicity of `(fd,gdL)` modulo `J` from the canonical epic test
+`q_I(gdL)`, then derives joint injectivity on every retained critical Schur
+space by cancellation. The relation `fdL=dC` proves `vL=0`.
+The [descent](../GeneralizedStafford/FixedAnchor/Descent.lean) combines this
+activated pencil with the colon bound, ordinary pencils for old tests and
+choice outside a finite central-scalar exception set. `affineBound_step`
+lowers `DevLE e` to `Small e` uniformly, preserving the original anchor and
+using the exact ordered recursive products of §3.
+
+The [finite induction](../GeneralizedStafford/FixedAnchor/Induction.lean)
+iterates `N+1` times to level zero and extracts actual right coefficients.
+`affine_of_finite_deviation` gives `1=d*U+(B+H*a)*d*V` under a finite bound on
+`R/dR`; its `_with_tests` version carries finite actual epic germ tests.
+`affine_of_devLE_omega`, `s38_of_devLE_omega` and
+`torsion_cyclic_of_devLE_omega` use the upstream principal-quotient reduction
+and existing generation consequences.
+
+The card remains partial because no correspondence with arbitrary categorical
+tests or whole-proof correspondence is asserted. Independent semantic and
+human reviews remain open. Generic division and activated pencils are
+imported from pinned AlgebraicAnalysis leaf modules.

@@ -8,14 +8,27 @@ project build directory comes first in `LEAN_PATH`.
 
 Lean is pinned at v4.35.0-rc3 and Mathlib at
 c55e6e786f49471c72fbddbec5415808896aec1e. AlgebraicAnalysis is pinned at
-7295b18a6a6e48940bde139125a96d6a2426864d (the requested unmerged
-intrinsic-stafford-separation head). The pin check verifies its matching
-toolchain and full dependency closure, including exactly one shared Mathlib
+7295b18a6a6e48940bde139125a96d6a2426864d (the requested main revision).
+The pin check verifies its matching toolchain and full dependency closure, including exactly one shared Mathlib
 package. All transitive pins are checked.
 The allowed axioms are `propext`, `Classical.choice` and `Quot.sound`;
 missing endpoint reports or any other axiom fail verification.
 
 ## Evidence
+
+The formal-C-induction extension passed
+`PYTHON=python3.14 scripts/verify.sh` on 21 October 2026, exit 0, for the
+uncommitted working tree. The project build, declaration-owner and statement
+audits passed; all 87 endpoint axiom audits ran with `--trust=0`, with exact
+union `propext`, `Classical.choice`, `Quot.sound`. The map checks 21 cards,
+113 references, 6 immutable paper inputs and 35 formal inputs. Logs are
+ignored under `.lake/verify-formal-C-induction.log` and
+`.lake/verification/{build,statement,paper-lean-map,axioms}.log`.
+This run reuses unchanged dependency build evidence rather than cleaning
+all dependency outputs. It verifies the second-call bridge, full finite
+two-call induction and omega affine/S38/torsion-cyclicity endpoints for actual
+module germs. Arbitrary categorical-test correspondence and independent
+semantic/human review remain open. No commit, push or branch was created.
 
 The formal-B-fixed-anchor intermediate package passed
 `PYTHON=python3.14 scripts/verify.sh` on 21 October 2026, exit 0, for the
@@ -28,9 +41,9 @@ were audited with `--trust=0`; the axiom union is exactly `propext`,
 6 immutable paper inputs and 32 formal inputs. Logs are ignored under
 `.lake/verify-fixed-anchor.log` and `.lake/verification/{build,statement,paper-lean-map,axioms}.log`.
 This verifies the finite-germ intermediate package and dimension-one
-consequences. The positive-deviation fixed-anchor induction and omega S1 remain
-open; neither categorical-test correspondence nor semantic/human review is
-implied. No commit, push or branch creation was performed.
+consequences. At that earlier checkpoint the positive-deviation induction and omega S1
+remained open; the formal-C evidence above supersedes that scope. Neither
+categorical-test correspondence nor semantic/human review is implied. No commit, push or branch creation was performed.
 
 The projective-width worker extension passed
 `PYTHON=python3.14 scripts/verify.sh` on 21 October 2026, exit 0, at base revision

@@ -20,23 +20,24 @@ including rank two in `M_3(A)` and general matrices. Ranks use Mathlib's Ore
 localization; scalar S1 remains an explicit hypothesis. See
 [ProjectiveWidth](GeneralizedStafford/ProjectiveWidth/Theorem.lean).
 
-The full library rebuild and all 71 declaration axiom audits passed (the
-original 19 endpoints, 31 projective-width declarations and 21 fixed-anchor
-intermediates). A pinned
+The full library build and all 87 declaration axiom audits passed (the
+original 19 endpoints, 31 projective-width declarations and 37 fixed-anchor
+declarations). A pinned
 paper-to-Lean map checks source identity and declaration ownership. Broader
 written central-finite, weighted-localization and crossed-product theorems,
-categorical localization, the finite-integer GR-Krull candidate, concrete
+arbitrary categorical localization, full GR-Krull correspondence, concrete
 geometric adapters and constructive Weyl algorithms and bounds remain outside the
 current formal scope. Independent semantic review of the projective-width
 extension, human review and release are still open.
 
-The intrinsic fixed-anchor intermediate package adds finite affine germ tests,
-colon bounds, activated pencils and the affine identity for Artinian principal
-quotients. It also proves S38 and torsion cyclicity when the ring has right
-deviation at most one. Positive-deviation two-call assembly and omega S1 remain
-open. This package uses pinned [AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis)
-leaf modules and one shared Mathlib dependency; see the formal PLAN for the pin
-and verification status.
+The intrinsic fixed-anchor package proves the affine identity whenever `R/dR`
+has finite module deviation, for simple right Noetherian domains with an
+infinite central field. It carries finite actual epic germ tests through the
+two-call induction and also proves affine S1, S38 and ordinary torsion
+cyclicity under `Module.DevLEOmega`. Arbitrary categorical-test correspondence
+and independent semantic/human review remain open. This package uses pinned
+[AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis) leaf modules
+and one shared Mathlib dependency; see the formal PLAN for verification status.
 
 - [Current state](PLAN.md)
 - [Correspondence and its scope](docs/proof-map.md)
