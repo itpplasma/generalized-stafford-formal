@@ -41,11 +41,11 @@
     "formal": {
       "repository": "itpplasma/generalized-stafford-formal",
       "base_revision": "d6a0eaba9dbef273a324fed8e0018728f92296db",
-      "revision_note": "Existing endpoint statements and exact dependency pins are retained. Fixed-anchor additions now prove the second-call joint-injectivity bridge, uniform two-call descent with finite actual germ tests, N+1-step termination, integral affine S1 for finite principal-quotient deviation, and omega affine/S38/torsion-cyclicity corollaries. Arbitrary categorical-test correspondence, independent semantic review and human review remain open.",
+      "revision_note": "Existing endpoint statements and exact dependency pins are retained. Fixed-anchor additions now prove the second-call joint-injectivity bridge, uniform two-call descent with finite actual germ tests, N+1-step termination, integral affine S1 for finite principal-quotient deviation, and omega affine/S38/torsion-cyclicity corollaries. Arbitrary categorical-test correspondence, independent semantic review and human review remain open. Goldie extension: Goldie's theorem for simple right Noetherian rings (essential right ideals contain regular elements, right Ore condition for regular elements), Goldie torsion, regular common annihilators, escape and affine source selection in Goldie-torsion bimodules.",
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "1403adcbb8a5683ad88245c2f7546a15424f098115e2ccdb3cfd52b0203b17d2"
+          "sha256": "7888d1f376d5a792dc1d7a4b61d67e339b83543dc08cad1e40ac53ba4639d31e"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -98,6 +98,14 @@
         {
           "path": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
           "sha256": "17cc47ffae22f6aa5da6466178b1f6bb73dfd7aaa6f6142c4c4649645eee32c1"
+        },
+        {
+          "path": "GeneralizedStafford/Goldie/Basic.lean",
+          "sha256": "00b94f0e6646f6dfc326b77733aae2fc7c6f8e2f96ebe303c1e0e9d4b1515012"
+        },
+        {
+          "path": "GeneralizedStafford/Goldie/Torsion.lean",
+          "sha256": "09163b817f9ed0046c77d17b3b70706875f64272e0ff7038bd8346902a767586"
         },
         {
           "path": "GeneralizedStafford/Induction.lean",
@@ -169,7 +177,7 @@
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "9eeefd55e00cae0b773031fae5311b12d4ea97f30ff91177b1100116f1d339d7"
+          "sha256": "a0254c5c13659e23c2e518f6362babd1dc301ee2bf707d68bb328a6accb12eab"
         },
         {
           "path": "lake-manifest.json",
@@ -185,7 +193,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "baa17fee36038dc341bcf1043c423361a66a0d6ef1d40d86e96f8cf8f1988018"
+          "sha256": "880273c338ce2aeeae1210a50fd431d339dbbf40d978b47c8d1a5d8b011bcbba"
         }
       ]
     }
@@ -323,7 +331,37 @@
     "GeneralizedStafford.FixedAnchor.ideal_quotient_isTorsion",
     "GeneralizedStafford.FixedAnchor.two_generated_of_principal",
     "GeneralizedStafford.FixedAnchor.two_generated_of_devLE_omega",
-    "GeneralizedStafford.FixedAnchor.exists_two_generators_of_principal"
+    "GeneralizedStafford.FixedAnchor.exists_two_generators_of_principal",
+    "GeneralizedStafford.Goldie.rightAnn",
+    "GeneralizedStafford.Goldie.IsEssential",
+    "GeneralizedStafford.Goldie.IsEssential.comap",
+    "GeneralizedStafford.Goldie.singularIdeal",
+    "GeneralizedStafford.Goldie.eq_zero_of_isEssential_rightAnn",
+    "GeneralizedStafford.Goldie.IsGood",
+    "GeneralizedStafford.Goldie.exists_not_nilpotent_mem",
+    "GeneralizedStafford.Goldie.exists_good_mem",
+    "GeneralizedStafford.Goldie.exists_mem_rightAnn_eq_bot",
+    "GeneralizedStafford.Goldie.isEssential_principal",
+    "GeneralizedStafford.Goldie.mem_nonZeroDivisors_of_rightAnn",
+    "GeneralizedStafford.Goldie.exists_mem_nonZeroDivisors_of_isEssential",
+    "GeneralizedStafford.Goldie.isEssential_of_mem_nonZeroDivisors",
+    "GeneralizedStafford.Goldie.exists_right_ore",
+    "GeneralizedStafford.Goldie.exists_mem_nonZeroDivisors_finset",
+    "GeneralizedStafford.Goldie.exists_mul_mem_of_mem_nonZeroDivisors",
+    "GeneralizedStafford.Goldie.op_mem_nonZeroDivisors_iff",
+    "GeneralizedStafford.Goldie.nonempty_oreSet_op",
+    "GeneralizedStafford.Goldie.IsGoldieTorsion",
+    "GeneralizedStafford.Goldie.IsGoldieTorsion.of_injective",
+    "GeneralizedStafford.Goldie.IsGoldieTorsion.of_surjective",
+    "GeneralizedStafford.Goldie.IsGoldieTorsion.isTorsionRight",
+    "GeneralizedStafford.Goldie.isGoldieTorsion_of_isTorsionRight",
+    "GeneralizedStafford.Goldie.isGoldieTorsion_quotient",
+    "GeneralizedStafford.Goldie.exists_common_regular_annihilator",
+    "GeneralizedStafford.Goldie.exists_smul_mul_not_mem_of_goldie",
+    "GeneralizedStafford.Goldie.exists_injective_right_mul_of_goldie",
+    "GeneralizedStafford.Goldie.exists_affine_direction_of_goldie",
+    "GeneralizedStafford.Goldie.exists_affine_source_of_goldie",
+    "GeneralizedStafford.Goldie.section_isGoldieTorsion"
   ],
   "items": [
     {
@@ -1316,6 +1354,148 @@
         "core-theorem-a-prime"
       ],
       "notes": "Domain case only. B: `quotient_finite_of_omega` (Module.DevLEOmega Rᵐᵒᵖ R and a nonzero element of I give a finite DevLE bound on R/I) and `fixed_ideal_of_devLE_omega`. C.1: `prescribed_cyclic` (Module.Finite, IsTorsionRight with nonzero denominators, finite DevLE of M; ∃ h, span {x + op t • h} = ⊤), with (H_all) and omega variants; the induction of Lemma 6.2 runs over a finite generating set relative to a submodule W and only needs (Fin_I) for cyclic annihilators. C.2: `two_generated_of_principal` assumes a ≠ 0 in I instead of aQ = IQ (for a domain and I ≠ 0 these agree; this equivalence is not formalized) and proves I = aR + (y + h t)R with h ∈ I; `exists_two_generators_of_principal` covers I = 0. C.3 (Goldie-rank bounds) and Remark 6.5 are not formalized."
+    },
+    {
+      "id": "goldie-simple-noetherian",
+      "title": "Input I1 (Goldie) for simple right Noetherian rings, Goldie torsion, regular common annihilators and escape (Lemma 3.4)",
+      "paper": [
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 2. Imported inputs"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "**Lemma 3.4 (escape).**"
+        }
+      ],
+      "statement_relation": "partial",
+      "route_relation": "different",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.rightAnn"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.IsEssential"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.IsEssential.comap"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.singularIdeal"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.eq_zero_of_isEssential_rightAnn"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.IsGood"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_not_nilpotent_mem"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_good_mem"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_mem_rightAnn_eq_bot"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.isEssential_principal"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.mem_nonZeroDivisors_of_rightAnn"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_mem_nonZeroDivisors_of_isEssential"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.isEssential_of_mem_nonZeroDivisors"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_right_ore"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_mem_nonZeroDivisors_finset"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.exists_mul_mem_of_mem_nonZeroDivisors"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.op_mem_nonZeroDivisors_iff"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Basic.lean",
+          "name": "GeneralizedStafford.Goldie.nonempty_oreSet_op"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.IsGoldieTorsion"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.IsGoldieTorsion.of_injective"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.IsGoldieTorsion.of_surjective"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.IsGoldieTorsion.isTorsionRight"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.isGoldieTorsion_of_isTorsionRight"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.isGoldieTorsion_quotient"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.exists_common_regular_annihilator"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.exists_smul_mul_not_mem_of_goldie"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.exists_injective_right_mul_of_goldie"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.exists_affine_direction_of_goldie"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.exists_affine_source_of_goldie"
+        },
+        {
+          "file": "GeneralizedStafford/Goldie/Torsion.lean",
+          "name": "GeneralizedStafford.Goldie.section_isGoldieTorsion"
+        }
+      ],
+      "depends_on": [
+        "fixed-anchor-intermediate"
+      ],
+      "notes": "I1 is imported from the literature in the written note; here the used part is proved for a simple right Noetherian ring R ([Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R], zero divisors allowed; regular means `s ∈ R⁰`, two-sided non-zero-divisor, convention C2). Route: the classical Goldie argument (Goldie 1958/1960; McConnell–Robson §2.3; Goodearl–Warfield Ch. 5–6) specialized to simple rings, so simplicity replaces semiprimeness and nilpotency of the singular ideal, and right Noetherianity replaces finite uniform dimension and ACC on right annihilators: the right singular ideal is zero (`eq_zero_of_isEssential_rightAnn`), nonzero right ideals are not nil and contain a nonzero `b` with bR ∩ r(b) = 0 (`exists_good_mem`), an essential right ideal contains x with r(x) = 0 (maximal-element argument), r(x) = 0 makes xR essential (no infinite direct sum K ⊕ xK ⊕ ⋯) and x regular. Proved: essential right ideals contain regular elements (`exists_mem_nonZeroDivisors_of_isEssential`), the right Ore condition for regular elements (`exists_right_ore`, packaged as Mathlib's `OreSet (Rᵐᵒᵖ)⁰` in `nonempty_oreSet_op`), common regular elements of finitely many right ideals, R/I Goldie-torsion when I has (Reg_I), common regular annihilators of finite-dimensional subspaces, and Goldie torsion of critical section modules (`section_isGoldieTorsion`, via essential annihilators). Escape (Lemma 3.4) is `exists_smul_mul_not_mem_of_goldie` with route same as the note (common regular annihilator, simplicity, regularity); affine source selection over Goldie-torsion bimodules (`exists_affine_source_of_goldie`) reuses the pinned AlgebraicAnalysis linear-algebra lemmas. Not formalized from I1: the classical quotient ring Q as a ring of fractions with Q = M_s(D) simple Artinian, flatness of Q, and closure of Goldie torsion under extensions and direct sums. `IsEssential E` is the elementwise form `∀ y ≠ 0, ∃ r, y*r ≠ 0 ∧ y*r ∈ E`."
     }
   ],
   "omitted_paper_claims": [
@@ -1361,8 +1541,8 @@
     },
     {
       "reference": "Core theorem (docs/core-theorem.md): non-domain simple right Noetherian rings (regular anchors, Goldie torsion), Corollary C.3 and Remark 6.5",
-      "status": "not formalized",
-      "reason": "Theorem A', A, B, C.1 and C.2 are formalized only for domains. The zero-divisor case needs Goldie's theorem (regular elements form a right Ore set; essential right ideals contain regular elements), regular-denominator versions of AlgebraicAnalysis's TorsionEscape and Section.torsion, and a regular-element torsion predicate; none is available at the pinned dependencies. C.3 additionally needs Q = M_s(D), Morita invariance of deviation and matrix rings."
+      "status": "Goldie input I1 (used part) formalized; non-domain endpoints not yet formalized",
+      "reason": "Theorem A', A, B, C.1 and C.2 are formalized for domains; Goldie's theorem for simple right Noetherian rings (essential right ideals contain regular elements, right Ore condition), Goldie torsion and escape are formalized (card `goldie-simple-noetherian`), but the non-domain endpoints are not yet. C.3 additionally needs Q = M_s(D), Morita invariance of deviation and matrix rings."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."

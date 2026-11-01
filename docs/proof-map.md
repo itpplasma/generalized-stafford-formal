@@ -128,3 +128,36 @@ germs rather than arbitrary objects of `C_e`; torsion is `IsTorsionRight`
 (nonzero denominators); C.2 assumes `a ≠ 0`. The zero-divisor case, C.3 and
 Remark 6.5 are not formalized. Build/axiom evidence only; semantic and human
 review remain open.
+
+## Input I1: Goldie's theorem for simple right Noetherian rings
+
+The partial card `goldie-simple-noetherian` maps §2 (input I1) and Lemma 3.4
+of `docs/core-theorem.md` at research revision
+`522b9658fabfc257cbc76599146eb4790df5c360`. The written note imports I1 from
+the literature; [Goldie/Basic](../GeneralizedStafford/Goldie/Basic.lean)
+proves the used part for a simple right Noetherian ring (zero divisors
+allowed, regular means `s ∈ R⁰`):
+
+- `eq_zero_of_isEssential_rightAnn`: the right singular ideal is zero.
+- `exists_good_mem`: every nonzero right ideal contains a nonzero `b` with
+  `bR ∩ r(b) = 0` (no nonzero nil right ideals, ACC on `r(aⁿ)`).
+- `isEssential_principal`, `mem_nonZeroDivisors_of_rightAnn`: if `r(x) = 0`
+  then `xR` is essential and `x` is regular.
+- `exists_mem_nonZeroDivisors_of_isEssential`: essential right ideals contain
+  regular elements.
+- `exists_right_ore` (and `nonempty_oreSet_op`, Mathlib's `OreSet (Rᵐᵒᵖ)⁰`):
+  for every `a` and regular `s` there are `a'` and regular `s'` with
+  `a*s' = s*a'`; `exists_mem_nonZeroDivisors_finset` and
+  `exists_mul_mem_of_mem_nonZeroDivisors` are its consequences.
+
+The route is the classical one (Goldie 1958/1960; McConnell–Robson §2.3;
+Goodearl–Warfield Ch. 5–6) specialized to simple rings: simplicity replaces
+semiprimeness and the nilpotency of the singular ideal, and right
+Noetherianity replaces finite uniform dimension and ACC on right annihilators.
+[Goldie/Torsion](../GeneralizedStafford/Goldie/Torsion.lean) defines
+`IsGoldieTorsion` (convention C4) and proves regular common annihilators,
+escape (`exists_smul_mul_not_mem_of_goldie`, Lemma 3.4 with the note's route),
+affine source selection in Goldie-torsion bimodules, and Goldie torsion of
+critical section modules (`section_isGoldieTorsion`). The classical quotient
+ring `Q = M_s(D)`, flatness and extension closure of Goldie torsion are not
+formalized. Build/axiom evidence only; semantic and human review remain open.

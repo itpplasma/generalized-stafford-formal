@@ -26,6 +26,8 @@ public import GeneralizedStafford.FixedAnchor.Corollaries
 public import GeneralizedStafford.FixedAnchor.Pencils
 public import GeneralizedStafford.FixedAnchor.Induction
 public import GeneralizedStafford.FixedAnchor.FixedIdeal
+public import GeneralizedStafford.Goldie.Basic
+public import GeneralizedStafford.Goldie.Torsion
 
 @[expose] public section
 

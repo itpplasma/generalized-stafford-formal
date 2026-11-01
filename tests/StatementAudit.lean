@@ -61,3 +61,19 @@ open GeneralizedStafford
 #check @FixedAnchor.two_generated_of_principal
 #check @FixedAnchor.two_generated_of_devLE_omega
 #check @FixedAnchor.exists_two_generators_of_principal
+
+-- Input I1 (Goldie) for simple right Noetherian rings, zero divisors allowed:
+-- essential right ideals contain regular elements, right Ore condition,
+-- Goldie torsion and escape (docs/core-theorem.md §2 and Lemma 3.4).
+#print Goldie.IsEssential
+#print Goldie.IsGoldieTorsion
+#check @Goldie.eq_zero_of_isEssential_rightAnn
+#check @Goldie.exists_mem_nonZeroDivisors_of_isEssential
+#check @Goldie.exists_right_ore
+#check @Goldie.nonempty_oreSet_op
+#check @Goldie.exists_mem_nonZeroDivisors_finset
+#check @Goldie.isGoldieTorsion_quotient
+#check @Goldie.exists_common_regular_annihilator
+#check @Goldie.exists_smul_mul_not_mem_of_goldie
+#check @Goldie.exists_affine_source_of_goldie
+#check @Goldie.section_isGoldieTorsion
