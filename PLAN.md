@@ -103,6 +103,20 @@ cards are partial. Build/axiom evidence only; review remains open.
 
 ## Verification and next work
 
+**1 November 2026: canonical core formalized, including zero divisors.** Commits
+`1eeadbe` (domains) and `73651ef`/`467b8fd` (Goldie's theorem for simple right
+Noetherian rings; core theorem with regular anchors, zero divisors allowed) give
+`FixedAnchor.Regular.fixed_ideal` (Theorem A'), `fixed_anchor` (Theorem A),
+Corollary B (`*_of_devLE_omega`), C.1 (`prescribed_cyclic*`) and C.2
+(`two_generated_*`, with the elementwise form of aQ = IQ or a regular a). The
+written source is research `docs/core-theorem.md` at 522b965. `verify.sh` passes
+with 170 endpoint axiom reports (standard axioms only). Not formalized: the
+classical quotient ring Q = M_s(D) (hence unconditional two-generation of every
+right ideal in the non-domain case), C.3, Remark 6.5; tests are actual germs.
+Semantic statement review and human review remain open. Earlier counts (87/113)
+below are historical.
+
+
 **1 November 2026 fresh verification of the committed head.** Commit
 `5c92c4d014bbe4148e024e345ef73b5fc60767c5` (which adds `FixedAnchor/SecondCall`
 after the 21 October working-tree run) passed `scripts/verify.sh` in a clean
