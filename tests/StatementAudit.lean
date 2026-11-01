@@ -45,3 +45,19 @@ open GeneralizedStafford
 #check @FixedAnchor.affine_of_devLE_omega
 #check @FixedAnchor.s38_of_devLE_omega
 #check @FixedAnchor.torsion_cyclic_of_devLE_omega
+
+-- Theorem A' (fixed ideal), Theorem A by specialization, Corollaries B, C.1, C.2
+-- (docs/core-theorem.md at research revision 522b965), domain case.
+#print FixedAnchor.IdealBound
+#check @FixedAnchor.idealBound_step
+#check @FixedAnchor.fixed_ideal_with_tests
+#check @FixedAnchor.fixed_ideal
+#check @FixedAnchor.fixed_anchor_of_fixed_ideal
+#check @FixedAnchor.quotient_finite_of_omega
+#check @FixedAnchor.fixed_ideal_of_devLE_omega
+#check @FixedAnchor.prescribed_cyclic
+#check @FixedAnchor.prescribed_cyclic_of_principal
+#check @FixedAnchor.prescribed_cyclic_of_devLE_omega
+#check @FixedAnchor.two_generated_of_principal
+#check @FixedAnchor.two_generated_of_devLE_omega
+#check @FixedAnchor.exists_two_generators_of_principal

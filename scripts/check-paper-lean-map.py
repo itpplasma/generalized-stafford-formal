@@ -68,9 +68,13 @@ def main() -> None:
                 fail(f'invalid paper source fingerprint: {name}')
             paper_files[name] = None
             continue
-        result = subprocess.run(['git', '-C', str(paper_root), 'show', f'{commit}:{name}'], capture_output=True)
+        # A record may pin its own immutable revision; otherwise the map-wide one applies.
+        revision = record.get('commit', commit)
+        if not re.fullmatch('[0-9a-f]{40}', revision):
+            fail(f'paper revision must be an immutable full Git commit: {name}')
+        result = subprocess.run(['git', '-C', str(paper_root), 'show', f'{revision}:{name}'], capture_output=True)
         if result.returncode:
-            fail(f'cannot read {name} at paper revision {commit}')
+            fail(f'cannot read {name} at paper revision {revision}')
         verify_hash(result.stdout, record)
         paper_files[name] = result.stdout.decode()
     formal_files = set()

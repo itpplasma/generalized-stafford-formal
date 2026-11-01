@@ -29,6 +29,11 @@
         {
           "path": "docs/fixed-anchor-gluing.md",
           "sha256": "960c86d35c4ed19362e7dc149d06b4fdcad7397728c452f98f51e8fd361e59d6"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "commit": "522b9658fabfc257cbc76599146eb4790df5c360",
+          "sha256": "d477474e336829b6f38d04fe589cc2b351193d6d923954c39983cf1345dd3380"
         }
       ],
       "access": "Private written research repository; default checks read immutable Git objects at the recorded commit. Formal-only mode explicitly skips those private source checks."
@@ -40,7 +45,7 @@
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "e0e660eec578f95494f75a5ed1f2e78a5cfc61bf5fbb9ae5a41fe3b0e9a4f357"
+          "sha256": "1403adcbb8a5683ad88245c2f7546a15424f098115e2ccdb3cfd52b0203b17d2"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -69,6 +74,10 @@
         {
           "path": "GeneralizedStafford/FixedAnchor/FiniteTop.lean",
           "sha256": "2a8680a1f0c93c8a5816cf30dcaa62c61d89dad49c6261e9be6b997398edb41a"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "sha256": "02e98dd71150f8e49f1da1f6e0c30805aec274601f69df19fb0bd1f0cd8dd76c"
         },
         {
           "path": "GeneralizedStafford/FixedAnchor/GermTests.lean",
@@ -160,7 +169,7 @@
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "a0ec1c1ea8607447dc549e9fc95d9910b44f69b22787ad02cb8e6b9b6269d397"
+          "sha256": "9eeefd55e00cae0b773031fae5311b12d4ea97f30ff91177b1100116f1d339d7"
         },
         {
           "path": "lake-manifest.json",
@@ -176,7 +185,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "1761d3b53b7bc5df71b350635ee02995e346ba2188da7cc312b70ead7017b08b"
+          "sha256": "baa17fee36038dc341bcf1043c423361a66a0d6ef1d40d86e96f8cf8f1988018"
         }
       ]
     }
@@ -288,7 +297,33 @@
     "GeneralizedStafford.FixedAnchor.affine_of_finite_deviation",
     "GeneralizedStafford.FixedAnchor.affine_of_devLE_omega",
     "GeneralizedStafford.FixedAnchor.s38_of_devLE_omega",
-    "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_omega"
+    "GeneralizedStafford.FixedAnchor.torsion_cyclic_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.smul_mkQ_epic_iff",
+    "GeneralizedStafford.FixedAnchor.quotient_isTorsion_of_mem",
+    "GeneralizedStafford.FixedAnchor.exists_mul_mem_of_mem",
+    "GeneralizedStafford.FixedAnchor.unitTest",
+    "GeneralizedStafford.FixedAnchor.IdealBound",
+    "GeneralizedStafford.FixedAnchor.mul_mem_pencil",
+    "GeneralizedStafford.FixedAnchor.idealBound_initial",
+    "GeneralizedStafford.FixedAnchor.idealBound_step",
+    "GeneralizedStafford.FixedAnchor.idealBound_descend",
+    "GeneralizedStafford.FixedAnchor.fixed_ideal_with_tests",
+    "GeneralizedStafford.FixedAnchor.fixed_ideal",
+    "GeneralizedStafford.FixedAnchor.fixed_anchor_of_fixed_ideal",
+    "GeneralizedStafford.FixedAnchor.quotient_finite_of_omega",
+    "GeneralizedStafford.FixedAnchor.fixed_ideal_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.cyclicMap",
+    "GeneralizedStafford.FixedAnchor.range_cyclicMap",
+    "GeneralizedStafford.FixedAnchor.devLE_cyclic",
+    "GeneralizedStafford.FixedAnchor.prescribed_cyclic_aux",
+    "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_cyclic",
+    "GeneralizedStafford.FixedAnchor.prescribed_cyclic",
+    "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_principal",
+    "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.ideal_quotient_isTorsion",
+    "GeneralizedStafford.FixedAnchor.two_generated_of_principal",
+    "GeneralizedStafford.FixedAnchor.two_generated_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.exists_two_generators_of_principal"
   ],
   "items": [
     {
@@ -1133,6 +1168,154 @@
       ],
       "depends_on": [],
       "notes": "Actual R-op module germs only; correspondence with arbitrary categorical tests remains open. The second-call canonical epic test implies epicity of (fd,gdL) modulo J, hence joint injectivity on each retained critical Schur space; fdL=dC gives vL=0. Ordinary and activated pencils, the checked colon bound and a central scalar outside the finite exceptional union prove the uniform two-call DevLE e -> Small e step with every old finite germ test preserved. Starting at Small (N+1), N+1 steps give Small 0 and actual integral U,V. The plain finite-principal-quotient affine theorem and omega affine/S38/torsion-cyclicity corollaries are implemented. No independent semantic correspondence or human review is claimed."
+    },
+    {
+      "id": "core-theorem-a-prime",
+      "title": "Theorem A' (fixed ideal) by the colon-free two-call descent, and Theorem A by specialization, for domains",
+      "paper": [
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 1. Statements"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 3. Germs and source selection"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 4. The two-call descent (proof of Theorem A')"
+        }
+      ],
+      "statement_relation": "partial",
+      "route_relation": "same",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.smul_mkQ_epic_iff"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.quotient_isTorsion_of_mem"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.exists_mul_mem_of_mem"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.unitTest"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.IdealBound"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.mul_mem_pencil"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.idealBound_initial"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.idealBound_step"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.idealBound_descend"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.fixed_ideal_with_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.fixed_ideal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.fixed_anchor_of_fixed_ideal"
+        }
+      ],
+      "depends_on": [
+        "fixed-anchor-intermediate"
+      ],
+      "notes": "Domain case only: hypotheses [IsDomain R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R], [Field k] [Infinite k] [Algebra k R]; (Reg_I) is `∃ s ∈ I, s ≠ 0` (regular = nonzero in a domain) and (Fin_I) is `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`. `fixed_ideal` states `I ⊔ principalRightIdeal (x + H*t) = ⊤` for every x and t ≠ 0; `fixed_anchor_of_fixed_ideal` derives `1 = d*U + (B+H*a)*d*V` with I = dR, x = B*d, t = a*d exactly as in §1. The induction invariant `IdealBound I e` is P(h) of §4 with the strict stratum Small e; `idealBound_step` uses one first call, the torsion equation f*b ∈ I (b ≠ 0), a second call with offset 0, tail t*b and the single unit test of R/J, the ordinary stability pencil (Lemma 3.6) for v = q_Q f and for all old tests, a nonzero central scalar outside the finite exceptional union and the inclusion (4.2) via invertibility of the scalar. No colon ideal and no activated pencil is used. Tests are actual module germs (Lemma 3.6 is the existing actual-germ source selection), not arbitrary objects of the Gabriel quotient C_e; the zero-divisor (regular-element, Goldie) case is not formalized."
+    },
+    {
+      "id": "core-theorem-corollaries",
+      "title": "Corollary B (omega gives (Fin_I)), Corollary C.1 (prescribed affine cyclicity) and C.2 (two-generated right ideals), for domains",
+      "paper": [
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 6. Proofs of the corollaries"
+        }
+      ],
+      "statement_relation": "partial",
+      "route_relation": "same",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.quotient_finite_of_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.fixed_ideal_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.cyclicMap"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.range_cyclicMap"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.devLE_cyclic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.prescribed_cyclic_aux"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_cyclic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.prescribed_cyclic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_principal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.prescribed_cyclic_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.ideal_quotient_isTorsion"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.two_generated_of_principal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.two_generated_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/FixedIdeal.lean",
+          "name": "GeneralizedStafford.FixedAnchor.exists_two_generators_of_principal"
+        }
+      ],
+      "depends_on": [
+        "core-theorem-a-prime"
+      ],
+      "notes": "Domain case only. B: `quotient_finite_of_omega` (Module.DevLEOmega Rᵐᵒᵖ R and a nonzero element of I give a finite DevLE bound on R/I) and `fixed_ideal_of_devLE_omega`. C.1: `prescribed_cyclic` (Module.Finite, IsTorsionRight with nonzero denominators, finite DevLE of M; ∃ h, span {x + op t • h} = ⊤), with (H_all) and omega variants; the induction of Lemma 6.2 runs over a finite generating set relative to a submodule W and only needs (Fin_I) for cyclic annihilators. C.2: `two_generated_of_principal` assumes a ≠ 0 in I instead of aQ = IQ (for a domain and I ≠ 0 these agree; this equivalence is not formalized) and proves I = aR + (y + h t)R with h ∈ I; `exists_two_generators_of_principal` covers I = 0. C.3 (Goldie-rank bounds) and Remark 6.5 are not formalized."
     }
   ],
   "omitted_paper_claims": [
@@ -1175,6 +1358,11 @@
       "reference": "Fixed-anchor theorem: arbitrary categorical tests and full written-to-germ correspondence (docs/fixed-anchor-gluing.md)",
       "status": "scalar finite-deviation and omega endpoints formalized; arbitrary categorical-test correspondence open",
       "reason": "The full two-call induction and omega consequences are implemented for actual module germs. No equivalence with arbitrary admissible Gabriel-quotient tests, independent semantic correspondence audit or human approval is claimed."
+    },
+    {
+      "reference": "Core theorem (docs/core-theorem.md): non-domain simple right Noetherian rings (regular anchors, Goldie torsion), Corollary C.3 and Remark 6.5",
+      "status": "not formalized",
+      "reason": "Theorem A', A, B, C.1 and C.2 are formalized only for domains. The zero-divisor case needs Goldie's theorem (regular elements form a right Ore set; essential right ideals contain regular elements), regular-denominator versions of AlgebraicAnalysis's TorsionEscape and Section.torsion, and a regular-element torsion predicate; none is available at the pinned dependencies. C.3 additionally needs Q = M_s(D), Morita invariance of deviation and matrix rings."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."

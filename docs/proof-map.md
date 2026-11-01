@@ -97,3 +97,34 @@ The card remains partial because no correspondence with arbitrary categorical
 tests or whole-proof correspondence is asserted. Independent semantic and
 human reviews remain open. Generic division and activated pencils are
 imported from pinned AlgebraicAnalysis leaf modules.
+
+## Core Theorem A' (fixed ideal), domain case
+
+Two partial cards map `docs/core-theorem.md` at research revision
+`522b9658fabfc257cbc76599146eb4790df5c360` (its paper record pins that commit
+individually; the other records keep the map-wide revision). The
+[fixed-ideal module](../GeneralizedStafford/FixedAnchor/FixedIdeal.lean)
+proves, for a simple right Noetherian **domain** with an infinite central field:
+
+- `fixed_ideal`: if the right ideal `I` contains a nonzero element and
+  `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`, then for every `x` and `t ≠ 0` there is `H`
+  with `I ⊔ principalRightIdeal (x + H*t) = ⊤` (Theorem A'); the `_with_tests`
+  form also satisfies any finite family of actual epic germ tests.
+- `fixed_anchor_of_fixed_ideal`: Theorem A, `1 = d*U + (B+H*a)*d*V`, obtained
+  from A' with `I = dR`, `x = B*d`, `t = a*d` exactly as in §1.
+- `quotient_finite_of_omega`, `fixed_ideal_of_devLE_omega`: Corollary B.
+- `prescribed_cyclic` (+ `_of_principal`, `_of_devLE_omega`): Corollary C.1.
+- `two_generated_of_principal` (+ `_of_devLE_omega`) and
+  `exists_two_generators_of_principal`: Corollary C.2, with `a ≠ 0` in place of
+  `aQ = IQ`.
+
+The descent `idealBound_step` is the colon-free two-call step of §4: the second
+call needs only a nonzero `b` with `f*b ∈ I`; the stability pencil of Lemma 3.6
+replaces the older activated pencil and colon bound. Source selection (Lemma
+3.6) is the existing actual-germ theorem `exists_affine_epic_tests`.
+
+Statement differences: only domains (regular = nonzero); tests are actual module
+germs rather than arbitrary objects of `C_e`; torsion is `IsTorsionRight`
+(nonzero denominators); C.2 assumes `a ≠ 0`. The zero-divisor case, C.3 and
+Remark 6.5 are not formalized. Build/axiom evidence only; semantic and human
+review remain open.

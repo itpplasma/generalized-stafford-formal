@@ -25,6 +25,7 @@ public import GeneralizedStafford.ProjectiveWidth.Matrix
 public import GeneralizedStafford.FixedAnchor.Corollaries
 public import GeneralizedStafford.FixedAnchor.Pencils
 public import GeneralizedStafford.FixedAnchor.Induction
+public import GeneralizedStafford.FixedAnchor.FixedIdeal
 
 @[expose] public section
 

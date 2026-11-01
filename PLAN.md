@@ -88,6 +88,19 @@ applications and publication remain separate obligations. The supplied
 formal-C handoff was absent on entry; the full formal-B handoff, existing
 files and written fixed-anchor §3 supplied the authority.
 
+## Core Theorem A' (fixed ideal): domain case, local branch
+
+On local branch `port/theorem-a` (not pushed), `FixedAnchor/FixedIdeal.lean`
+formalizes `docs/core-theorem.md` at research revision `522b965` for simple
+right Noetherian domains with an infinite central field: Theorem A'
+(`fixed_ideal`), Theorem A by the §1 specialization
+(`fixed_anchor_of_fixed_ideal`), Corollary B (`quotient_finite_of_omega`,
+`fixed_ideal_of_devLE_omega`), C.1 (`prescribed_cyclic` and variants) and C.2
+(`two_generated_of_principal`, with `a ≠ 0` for `aQ = IQ`). The step is the
+colon-free two-call descent with the ordinary stability pencil. The
+zero-divisor (Goldie) case, C.3 and Remark 6.5 remain unformalized. The two map
+cards are partial. Build/axiom evidence only; review remains open.
+
 ## Verification and next work
 
 **1 November 2026 fresh verification of the committed head.** Commit
