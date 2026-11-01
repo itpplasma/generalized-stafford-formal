@@ -1,6 +1,7 @@
 # Generalized Stafford formal: live formal state
 
-Updated: 21 October 2026. Private repository; work on `main`.
+Updated: 1 November 2026 (verification record); otherwise 21 October 2026.
+Private repository; work on `main`.
 
 The [research PLAN](https://github.com/itpplasma/generalized-stafford/blob/main/PLAN.md)
 owns mathematical status. This file owns formal implementation and executable
@@ -88,6 +89,24 @@ formal-C handoff was absent on entry; the full formal-B handoff, existing
 files and written fixed-anchor §3 supplied the authority.
 
 ## Verification and next work
+
+**1 November 2026 fresh verification of the committed head.** Commit
+`5c92c4d014bbe4148e024e345ef73b5fc60767c5` (which adds `FixedAnchor/SecondCall`
+after the 21 October working-tree run) passed `scripts/verify.sh` in a clean
+cloud container: `lake exe cache get`, a full `lake build` (9006 jobs), pins,
+the paper/Lean map (21 items, 113 references, paper revision
+`a7591a668fdc90f1422e2a4cd9754082c44d6b60`), the statement audit and all 87
+endpoint axiom reports with exactly `propext`, `Classical.choice`, `Quot.sound`.
+Only deprecation and unused-variable linter warnings were emitted. This is
+build/axiom evidence only; semantic correspondence and human review remain open.
+
+**Formalization gate.** New Lean waits for the research repository's gate
+(its AGENTS.md): a finished, independently audited written proof at a frozen
+commit, and necessity for the final stated theorem on a stable route. The
+research dossier is currently consolidating a canonical core note and running
+hypothesis-removal lanes that may replace descent lemmas, so no new theorem
+development starts here yet.
+
 
 `PYTHON=python3.14 scripts/verify.sh` checks pins and source identities, builds
 once, audits declaration owners and prints statement types and axiom closures.
