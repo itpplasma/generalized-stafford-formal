@@ -28,6 +28,7 @@ public import GeneralizedStafford.FixedAnchor.Induction
 public import GeneralizedStafford.FixedAnchor.FixedIdeal
 public import GeneralizedStafford.Goldie.Basic
 public import GeneralizedStafford.Goldie.Torsion
+public import GeneralizedStafford.FixedAnchor.Regular
 
 @[expose] public section
 

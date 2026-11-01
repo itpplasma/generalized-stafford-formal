@@ -77,3 +77,24 @@ open GeneralizedStafford
 #check @Goldie.exists_smul_mul_not_mem_of_goldie
 #check @Goldie.exists_affine_source_of_goldie
 #check @Goldie.section_isGoldieTorsion
+
+-- Theorem A', Theorem A and Corollaries B, C.1, C.2 for simple right Noetherian
+-- rings with zero divisors: regular anchors, (Reg_I) by a regular element,
+-- Goldie torsion (docs/core-theorem.md at research revision 522b965).
+#print FixedAnchor.Regular.GoldieGermTest
+#print FixedAnchor.Regular.IdealBound
+#check @FixedAnchor.Regular.exists_affine_epic_tests
+#check @FixedAnchor.Regular.idealBound_step
+#check @FixedAnchor.Regular.fixed_ideal_with_tests
+#check @FixedAnchor.Regular.fixed_ideal
+#check @FixedAnchor.Regular.fixed_anchor
+#check @FixedAnchor.Regular.principal_quotient_finite_of_omega
+#check @FixedAnchor.Regular.quotient_finite_of_omega
+#check @FixedAnchor.Regular.fixed_ideal_of_devLE_omega
+#check @FixedAnchor.Regular.fixed_anchor_of_devLE_omega
+#check @FixedAnchor.Regular.prescribed_cyclic
+#check @FixedAnchor.Regular.prescribed_cyclic_of_principal
+#check @FixedAnchor.Regular.prescribed_cyclic_of_devLE_omega
+#check @FixedAnchor.Regular.two_generated_of_principal
+#check @FixedAnchor.Regular.two_generated_of_devLE_omega
+#check @FixedAnchor.Regular.two_generated_of_regular

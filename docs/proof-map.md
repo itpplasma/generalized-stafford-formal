@@ -1,9 +1,11 @@
 # Written proof and Lean correspondence
 
-The machine-readable [paper-lean-map.json](paper-lean-map.json) records 21
+The machine-readable [paper-lean-map.json](paper-lean-map.json) records 26
 correspondence cards for the commutative-symbol proof and consequences,
-113 declaration references and all 87 audit entries (19 original
-endpoints, 31 projective-width additions and 37 fixed-anchor declarations). It pins an immutable
+196 declaration references and all 170 audit entries (19 original
+endpoints, 31 projective-width additions, 37 fixed-anchor declarations,
+26 domain core-theorem declarations, 30 Goldie declarations and 27
+non-domain core-theorem declarations). It pins an immutable
 [research dossier](https://github.com/itpplasma/generalized-stafford) commit
 and fingerprints all proof sources, dependency pins and audit inputs.
 
@@ -125,9 +127,9 @@ replaces the older activated pencil and colon bound. Source selection (Lemma
 
 Statement differences: only domains (regular = nonzero); tests are actual module
 germs rather than arbitrary objects of `C_e`; torsion is `IsTorsionRight`
-(nonzero denominators); C.2 assumes `a ≠ 0`. The zero-divisor case, C.3 and
-Remark 6.5 are not formalized. Build/axiom evidence only; semantic and human
-review remain open.
+(nonzero denominators); C.2 assumes `a ≠ 0`. The zero-divisor case is
+formalized separately (next sections); C.3 and Remark 6.5 are not formalized.
+Build/axiom evidence only; semantic and human review remain open.
 
 ## Input I1: Goldie's theorem for simple right Noetherian rings
 
@@ -161,3 +163,39 @@ affine source selection in Goldie-torsion bimodules, and Goldie torsion of
 critical section modules (`section_isGoldieTorsion`). The classical quotient
 ring `Q = M_s(D)`, flatness and extension closure of Goldie torsion are not
 formalized. Build/axiom evidence only; semantic and human review remain open.
+
+## Core Theorem A', A and Corollaries B, C.1, C.2 with zero divisors
+
+Two cards, `core-theorem-regular` (equivalent statement, same route) and
+`core-theorem-regular-corollaries` (partial), map §§1, 3, 4 and Lemmas
+6.1–6.3 of `docs/core-theorem.md` at research revision `522b965` for simple
+right Noetherian rings with an infinite central field, **without** a domain
+hypothesis. The [regular module](../GeneralizedStafford/FixedAnchor/Regular.lean)
+(namespace `GeneralizedStafford.FixedAnchor.Regular`) proves:
+
+- `fixed_ideal`: if `I` contains a regular element (`∃ s ∈ I, s ∈ R⁰`) and
+  `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`, then for every `x` and every `t ≠ 0`
+  (possibly singular) there is `H` with `I ⊔ principalRightIdeal (x + H*t) = ⊤`
+  (Theorem A'); `fixed_ideal_with_tests` also satisfies any finite family of
+  `GoldieGermTest`s.
+- `fixed_anchor`: Theorem A for a regular anchor `d` and `a ≠ 0`,
+  `1 = d*U + (B+H*a)*d*V`, from A' with `I = dR`, `x = B*d`, `t = a*d`.
+- `principal_quotient_finite_of_omega`, `quotient_finite_of_omega`,
+  `fixed_ideal_of_devLE_omega`, `fixed_anchor_of_devLE_omega`: Corollary B.
+- `prescribed_cyclic` (+ `_of_principal` under (H_all) for regular anchors,
+  `_of_devLE_omega`): Corollary C.1 for finitely generated Goldie-torsion
+  modules.
+- `two_generated_of_principal` (+ `_of_devLE_omega`): Corollary C.2 assuming
+  `a ∈ I` and that every `y ∈ I` has a regular `s` with `y*s ∈ aR` (the
+  elementwise content of `aQ = IQ`); `two_generated_of_regular` for a regular
+  `a ∈ I`.
+
+The descent is the two-call step of §4 verbatim (`idealBound_step`): the
+torsion equation gives a regular `b` with `f*b ∈ I` (Goldie), so the second
+call's tail `t*b` is nonzero; source selection `exists_affine_epic_tests`
+uses Goldie-torsion targets, regular test tails and the Goldie escape lemma.
+Remaining differences: tests are actual module germs, `Kdim` is
+`Module.DevLE`, and the existence of `a` with `aQ = IQ` for an arbitrary right
+ideal (Wedderburn–Artin for `Q`), hence two-generation of every right ideal
+without a domain hypothesis, C.3 and Remark 6.5 are not formalized.
+Build/axiom evidence only; semantic and human review remain open.

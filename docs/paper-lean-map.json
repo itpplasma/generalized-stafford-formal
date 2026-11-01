@@ -41,11 +41,11 @@
     "formal": {
       "repository": "itpplasma/generalized-stafford-formal",
       "base_revision": "d6a0eaba9dbef273a324fed8e0018728f92296db",
-      "revision_note": "Existing endpoint statements and exact dependency pins are retained. Fixed-anchor additions now prove the second-call joint-injectivity bridge, uniform two-call descent with finite actual germ tests, N+1-step termination, integral affine S1 for finite principal-quotient deviation, and omega affine/S38/torsion-cyclicity corollaries. Arbitrary categorical-test correspondence, independent semantic review and human review remain open. Goldie extension: Goldie's theorem for simple right Noetherian rings (essential right ideals contain regular elements, right Ore condition for regular elements), Goldie torsion, regular common annihilators, escape and affine source selection in Goldie-torsion bimodules.",
+      "revision_note": "Existing endpoint statements and exact dependency pins are retained. Fixed-anchor additions now prove the second-call joint-injectivity bridge, uniform two-call descent with finite actual germ tests, N+1-step termination, integral affine S1 for finite principal-quotient deviation, and omega affine/S38/torsion-cyclicity corollaries. Arbitrary categorical-test correspondence, independent semantic review and human review remain open. Goldie extension: Goldie's theorem for simple right Noetherian rings (essential right ideals contain regular elements, right Ore condition for regular elements), Goldie torsion, regular common annihilators, escape and affine source selection in Goldie-torsion bimodules. Non-domain core theorem: Theorem A', A and Corollaries B, C.1, C.2 for simple right Noetherian rings with regular anchors and Goldie torsion.",
       "files": [
         {
           "path": "GeneralizedStafford.lean",
-          "sha256": "7888d1f376d5a792dc1d7a4b61d67e339b83543dc08cad1e40ac53ba4639d31e"
+          "sha256": "a46755671bbeaed38ac93f9c13727a23b77ceab0e082762d17cae26fdb5b4c55"
         },
         {
           "path": "GeneralizedStafford/ConsequencesForU.lean",
@@ -94,6 +94,10 @@
         {
           "path": "GeneralizedStafford/FixedAnchor/Reduction.lean",
           "sha256": "58a61ec313eea6bd97ee8c323b21bfb21f0fe78b4491e67efdb1ac8cdd65a4a1"
+        },
+        {
+          "path": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "sha256": "d167c742f8eea7ef3135a5d1260962e8e403b4939b3c2a3ab84350badccdaaa8"
         },
         {
           "path": "GeneralizedStafford/FixedAnchor/SecondCall.lean",
@@ -177,7 +181,7 @@
         },
         {
           "path": "docs/endpoints.txt",
-          "sha256": "a0254c5c13659e23c2e518f6362babd1dc301ee2bf707d68bb328a6accb12eab"
+          "sha256": "b76174d1e88180cca6a6446376479c703f02e555da4f69049d6d9d551c651408"
         },
         {
           "path": "lake-manifest.json",
@@ -193,7 +197,7 @@
         },
         {
           "path": "tests/StatementAudit.lean",
-          "sha256": "880273c338ce2aeeae1210a50fd431d339dbbf40d978b47c8d1a5d8b011bcbba"
+          "sha256": "1e9ecd453e15c3f39032cd48f2018706c896449171228936387deb4965cd29a6"
         }
       ]
     }
@@ -361,7 +365,34 @@
     "GeneralizedStafford.Goldie.exists_injective_right_mul_of_goldie",
     "GeneralizedStafford.Goldie.exists_affine_direction_of_goldie",
     "GeneralizedStafford.Goldie.exists_affine_source_of_goldie",
-    "GeneralizedStafford.Goldie.section_isGoldieTorsion"
+    "GeneralizedStafford.Goldie.section_isGoldieTorsion",
+    "GeneralizedStafford.FixedAnchor.Regular.exists_affine_germ_tests",
+    "GeneralizedStafford.FixedAnchor.Regular.exists_affine_epic_tests",
+    "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest",
+    "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest.Satisfied",
+    "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest.pencil_finite",
+    "GeneralizedStafford.FixedAnchor.Regular.unitTest",
+    "GeneralizedStafford.FixedAnchor.Regular.IdealBound",
+    "GeneralizedStafford.FixedAnchor.Regular.idealBound_initial",
+    "GeneralizedStafford.FixedAnchor.Regular.idealBound_step",
+    "GeneralizedStafford.FixedAnchor.Regular.idealBound_descend",
+    "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal_with_tests",
+    "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal",
+    "GeneralizedStafford.FixedAnchor.Regular.fixed_anchor",
+    "GeneralizedStafford.FixedAnchor.Regular.principal_quotient_finite_of_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.quotient_finite_of_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.fixed_anchor_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_aux",
+    "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_cyclic",
+    "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic",
+    "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_principal",
+    "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.ideal_quotient_isGoldieTorsion",
+    "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_principal",
+    "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_devLE_omega",
+    "GeneralizedStafford.FixedAnchor.Regular.exists_mul_mem_principal_of_regular",
+    "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_regular"
   ],
   "items": [
     {
@@ -1279,7 +1310,7 @@
       "depends_on": [
         "fixed-anchor-intermediate"
       ],
-      "notes": "Domain case only: hypotheses [IsDomain R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R], [Field k] [Infinite k] [Algebra k R]; (Reg_I) is `∃ s ∈ I, s ≠ 0` (regular = nonzero in a domain) and (Fin_I) is `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`. `fixed_ideal` states `I ⊔ principalRightIdeal (x + H*t) = ⊤` for every x and t ≠ 0; `fixed_anchor_of_fixed_ideal` derives `1 = d*U + (B+H*a)*d*V` with I = dR, x = B*d, t = a*d exactly as in §1. The induction invariant `IdealBound I e` is P(h) of §4 with the strict stratum Small e; `idealBound_step` uses one first call, the torsion equation f*b ∈ I (b ≠ 0), a second call with offset 0, tail t*b and the single unit test of R/J, the ordinary stability pencil (Lemma 3.6) for v = q_Q f and for all old tests, a nonzero central scalar outside the finite exceptional union and the inclusion (4.2) via invertibility of the scalar. No colon ideal and no activated pencil is used. Tests are actual module germs (Lemma 3.6 is the existing actual-germ source selection), not arbitrary objects of the Gabriel quotient C_e; the zero-divisor (regular-element, Goldie) case is not formalized."
+      "notes": "Domain case only: hypotheses [IsDomain R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R], [Field k] [Infinite k] [Algebra k R]; (Reg_I) is `∃ s ∈ I, s ≠ 0` (regular = nonzero in a domain) and (Fin_I) is `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`. `fixed_ideal` states `I ⊔ principalRightIdeal (x + H*t) = ⊤` for every x and t ≠ 0; `fixed_anchor_of_fixed_ideal` derives `1 = d*U + (B+H*a)*d*V` with I = dR, x = B*d, t = a*d exactly as in §1. The induction invariant `IdealBound I e` is P(h) of §4 with the strict stratum Small e; `idealBound_step` uses one first call, the torsion equation f*b ∈ I (b ≠ 0), a second call with offset 0, tail t*b and the single unit test of R/J, the ordinary stability pencil (Lemma 3.6) for v = q_Q f and for all old tests, a nonzero central scalar outside the finite exceptional union and the inclusion (4.2) via invertibility of the scalar. No colon ideal and no activated pencil is used. Tests are actual module germs (Lemma 3.6 is the existing actual-germ source selection), not arbitrary objects of the Gabriel quotient C_e; the zero-divisor (regular-element, Goldie) case is the separate card `core-theorem-regular`."
     },
     {
       "id": "core-theorem-corollaries",
@@ -1353,7 +1384,7 @@
       "depends_on": [
         "core-theorem-a-prime"
       ],
-      "notes": "Domain case only. B: `quotient_finite_of_omega` (Module.DevLEOmega Rᵐᵒᵖ R and a nonzero element of I give a finite DevLE bound on R/I) and `fixed_ideal_of_devLE_omega`. C.1: `prescribed_cyclic` (Module.Finite, IsTorsionRight with nonzero denominators, finite DevLE of M; ∃ h, span {x + op t • h} = ⊤), with (H_all) and omega variants; the induction of Lemma 6.2 runs over a finite generating set relative to a submodule W and only needs (Fin_I) for cyclic annihilators. C.2: `two_generated_of_principal` assumes a ≠ 0 in I instead of aQ = IQ (for a domain and I ≠ 0 these agree; this equivalence is not formalized) and proves I = aR + (y + h t)R with h ∈ I; `exists_two_generators_of_principal` covers I = 0. C.3 (Goldie-rank bounds) and Remark 6.5 are not formalized."
+      "notes": "Domain case only. B: `quotient_finite_of_omega` (Module.DevLEOmega Rᵐᵒᵖ R and a nonzero element of I give a finite DevLE bound on R/I) and `fixed_ideal_of_devLE_omega`. C.1: `prescribed_cyclic` (Module.Finite, IsTorsionRight with nonzero denominators, finite DevLE of M; ∃ h, span {x + op t • h} = ⊤), with (H_all) and omega variants; the induction of Lemma 6.2 runs over a finite generating set relative to a submodule W and only needs (Fin_I) for cyclic annihilators. C.2: `two_generated_of_principal` assumes a ≠ 0 in I instead of aQ = IQ (for a domain and I ≠ 0 these agree; this equivalence is not formalized) and proves I = aR + (y + h t)R with h ∈ I; `exists_two_generators_of_principal` covers I = 0. The zero-divisor versions are the card `core-theorem-regular-corollaries`. The zero-divisor versions are the card `core-theorem-regular-corollaries`. C.3 (Goldie-rank bounds) and Remark 6.5 are not formalized."
     },
     {
       "id": "goldie-simple-noetherian",
@@ -1496,6 +1527,167 @@
         "fixed-anchor-intermediate"
       ],
       "notes": "I1 is imported from the literature in the written note; here the used part is proved for a simple right Noetherian ring R ([Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R], zero divisors allowed; regular means `s ∈ R⁰`, two-sided non-zero-divisor, convention C2). Route: the classical Goldie argument (Goldie 1958/1960; McConnell–Robson §2.3; Goodearl–Warfield Ch. 5–6) specialized to simple rings, so simplicity replaces semiprimeness and nilpotency of the singular ideal, and right Noetherianity replaces finite uniform dimension and ACC on right annihilators: the right singular ideal is zero (`eq_zero_of_isEssential_rightAnn`), nonzero right ideals are not nil and contain a nonzero `b` with bR ∩ r(b) = 0 (`exists_good_mem`), an essential right ideal contains x with r(x) = 0 (maximal-element argument), r(x) = 0 makes xR essential (no infinite direct sum K ⊕ xK ⊕ ⋯) and x regular. Proved: essential right ideals contain regular elements (`exists_mem_nonZeroDivisors_of_isEssential`), the right Ore condition for regular elements (`exists_right_ore`, packaged as Mathlib's `OreSet (Rᵐᵒᵖ)⁰` in `nonempty_oreSet_op`), common regular elements of finitely many right ideals, R/I Goldie-torsion when I has (Reg_I), common regular annihilators of finite-dimensional subspaces, and Goldie torsion of critical section modules (`section_isGoldieTorsion`, via essential annihilators). Escape (Lemma 3.4) is `exists_smul_mul_not_mem_of_goldie` with route same as the note (common regular annihilator, simplicity, regularity); affine source selection over Goldie-torsion bimodules (`exists_affine_source_of_goldie`) reuses the pinned AlgebraicAnalysis linear-algebra lemmas. Not formalized from I1: the classical quotient ring Q as a ring of fractions with Q = M_s(D) simple Artinian, flatness of Q, and closure of Goldie torsion under extensions and direct sums. `IsEssential E` is the elementwise form `∀ y ≠ 0, ∃ r, y*r ≠ 0 ∧ y*r ∈ E`."
+    },
+    {
+      "id": "core-theorem-regular",
+      "title": "Theorem A' (fixed ideal) and Theorem A for simple right Noetherian rings with zero divisors (regular anchors, Goldie torsion)",
+      "paper": [
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 1. Statements"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "**Lemma 3.6 (source selection).**"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "## 4. The two-call descent (proof of Theorem A')"
+        }
+      ],
+      "statement_relation": "equivalent",
+      "route_relation": "same",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.exists_affine_germ_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.exists_affine_epic_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest.Satisfied"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.GoldieGermTest.pencil_finite"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.unitTest"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.IdealBound"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.idealBound_initial"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.idealBound_step"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.idealBound_descend"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal_with_tests"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.fixed_anchor"
+        }
+      ],
+      "depends_on": [
+        "goldie-simple-noetherian",
+        "core-theorem-a-prime"
+      ],
+      "notes": "Hypotheses [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R] and [Field k] [Infinite k] [Algebra k R]: (S), (N) and (Z) with (Z) expressed as an infinite central field (equivalent under (S), as recorded in C5). No domain or Ore hypothesis: I1 comes from `goldie-simple-noetherian`. (Reg_I) is `∃ s ∈ I, s ∈ R⁰`; (Fin_I) is `Module.DevLE Rᵐᵒᵖ N (R ⧸ I)`; `t ≠ 0` and `a ≠ 0` may be singular; the anchor d is regular (`d ∈ R⁰`). `fixed_ideal`: `I ⊔ principalRightIdeal (x + H*t) = ⊤`. `fixed_anchor`: `1 = d*U + (B+H*a)*d*V`, derived from A' with I = dR, x = B*d, t = a*d (t ≠ 0 by regularity of d) exactly as in §1. Tests (`GoldieGermTest`) are actual module germs with Goldie-torsion finite-deviation targets and regular tails c (the note's tests have c in S); source selection is `exists_affine_epic_tests` (Lemma 3.6, tails t*c ≠ 0 by C2) and stability is `GoldieGermTest.pencil_finite`. `idealBound_step` is the colon-free two-call step of §4: first call; torsion equation f*b ∈ I with b regular (I1); second call with offset 0, tail t*b ≠ 0 and the single unit test of R/J; stability pencil for v = q_Q f and for old tests; a nonzero central scalar outside the finite exceptional union; inclusion (4.2). Statement equivalence relies on identifying Kdim with the library's `Module.DevLE` and tests of C_e with actual module germs (tests are an induction device; the exported A' and A have no tests). Build/axiom evidence only; independent semantic and human review remain open."
+    },
+    {
+      "id": "core-theorem-regular-corollaries",
+      "title": "Corollary B, C.1 and C.2 for simple right Noetherian rings with zero divisors",
+      "paper": [
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "**Lemma 6.1 (dimension of principal quotients; Corollary B).**"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "**Lemma 6.2 (C.1).**"
+        },
+        {
+          "path": "docs/core-theorem.md",
+          "anchor": "**Lemma 6.3 (C.2).**"
+        }
+      ],
+      "statement_relation": "partial",
+      "route_relation": "same",
+      "lean": [
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.principal_quotient_finite_of_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.quotient_finite_of_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.fixed_ideal_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.fixed_anchor_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_aux"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_cyclic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_principal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.prescribed_cyclic_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.ideal_quotient_isGoldieTorsion"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_principal"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_devLE_omega"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.exists_mul_mem_principal_of_regular"
+        },
+        {
+          "file": "GeneralizedStafford/FixedAnchor/Regular.lean",
+          "name": "GeneralizedStafford.FixedAnchor.Regular.two_generated_of_regular"
+        }
+      ],
+      "depends_on": [
+        "core-theorem-regular"
+      ],
+      "notes": "Same hypotheses as `core-theorem-regular`. B: `principal_quotient_finite_of_omega` (under Module.DevLEOmega Rᵐᵒᵖ R, R/dR has finite deviation for regular d, by left cancellation as in Lemma 6.1), `quotient_finite_of_omega` ((Reg_I) gives (Fin_I)), `fixed_ideal_of_devLE_omega`, `fixed_anchor_of_devLE_omega`. C.1: `prescribed_cyclic` (Module.Finite, `IsGoldieTorsion R M`, finite DevLE of M; ∃ h, span {x + op t • h} = ⊤ for every x and t ≠ 0), with (H_all) (`∀ d ∈ R⁰, ∃ N, DevLE N (R ⧸ dR)`) and omega variants; the induction of Lemma 6.2 runs over a finite generating set and uses Theorem A' with tail t*b, b regular. C.2: `two_generated_of_principal` assumes a ∈ I and that every y ∈ I has a regular s with y*s ∈ aR (the elementwise content of aQ = IQ used in Lemma 6.3) and proves I = aR + (y + h t)R with h ∈ I; `two_generated_of_regular` discharges that hypothesis for a regular a ∈ I by the right Ore condition. Partial: the existence of a with aQ = IQ for an arbitrary right ideal (via Q = M_s(D), I5), hence 'every right ideal is two-generated' without a domain hypothesis, is not formalized; C.3 and Remark 6.5 are not formalized."
     }
   ],
   "omitted_paper_claims": [
@@ -1540,9 +1732,9 @@
       "reason": "The full two-call induction and omega consequences are implemented for actual module germs. No equivalence with arbitrary admissible Gabriel-quotient tests, independent semantic correspondence audit or human approval is claimed."
     },
     {
-      "reference": "Core theorem (docs/core-theorem.md): non-domain simple right Noetherian rings (regular anchors, Goldie torsion), Corollary C.3 and Remark 6.5",
-      "status": "Goldie input I1 (used part) formalized; non-domain endpoints not yet formalized",
-      "reason": "Theorem A', A, B, C.1 and C.2 are formalized for domains; Goldie's theorem for simple right Noetherian rings (essential right ideals contain regular elements, right Ore condition), Goldie torsion and escape are formalized (card `goldie-simple-noetherian`), but the non-domain endpoints are not yet. C.3 additionally needs Q = M_s(D), Morita invariance of deviation and matrix rings."
+      "reference": "Core theorem (docs/core-theorem.md): classical quotient ring Q = M_s(D), aQ = IQ existence (hence two-generation of every right ideal without a domain hypothesis), Corollary C.3 and Remark 6.5",
+      "status": "not formalized",
+      "reason": "Theorem A', A, B, C.1 and C.2 (with the elementwise aQ = IQ hypothesis, or a regular a ∈ I) are formalized for simple right Noetherian rings with zero divisors (cards `core-theorem-regular`, `core-theorem-regular-corollaries`, using `goldie-simple-noetherian`). Not formalized: the classical right quotient ring as a simple Artinian ring Q = M_s(D) (I1(b)) and Wedderburn–Artin/Morita (I5), hence the existence of a with aQ = IQ for an arbitrary right ideal and C.3; Remark 6.5 (opposite side and domain-only rank consequences)."
     }
   ],
   "verification_boundary": "Checks freeze exact sources and declaration ownership; semantic correspondence is a separately reviewed assertion. No checker run silently refreshes fingerprints or promotes unformalized paper claims."
