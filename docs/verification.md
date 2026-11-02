@@ -21,7 +21,19 @@ them is publication.
 
 ## Release verification record
 
-Status: commit `4eca6de8e3ce8e4d7561cf3d012e9dcf86ceef1d`, 2 November 2026. `lake build` and the duplicate challenge/solution libraries built. `PYTHON=python3 scripts/verify.sh` passed (pins; full build; solution; 94 endpoint axiom reports, axioms exactly `propext`, `Classical.choice`, `Quot.sound`). `scripts/verify-palomar.sh` passed: duplicate files byte-identical, exactly 46 `sorry` holes, and in this local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode) all 46 compared theorems were accepted. The challenge sha256 is `2546aae28ceca93fa72326d09bf415fd15a40add94967f8148ab0492c6ef06a5`. Statement audits (2 November 2026): 14 abstract (audited `4cb2cd5e...9e95`, later name/docstring changes only), 11 Weyl-algebra (`1158aeb9...8fd8c7`), 8 filtered-ring (`cf905b9a...a0ba`), 7 enveloping-algebra (`bf6a8b90...22697`) and 6 differential-operator statements (`2546aae2...ef06a5`, no repair; definitions verbatim from the registered Global Stafford challenge), with docstring-only repairs where requested.
+Status: commit `fa98d22efe417b98d54d96902ab4d597bb5e0059` (branch `freeze`), 2 November 2026, with AlgebraicAnalysis pinned at `42dad436fcaf0fcd7f0e854ac5abe30825752158` and Mathlib at `c55e6e786f49471c72fbddbec5415808896aec1e`. This commit moves the application-independent Goldie splitting lemmas of `GeneratorBounds.lean` to AlgebraicAnalysis (`AlgebraicAnalysis.RingTheory.Goldie.Splitting`) and re-pins it; the challenge, solution and `comparator.json` bytes are those of `4eca6de8e3ce`. Commands, from the repository root with `~/.elan/bin` on `PATH`:
+
+```sh
+PYTHON=python3 scripts/verify.sh
+scripts/bootstrap-palomar-tools.sh   # CARGO_BUILD_JOBS=2; same tool revisions as below
+scripts/verify-palomar.sh
+```
+
+All exited 0. `verify.sh`: pins (exact Lean, AlgebraicAnalysis, one shared Mathlib and 8 transitive dependencies); full build of `GeneralizedStafford` and `GeneralizedStaffordSolution`; 94 endpoint axiom reports with `--trust=0`, axioms exactly `propext`, `Classical.choice`, `Quot.sound`. `verify-palomar.sh`: duplicate files byte-identical, exactly 46 `sorry` holes, both import-closure checks passed, and in this local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode) all 46 compared theorems were accepted (`nanoda kernel accepts the solution`, `Lean default kernel accepts the solution`, `Your solution is okay!`). The sandbox was not re-probed in this run. The challenge sha256 is `2546aae28ceca93fa72326d09bf415fd15a40add94967f8148ab0492c6ef06a5`.
+
+Statement audits (2 November 2026), unchanged by this run: 14 abstract (audited `4cb2cd5e...9e95`, later name/docstring changes only), 11 Weyl-algebra (`1158aeb9...8fd8c7`), 8 filtered-ring (`cf905b9a...a0ba`), 7 enveloping-algebra (`bf6a8b90...22697`) and 6 differential-operator statements (`2546aae2...ef06a5`, no repair; definitions verbatim from the registered Global Stafford challenge), with docstring-only repairs where requested.
+
+The previous record, at commit `4eca6de8e3ce8e4d7561cf3d012e9dcf86ceef1d` with AlgebraicAnalysis at `71af6ecc07335b67cad93451f33e26b0412dda6a`, passed the same checks with the same challenge sha256.
 
 ## Palomar comparator run, 2 November 2026
 

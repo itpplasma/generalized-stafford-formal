@@ -12,7 +12,11 @@ project:
     the dimension hypothesis holds when Kdim R <= omega (B); prescribed cyclic
     generators of finite Goldie-torsion modules (C.1); two-generated right
     ideals (C.2); and ceil(rho M) <= mu(M) <= floor(rho M) + 1 for the
-    normalized Goldie rank rho (C.3).
+    normalized Goldie rank rho (C.3). Applications: Weyl algebras in
+    characteristic zero (including Stafford's Conjecture 3.8), simple filtered
+    algebras with commutative Noetherian associated graded ring, simple
+    quotients of enveloping algebras, and differential operators on smooth
+    affine domains in characteristic zero, several also in left-sided form.
   # Authors and maintainers use the structured {name, orcid} form of
   # itpplasma/global-stafford-formal, even if the current upstream schema
   # prefers plain strings.
@@ -117,19 +121,22 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "4eca6de8e3ce8e4d7561cf3d012e9dcf86ceef1d"
+  commit: "fa98d22efe417b98d54d96902ab4d597bb5e0059"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 status:
   scope: >-
-    Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 are stated in the
-    Mathlib-only challenge (46 compared theorems) and proved in the solution by
+    Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 (14 statements)
+    and their applications to Weyl algebras (11), filtered rings (8), simple
+    quotients of enveloping algebras (7) and differential operators on smooth
+    affine domains (6) are stated in the Mathlib-only challenge (46 compared
+    theorems) and proved in the solution by
     transport from the library, and accepted in a local replay of the Palomar
     check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
     mode). An independent statement-faithfulness audit (2 November 2026)
     passed. Human review is open. Not registered on Palomar.
-  sorry_count: 28
+  sorry_count: 92
   sorry_in_definitions: 0
   axioms:
     - "propext"
@@ -199,7 +206,11 @@ fidelity:
     identification with rho uses s = udim(R_R) and
     length_Q(M (x) Q) = udim(M/t(M)). The C.2 full-rank existence statement
     assumes only (S), (N). The ordinal refinement delta(d) < Kdim R of the
-    dimension part of Corollary B and the opposite-side statements are omitted.
+    dimension part of Corollary B is omitted. The abstract theorems are stated
+    for right ideals and right modules only; left-sided forms are stated for
+    the applications (all filtered-ring and enveloping-algebra statements for R
+    and its opposite ring; the Weyl-algebra and D_k(A) two-generation and
+    cyclicity statements, and Theorem A for D_k(A)).
 
 review:
   status: "agent-reviewed"
@@ -266,6 +277,134 @@ alignment:
       status: "proved"
     - source: "Corollary C.3, upper bound"
       lean: "GeneralizedStaffordChallenge.corollaryC3_upper"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: two generators, right ideals"
+      lean: "GeneralizedStaffordChallenge.weylTwoGeneratedRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: two generators, left ideals"
+      lean: "GeneralizedStaffordChallenge.weylTwoGeneratedLeft"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Stafford's Conjecture 3.8"
+      lean: "GeneralizedStaffordChallenge.weylConjecture38"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Theorem A, affine form"
+      lean: "GeneralizedStaffordChallenge.weylAffineForm"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Theorem A'"
+      lean: "GeneralizedStaffordChallenge.weylFixedIdeal"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.1, torsion right modules are cyclic"
+      lean: "GeneralizedStaffordChallenge.weylTorsionCyclicRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.1, torsion left modules are cyclic"
+      lean: "GeneralizedStaffordChallenge.weylTorsionCyclicLeft"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.1, prescribed generator, right modules"
+      lean: "GeneralizedStaffordChallenge.weylPrescribedCyclicRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.1, prescribed generator, left modules"
+      lean: "GeneralizedStaffordChallenge.weylPrescribedCyclicLeft"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.2, prescribed first generator, right ideals"
+      lean: "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Weyl algebras: Corollary C.2, prescribed first generator, left ideals"
+      lean: "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedLeft"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: hypotheses (N), (Z), Kdim <= m, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredHypotheses"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Theorem A, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredTheoremA"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Theorem A', both sides"
+      lean: "GeneralizedStaffordChallenge.filteredFixedIdeal"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Corollary B, dimension part, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredCorollaryB"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Corollary C.1, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredPrescribedCyclic"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Corollary C.2, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredTwoGenerated"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings: Corollary C.3, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredGeneratorBounds"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Filtered rings with domain associated graded ring: Theorem A for every nonzero anchor, both sides"
+      lean: "GeneralizedStaffordChallenge.filteredDomain"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: hypotheses (N), (Z), Kdim <= dim g, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingHypotheses"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Theorem A, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingTheoremA"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Theorem A', both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingFixedIdeal"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Corollary B, dimension part, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingCorollaryB"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Corollary C.1, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingPrescribedCyclic"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Corollary C.2, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingTwoGenerated"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Enveloping-algebra quotients: Corollary C.3, both sides"
+      lean: "GeneralizedStaffordChallenge.envelopingGeneratorBounds"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): two generators, right ideals"
+      lean: "GeneralizedStaffordChallenge.diffOpTwoGeneratedRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): two generators, left ideals"
+      lean: "GeneralizedStaffordChallenge.diffOpTwoGeneratedLeft"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): Theorem A, right and left forms"
+      lean: "GeneralizedStaffordChallenge.diffOpFixedAnchor"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): the identity 1 = d R + F d S"
+      lean: "GeneralizedStaffordChallenge.diffOpGlobalStafford"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): torsion right modules are cyclic"
+      lean: "GeneralizedStaffordChallenge.diffOpCyclicRight"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Differential operators D_k(A): torsion left modules are cyclic"
+      lean: "GeneralizedStaffordChallenge.diffOpCyclicLeft"
       module: "GeneralizedStaffordSolution"
       status: "proved"
 

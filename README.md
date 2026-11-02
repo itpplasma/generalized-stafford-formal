@@ -71,8 +71,10 @@ Theorem A' for every such `I`.
   (`fixed_anchor`), Corollary B (`quotient_finite_of_omega`,
   `fixed_ideal_of_devLE_omega`, `fixed_anchor_of_devLE_omega`) and
   Corollary C (`span_pair_eq_span_affine`, `prescribed_cyclic*`,
-  `two_generated*` and the C.3 bounds). The library endpoints are listed in
-  [docs/endpoints.txt](docs/endpoints.txt).
+  `two_generated*` and the C.3 bounds), and the applications to the Weyl
+  algebras, filtered rings, simple quotients of enveloping algebras and
+  differential operators on smooth affine domains. The library endpoints are
+  listed in [docs/endpoints.txt](docs/endpoints.txt).
 - Palomar challenge: `GeneralizedStaffordChallenge.lean` (identical copy
   `Challenge.lean`) states the 46 compared theorems with Mathlib-only
   definitions. `GeneralizedStaffordSolution.lean` (identical copy
@@ -87,9 +89,13 @@ The project declares no axioms. The only `sorry`s are the 46 deliberate
 placeholders in each challenge file. The endpoints depend only on `propext`,
 `Classical.choice` and `Quot.sound`.
 
-Not formalized: the ordinal refinement `delta(d) < Kdim R` in the dimension
-part of Corollary B, opposite-side statements, and results beyond `omega`,
-applications and examples.
+The abstract theorems are stated for right ideals and right modules. Left-sided
+forms are stated for the applications: all filtered-ring and enveloping-algebra
+statements hold for `R` and `Rᵐᵒᵖ`, and the Weyl-algebra and `D_k(A)`
+two-generation and cyclicity statements (for `D_k(A)` also Theorem A) have
+right and left forms. Not formalized: the ordinal refinement `delta(d) < Kdim R`
+in the dimension part of Corollary B, results beyond `omega`, and applications
+other than these four classes.
 
 ## Proof structure
 
