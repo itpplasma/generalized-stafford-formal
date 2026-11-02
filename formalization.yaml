@@ -117,14 +117,14 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "a488b68d6f60471f785c046293a583a87c01ce79"
+  commit: "ff27d2a9adb23a6ecaef2aa11cb959e2bedf48b1"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 status:
   scope: >-
     Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 are stated in the
-    Mathlib-only challenge (25 compared theorems) and proved in the solution by
+    Mathlib-only challenge (33 compared theorems) and proved in the solution by
     transport from the library, and accepted in a local replay of the Palomar
     check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
     mode). An independent statement-faithfulness audit (2 November 2026)
