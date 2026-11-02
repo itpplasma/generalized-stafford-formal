@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 46 of 46 challenge theorems (14 abstract, 11 Weyl-algebra, 8 filtered-ring, 7 enveloping-algebra, 6 differential-operator applications) proved and verified at commit `fa98d22efe417b98d54d96902ab4d597bb5e0059` on branch `freeze` (2 November 2026; AlgebraicAnalysis pinned at `42dad436fcaf0fcd7f0e854ac5abe30825752158`; the later commit recording it changes no Lean file); gates below.
+Status: 46 of 46 challenge theorems (14 abstract, 11 Weyl-algebra, 8 filtered-ring, 7 enveloping-algebra, 6 differential-operator applications) proved and verified at commit `17f84e3bc693b309f40dc5c75a901ec891214bf0` (the formal freeze for the paper) (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`; the later commit recording it changes no Lean file); gates below.
 
 This file records the formal state only.
 

@@ -21,7 +21,7 @@ them is publication.
 
 ## Release verification record
 
-Status: commit `fa98d22efe417b98d54d96902ab4d597bb5e0059` (branch `freeze`), 2 November 2026, with AlgebraicAnalysis pinned at `42dad436fcaf0fcd7f0e854ac5abe30825752158` and Mathlib at `c55e6e786f49471c72fbddbec5415808896aec1e`. This commit moves the application-independent Goldie splitting lemmas of `GeneratorBounds.lean` to AlgebraicAnalysis (`AlgebraicAnalysis.RingTheory.Goldie.Splitting`) and re-pins it; the challenge, solution and `comparator.json` bytes are those of `4eca6de8e3ce`. Commands, from the repository root with `~/.elan/bin` on `PATH`:
+Status: commit `17f84e3bc693b309f40dc5c75a901ec891214bf0`, 2 November 2026, with AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168` and Mathlib at `c55e6e786f49471c72fbddbec5415808896aec1e`. Its parent commits move the application-independent Goldie splitting lemmas of `GeneratorBounds.lean` to AlgebraicAnalysis (`AlgebraicAnalysis.RingTheory.Goldie.Splitting`) and re-pins it; the challenge, solution and `comparator.json` bytes are those of `4eca6de8e3ce`. Commands, from the repository root with `~/.elan/bin` on `PATH`:
 
 ```sh
 PYTHON=python3 scripts/verify.sh
