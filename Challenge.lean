@@ -169,10 +169,12 @@ theorem fixedAnchor : FixedAnchorStatement.{u} := by
 
 /-! ## Corollary B -/
 
-/-- **Known input to Corollary B** (McConnell--Robson 2001, 6.3.9). Let `R` be
-right Noetherian with `Kdim R ≤ ω` (H_omega). Then `δ(d) = Kdim(R/dR)` is a
-finite integer for every regular `d`, that is, (H_all) holds. The paper cites
-this classical result; it is stated here because Corollary B uses it. -/
+/-- **Known input to Corollary B.** Let `R` be right Noetherian with
+`Kdim R ≤ ω` (H_omega). Then `δ(d) = Kdim(R/dR)` is a finite integer for every
+regular `d`, that is, (H_all) holds: `R` has Krull dimension
+(McConnell--Robson 2001, 6.2.3) and `Kdim(R/dR) < Kdim R ≤ ω` for regular `d`
+(ibid., 6.3.9). The paper cites this classical result; it is stated here
+because Corollary B uses it. -/
 def KnownDimensionStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsNoetherian Rᵐᵒᵖ R], HOmega R → HAll R
 
@@ -195,7 +197,7 @@ def CorollaryBFixedIdealStatement : Prop :=
     ∀ x t : R, t ≠ 0 →
       ∃ H : R, I ⊔ Submodule.span Rᵐᵒᵖ {x + H * t} = ⊤
 
-/-- `Kdim R ≤ ω` implies (H_all) (McConnell--Robson 2001, 6.3.9). -/
+/-- `Kdim R ≤ ω` implies (H_all) (McConnell--Robson 2001, 6.2.3 and 6.3.9). -/
 theorem knownDimension_hAll_of_omega : KnownDimensionStatement.{u} := by
   sorry
 
