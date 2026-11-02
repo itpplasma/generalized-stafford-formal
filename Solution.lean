@@ -11,9 +11,11 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All sixteen compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
-and Corollary B and C statements, and the two Weyl algebra two-generation statements
-(proved in `GeneralizedStafford/Challenge/WeylTransport.lean`).
+All twenty-five compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
+and Corollary B and C statements, the two Weyl algebra two-generation statements, and the
+nine Weyl algebra statements (Conjecture 3.8, the affine form, Theorem A', torsion cyclicity
+and prescribed generators, right and left, and prescribed two-generation, right and left),
+proved in `GeneralizedStafford/Challenge/WeylTransport.lean`.
 -/
 
 universe u v
@@ -83,5 +85,41 @@ theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} :=
 /-- Two generators for left ideals of the Weyl algebra `Aₙ(k)`. -/
 theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} :=
   weylTwoGeneratedLeft_proof.{u}
+
+/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: every nonzero `d` is Stafford-38 (`1 = d R + F d S`). -/
+theorem weylConjecture38 : GeneralizedStaffordWeylChallenge.Conjecture38Statement.{u} :=
+  weylConjecture38_proof.{u}
+
+/-- Theorem A for `Aₙ(k)`, affine form: `1 = d U + (B + H a) d V` for nonzero `d` and `a`. -/
+theorem weylAffineForm : GeneralizedStaffordWeylChallenge.AffineFormStatement.{u} :=
+  weylAffineForm_proof.{u}
+
+/-- Theorem A' for `Aₙ(k)`: a nonzero right ideal `I` satisfies `I + (x + H t) Aₙ(k) = Aₙ(k)`. -/
+theorem weylFixedIdeal : GeneralizedStaffordWeylChallenge.FixedIdealStatement.{u} :=
+  weylFixedIdeal_proof.{u}
+
+/-- Corollary C.1: a finitely generated torsion right `Aₙ(k)`-module is cyclic. -/
+theorem weylTorsionCyclicRight : GeneralizedStaffordWeylChallenge.TorsionCyclicRightStatement.{u, v} :=
+  weylTorsionCyclicRight_proof.{u, v}
+
+/-- Corollary C.1: a finitely generated torsion left `Aₙ(k)`-module is cyclic. -/
+theorem weylTorsionCyclicLeft : GeneralizedStaffordWeylChallenge.TorsionCyclicLeftStatement.{u, v} :=
+  weylTorsionCyclicLeft_proof.{u, v}
+
+/-- Corollary C.1, prescribed generator, right modules: `M = (x + h t) Aₙ(k)`. -/
+theorem weylPrescribedCyclicRight : GeneralizedStaffordWeylChallenge.PrescribedCyclicRightStatement.{u, v} :=
+  weylPrescribedCyclicRight_proof.{u, v}
+
+/-- Corollary C.1, prescribed generator, left modules: `M = Aₙ(k) (x + t h)`. -/
+theorem weylPrescribedCyclicLeft : GeneralizedStaffordWeylChallenge.PrescribedCyclicLeftStatement.{u, v} :=
+  weylPrescribedCyclicLeft_proof.{u, v}
+
+/-- Corollary C.2, prescribed first generator, right ideals: `I = a Aₙ(k) + (y + h t) Aₙ(k)`. -/
+theorem weylPrescribedTwoGeneratedRight : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedRightStatement.{u} :=
+  weylPrescribedTwoGeneratedRight_proof.{u}
+
+/-- Corollary C.2, prescribed first generator, left ideals: `I = Aₙ(k) a + Aₙ(k) (y + t h)`. -/
+theorem weylPrescribedTwoGeneratedLeft : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedLeftStatement.{u} :=
+  weylPrescribedTwoGeneratedLeft_proof.{u}
 
 end GeneralizedStaffordChallenge

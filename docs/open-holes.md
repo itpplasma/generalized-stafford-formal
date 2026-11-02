@@ -4,7 +4,11 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes. All 16 theorems of `comparator.json` are proved (the fourteen via `GeneralizedStafford/Challenge/Transport.lean`, the two Weyl theorems via `GeneralizedStafford/Challenge/WeylTransport.lean`) and accepted by the comparator.
+Status: no open holes. All 25 theorems of `comparator.json` are proved and accepted by the
+comparator. Fourteen are proved via `GeneralizedStafford/Challenge/Transport.lean`; the two
+`weylTwoGenerated*` theorems and the nine Weyl algebra statements below are proved in
+`GeneralizedStafford/Challenge/WeylTransport.lean` from `GeneralizedStafford/Weyl.lean`,
+with no hypothesis beyond the statements themselves.
 
 Solved: `fixedIdeal`, `fixedAnchor`, `corollaryB_dimension`,
 `corollaryB_fixedAnchor`, `corollaryB_fixedIdeal`, `corollaryC1`,
@@ -13,12 +17,13 @@ Solved: `fixedIdeal`, `fixedAnchor`, `corollaryB_dimension`,
 `corollaryC3_lower`, `corollaryC3_upper`, `weylTwoGeneratedRight`,
 `weylTwoGeneratedLeft`.
 
-Not yet in the challenge (no statement is added without a proof): the Weyl algebra
-statements of Conjecture 3.8, the affine form, the fixed ideal, torsion and prescribed
-cyclicity (right and left), and prescribed two-generation (right and left). Each needs
-that nonzero elements of `A_n(k)` are regular, i.e. that `A_n(k)` has no zero divisors.
-AlgebraicAnalysis does not provide this yet. `GeneralizedStafford/Weyl.lean` proves
-these consequences from the explicit hypothesis `NoZeroDivisorsWeyl`.
+Solved Weyl algebra statements (`A_n(k)`, `k` of characteristic zero): `weylConjecture38`
+(Stafford's Conjecture 3.8), `weylAffineForm` (Theorem A), `weylFixedIdeal` (Theorem A'),
+`weylTorsionCyclicRight` and `weylTorsionCyclicLeft` (Corollary C.1, cyclicity),
+`weylPrescribedCyclicRight` and `weylPrescribedCyclicLeft` (Corollary C.1, prescribed
+generator), `weylPrescribedTwoGeneratedRight` and `weylPrescribedTwoGeneratedLeft`
+(Corollary C.2, prescribed first generator). The regular-element facts they need come from
+AlgebraicAnalysis `Weyl.isDomain` (`A_n(k)` is a domain).
 
 Add a solution theorem only when its proof is checked; never add `sorry`.
 When one is added, extend `Solution.lean`, `GeneralizedStaffordSolution.lean`,

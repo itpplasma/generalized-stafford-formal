@@ -442,6 +442,152 @@ abbrev WeylAlg (k : Type*) [Field k] (n : ℕ) :=
 
 end Stafford38Challenge
 
+namespace Stafford
+namespace Reduction
+
+variable {k A : Type*} [Field k] [Ring A] [Algebra k A]
+
+/-- Stafford 3.8 for one element, in written operator order. -/
+def Stafford38 (e : A) : Prop := ∃ F R S : A, (1 : A) = e * R + F * e * S
+
+end Reduction
+end Stafford
+
+namespace Stafford38Challenge
+
+/-- Stafford's Conjecture 3.8 in its intended nonzero form. -/
+def UniversalStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ) (d : WeylAlg k n),
+    d ≠ 0 → Stafford.Reduction.Stafford38 d
+
+end Stafford38Challenge
+
+namespace Stafford38.TorsionCyclicity
+
+/-- Every element of a right module is killed by some nonzero right scalar. -/
+def IsRightTorsion {A : Type u} {M : Type v} [Ring A]
+    [AddCommGroup M] [Module Aᵐᵒᵖ M] : Prop :=
+  ∀ m : M, ∃ d : A, d ≠ 0 ∧ (MulOpposite.op d : Aᵐᵒᵖ) • m = 0
+
+end Stafford38.TorsionCyclicity
+
+/-! ## New statements -/
+
+namespace GeneralizedStaffordWeylChallenge
+
+open MulOpposite Stafford38Challenge
+
+/-- Every element of a left module is killed by some nonzero left scalar. -/
+def IsLeftTorsion {A : Type u} {M : Type v} [Ring A]
+    [AddCommGroup M] [Module A M] : Prop :=
+  ∀ m : M, ∃ d : A, d ≠ 0 ∧ d • m = 0
+
+/-! ### Stafford's Conjecture 3.8 and the affine form (Theorem A, Corollary B) -/
+
+/-- **Stafford's Conjecture 3.8** (Stafford 1978, p. 438): for `d ≠ 0` in
+`Aₙ(k)` there are `F, R, S` with `1 = d R + F d S`. This is literally the
+registered `Stafford38Challenge.UniversalStatement`; here it is the case
+`a = 1`, `B = 0` of the affine form (`F = H`). -/
+def Conjecture38Statement : Prop := UniversalStatement.{u}
+
+/-- **Affine form (Theorem A for `Aₙ(k)`).** For every nonzero `d`, every
+nonzero `a` and every `B` in `Aₙ(k)` there are `H, U, V` with
+`1 = d U + (B + H a) d V`. -/
+def AffineFormStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ) (d a B : WeylAlg k n),
+    d ≠ 0 → a ≠ 0 → ∃ H U V : WeylAlg k n, 1 = d * U + (B + H * a) * d * V
+
+/-- **Fixed-ideal form (Theorem A' for `Aₙ(k)`).** For every nonzero right
+ideal `I` of `Aₙ(k)`, every `x` and every nonzero `t` there is `H` with
+`I + (x + H t) Aₙ = Aₙ`. -/
+def FixedIdealStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)), I ≠ ⊥ →
+    ∀ x t : WeylAlg k n, t ≠ 0 →
+      ∃ H : WeylAlg k n, I ⊔ Submodule.span (WeylAlg k n)ᵐᵒᵖ {x + H * t} = ⊤
+
+/-! ### Torsion modules are cyclic (Corollary C.1), right and left -/
+
+/-- **Torsion cyclicity, right modules.** Every finitely generated torsion
+right `Aₙ(k)`-module is cyclic. Same proposition as the registered
+`Stafford38CorollaryChallenge.torsionCyclicStatement` of `stafford38-formal`. -/
+def TorsionCyclicRightStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (M : Type v) [AddCommGroup M] [Module (WeylAlg k n)ᵐᵒᵖ M]
+    [Module.Finite (WeylAlg k n)ᵐᵒᵖ M],
+    Stafford38.TorsionCyclicity.IsRightTorsion (A := WeylAlg k n) (M := M) →
+      ∃ z : M, Submodule.span (WeylAlg k n)ᵐᵒᵖ ({z} : Set M) = ⊤
+
+/-- **Torsion cyclicity, left modules.** Every finitely generated torsion
+left `Aₙ(k)`-module is cyclic. -/
+def TorsionCyclicLeftStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (M : Type v) [AddCommGroup M] [Module (WeylAlg k n) M]
+    [Module.Finite (WeylAlg k n) M],
+    IsLeftTorsion (A := WeylAlg k n) (M := M) →
+      ∃ z : M, Submodule.span (WeylAlg k n) ({z} : Set M) = ⊤
+
+/-- **Prescribed cyclic generator, right modules (C.1).** In a finitely
+generated torsion right `Aₙ(k)`-module `M`, for every `x ∈ M` and every
+nonzero `t` there is `h ∈ M` with `M = (x + h t) Aₙ`. -/
+def PrescribedCyclicRightStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (M : Type v) [AddCommGroup M] [Module (WeylAlg k n)ᵐᵒᵖ M]
+    [Module.Finite (WeylAlg k n)ᵐᵒᵖ M],
+    Stafford38.TorsionCyclicity.IsRightTorsion (A := WeylAlg k n) (M := M) →
+    ∀ (x : M) (t : WeylAlg k n), t ≠ 0 →
+      ∃ h : M, Submodule.span (WeylAlg k n)ᵐᵒᵖ ({x + op t • h} : Set M) = ⊤
+
+/-- **Prescribed cyclic generator, left modules (C.1 via `Aₙ ≅ Aₙᵒᵖ`).** In a
+finitely generated torsion left `Aₙ(k)`-module `M`, for every `x ∈ M` and
+every nonzero `t` there is `h ∈ M` with `M = Aₙ (x + t h)`. -/
+def PrescribedCyclicLeftStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (M : Type v) [AddCommGroup M] [Module (WeylAlg k n) M]
+    [Module.Finite (WeylAlg k n) M],
+    IsLeftTorsion (A := WeylAlg k n) (M := M) →
+    ∀ (x : M) (t : WeylAlg k n), t ≠ 0 →
+      ∃ h : M, Submodule.span (WeylAlg k n) ({x + t • h} : Set M) = ⊤
+
+/-! ### One-sided ideals are two-generated (Corollary C.2), right and left -/
+
+/-- **Two generators, right ideals.** Every right ideal of `Aₙ(k)` is
+`a Aₙ + b Aₙ` for some `a, b`. -/
+def TwoGeneratedRightStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)),
+    ∃ a b : WeylAlg k n, I = Submodule.span (WeylAlg k n)ᵐᵒᵖ {a, b}
+
+/-- **Two generators, left ideals.** Every left ideal of `Aₙ(k)` is
+`Aₙ a + Aₙ b` for some `a, b`. -/
+def TwoGeneratedLeftStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (WeylAlg k n) (WeylAlg k n)),
+    ∃ a b : WeylAlg k n, I = Submodule.span (WeylAlg k n) {a, b}
+
+/-- **Prescribed first generator, right ideals (C.2).** If `a` is a nonzero
+element of a right ideal `I` of `Aₙ(k)`, then for every `y ∈ I` and every
+nonzero `t` there is `h ∈ I` with `I = a Aₙ + (y + h t) Aₙ`. (In a domain
+`aQ = IQ` holds for every nonzero `a ∈ I`.) -/
+def PrescribedTwoGeneratedRightStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)) (a : WeylAlg k n),
+    a ∈ I → a ≠ 0 → ∀ y ∈ I, ∀ t : WeylAlg k n, t ≠ 0 →
+      ∃ h ∈ I, I = Submodule.span (WeylAlg k n)ᵐᵒᵖ {a} ⊔
+        Submodule.span (WeylAlg k n)ᵐᵒᵖ {y + h * t}
+
+/-- **Prescribed first generator, left ideals.** If `a` is a nonzero element
+of a left ideal `I` of `Aₙ(k)`, then for every `y ∈ I` and every nonzero `t`
+there is `h ∈ I` with `I = Aₙ a + Aₙ (y + t h)`. -/
+def PrescribedTwoGeneratedLeftStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (WeylAlg k n) (WeylAlg k n)) (a : WeylAlg k n),
+    a ∈ I → a ≠ 0 → ∀ y ∈ I, ∀ t : WeylAlg k n, t ≠ 0 →
+      ∃ h ∈ I, I = Submodule.span (WeylAlg k n) {a} ⊔
+        Submodule.span (WeylAlg k n) {y + t * h}
+
+end GeneralizedStaffordWeylChallenge
+
 namespace GeneralizedStaffordChallenge
 
 /-- **Two generators, right ideals of the Weyl algebra.** For every field `k` of
@@ -472,6 +618,42 @@ theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} := by
 
 /-- Two generators for left ideals of the Weyl algebra `Aₙ(k)`. -/
 theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} := by
+  sorry
+
+/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: every nonzero `d` is Stafford-38 (`1 = d R + F d S`). -/
+theorem weylConjecture38 : GeneralizedStaffordWeylChallenge.Conjecture38Statement.{u} := by
+  sorry
+
+/-- Theorem A for `Aₙ(k)`, affine form: `1 = d U + (B + H a) d V` for nonzero `d` and `a`. -/
+theorem weylAffineForm : GeneralizedStaffordWeylChallenge.AffineFormStatement.{u} := by
+  sorry
+
+/-- Theorem A' for `Aₙ(k)`: a nonzero right ideal `I` satisfies `I + (x + H t) Aₙ(k) = Aₙ(k)`. -/
+theorem weylFixedIdeal : GeneralizedStaffordWeylChallenge.FixedIdealStatement.{u} := by
+  sorry
+
+/-- Corollary C.1: a finitely generated torsion right `Aₙ(k)`-module is cyclic. -/
+theorem weylTorsionCyclicRight : GeneralizedStaffordWeylChallenge.TorsionCyclicRightStatement.{u, v} := by
+  sorry
+
+/-- Corollary C.1: a finitely generated torsion left `Aₙ(k)`-module is cyclic. -/
+theorem weylTorsionCyclicLeft : GeneralizedStaffordWeylChallenge.TorsionCyclicLeftStatement.{u, v} := by
+  sorry
+
+/-- Corollary C.1, prescribed generator, right modules: `M = (x + h t) Aₙ(k)`. -/
+theorem weylPrescribedCyclicRight : GeneralizedStaffordWeylChallenge.PrescribedCyclicRightStatement.{u, v} := by
+  sorry
+
+/-- Corollary C.1, prescribed generator, left modules: `M = Aₙ(k) (x + t h)`. -/
+theorem weylPrescribedCyclicLeft : GeneralizedStaffordWeylChallenge.PrescribedCyclicLeftStatement.{u, v} := by
+  sorry
+
+/-- Corollary C.2, prescribed first generator, right ideals: `I = a Aₙ(k) + (y + h t) Aₙ(k)`. -/
+theorem weylPrescribedTwoGeneratedRight : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedRightStatement.{u} := by
+  sorry
+
+/-- Corollary C.2, prescribed first generator, left ideals: `I = Aₙ(k) a + Aₙ(k) (y + t h)`. -/
+theorem weylPrescribedTwoGeneratedLeft : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedLeftStatement.{u} := by
   sorry
 
 end GeneralizedStaffordChallenge

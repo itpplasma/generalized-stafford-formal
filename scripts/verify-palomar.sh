@@ -38,9 +38,9 @@ while i < len(text):
         out.append(text[i])
         i += 1
 holes = len(re.findall(r"(?<![\w.'])sorry(?![\w'])", "".join(out)))
-if holes != 16:
-    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 16")
-print("Challenge: exactly 16 sorry holes outside comments")
+if holes != 25:
+    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 25")
+print("Challenge: exactly 25 sorry holes outside comments")
 PY
 
 for tool in comparator lean4export nanoda landrun; do
@@ -89,7 +89,16 @@ expected = {
         "GeneralizedStaffordChallenge.corollaryC3_lower",
         "GeneralizedStaffordChallenge.corollaryC3_upper",
         "GeneralizedStaffordChallenge.weylTwoGeneratedRight",
-        "GeneralizedStaffordChallenge.weylTwoGeneratedLeft"
+        "GeneralizedStaffordChallenge.weylTwoGeneratedLeft",
+        "GeneralizedStaffordChallenge.weylConjecture38",
+        "GeneralizedStaffordChallenge.weylAffineForm",
+        "GeneralizedStaffordChallenge.weylFixedIdeal",
+        "GeneralizedStaffordChallenge.weylTorsionCyclicRight",
+        "GeneralizedStaffordChallenge.weylTorsionCyclicLeft",
+        "GeneralizedStaffordChallenge.weylPrescribedCyclicRight",
+        "GeneralizedStaffordChallenge.weylPrescribedCyclicLeft",
+        "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedRight",
+        "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedLeft"
     ],
     "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
     "enable_nanoda": True,
