@@ -409,9 +409,14 @@ end GeneralizedStaffordChallenge
 
 The Weyl algebra `A_n(k)` is the presented algebra of the registered Stafford 3.8
 challenge. The definitions `Stafford.freeWeylRelation`, `Stafford.FreeWeyl`,
-`Stafford38Challenge.PhaseVar` and `Stafford38Challenge.WeylAlg` are copied
-verbatim from `stafford38-formal/Stafford38/ChallengeDefinitions.lean`; only the
-`import`s differ. -/
+`Stafford38Challenge.PhaseVar`, `Stafford38Challenge.WeylAlg`,
+`Stafford.Reduction.Stafford38`, `Stafford38Challenge.UniversalStatement` and
+`Stafford38.TorsionCyclicity.IsRightTorsion` are copied verbatim from
+`stafford38-formal/Stafford38/ChallengeDefinitions.lean`; only the `import`s differ.
+
+The left summand of `PhaseVar n` indexes `x_i`, the right summand `∂_i`; the
+relations `ι i ι j − ι j ι i = J i j` with `Matrix.J = [[0, −1], [1, 0]]` give
+`[∂_i, x_j] = δ_ij`, all other generators commuting. -/
 
 namespace Stafford
 
@@ -551,24 +556,10 @@ def PrescribedCyclicLeftStatement : Prop :=
 
 /-! ### One-sided ideals are two-generated (Corollary C.2), right and left -/
 
-/-- **Two generators, right ideals.** Every right ideal of `Aₙ(k)` is
-`a Aₙ + b Aₙ` for some `a, b`. -/
-def TwoGeneratedRightStatement : Prop :=
-  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
-    (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)),
-    ∃ a b : WeylAlg k n, I = Submodule.span (WeylAlg k n)ᵐᵒᵖ {a, b}
-
-/-- **Two generators, left ideals.** Every left ideal of `Aₙ(k)` is
-`Aₙ a + Aₙ b` for some `a, b`. -/
-def TwoGeneratedLeftStatement : Prop :=
-  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
-    (I : Submodule (WeylAlg k n) (WeylAlg k n)),
-    ∃ a b : WeylAlg k n, I = Submodule.span (WeylAlg k n) {a, b}
-
 /-- **Prescribed first generator, right ideals (C.2).** If `a` is a nonzero
 element of a right ideal `I` of `Aₙ(k)`, then for every `y ∈ I` and every
-nonzero `t` there is `h ∈ I` with `I = a Aₙ + (y + h t) Aₙ`. (In a domain
-`aQ = IQ` holds for every nonzero `a ∈ I`.) -/
+nonzero `t` there is `h ∈ I` with `I = a Aₙ + (y + h t) Aₙ`. (Since `Aₙ(k)` is a
+domain, any nonzero `a ∈ I` may serve as the first generator.) -/
 def PrescribedTwoGeneratedRightStatement : Prop :=
   ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
     (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)) (a : WeylAlg k n),
@@ -620,7 +611,7 @@ theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} := by
 theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} := by
   sorry
 
-/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: every nonzero `d` is Stafford-38 (`1 = d R + F d S`). -/
+/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: for every nonzero `d` there are `F, R, S` with `1 = d R + F d S`. -/
 theorem weylConjecture38 : GeneralizedStaffordWeylChallenge.Conjecture38Statement.{u} := by
   sorry
 
