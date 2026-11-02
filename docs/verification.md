@@ -21,7 +21,7 @@ them is publication.
 
 ## Release verification record
 
-Status: commit `2539e681d9712ef9f135ffab62ce3b485ad5f0de`, 2 November 2026. `PYTHON=python3 scripts/verify.sh` passed (pins; full build; solution; 46 endpoint axiom reports, axioms exactly `propext`, `Classical.choice`, `Quot.sound`). `scripts/verify-palomar.sh` passed: Comparator with NanoDa and the Lean kernel accepted all 14 compared theorems; `tests/SolutionOracle.lean` reports only the three permitted axioms for each.
+Status: commit `2feca230956005cffb79f577f1c882dabce4b044`, 2 November 2026. The Lean sources are those of that commit; the later commit recording this hash changes no Lean file. `lake build` and `lake build Challenge Solution GeneralizedStaffordChallenge GeneralizedStaffordSolution` passed. `PYTHON=python3 scripts/verify.sh` passed (pins; full build; solution; 46 endpoint axiom reports, axioms exactly `propext`, `Classical.choice`, `Quot.sound`). `scripts/verify-palomar.sh` passed: the duplicate challenge and solution files are byte-identical, the challenge has exactly 14 `sorry` holes, and in this local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode) all 14 compared theorems were accepted. `tests/SolutionOracle.lean` reports only the three permitted axioms for each; `#lint` over `GeneralizedStafford` found 0 errors in 118 declarations. The challenge sha256 is `a3b810be8d9420c85e69f6bea1299a035e510dccbde713fa274493ac02589998`; it differs from the audited `4cb2cd5e...9e95` by names and docstrings only, as confirmed by the final review.
 
 ## Palomar comparator run, 2 November 2026
 

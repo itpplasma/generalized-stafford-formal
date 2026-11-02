@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 14 of 14 challenge theorems proved and verified at commit `2539e681d971` (2 November 2026); gates below.
+Status: 14 of 14 challenge theorems proved and verified at commit `2feca2309560` (2 November 2026; the Lean sources are those of that commit, and the later commit recording it changes no Lean file); gates below.
 
 The private research repository `itpplasma/generalized-stafford` owns the
 mathematics and its status. This file owns the formal state only.
