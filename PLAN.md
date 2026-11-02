@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 14 of 14 challenge theorems proved and verified at commit `2feca2309560` (2 November 2026; the Lean sources are those of that commit, and the later commit recording it changes no Lean file); gates below.
+Status: 14 of 14 challenge theorems proved and verified at commit `45da6a2afaf3` (2 November 2026; the Lean sources are those of that commit, and the later commit recording it changes no Lean file); gates below.
 
 This file records the formal state only.
 
