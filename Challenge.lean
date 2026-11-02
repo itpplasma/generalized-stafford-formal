@@ -10,12 +10,13 @@ import Mathlib.Algebra.FreeAlgebra
 import Mathlib.LinearAlgebra.SymplecticGroup
 import Mathlib.RingTheory.GradedAlgebra.Basic
 import Mathlib.RingTheory.KrullDimension.Basic
+import Mathlib.Algebra.Lie.UniversalEnveloping
 
 /-!
 # Affine generation over simple Noetherian rings with infinite centre
 
 This file states Theorem A', Theorem A and Corollaries B and C (C.1, C.2 and
-C.3), and the two-generation statements for the Weyl algebra (and filtered rings in the last section).
+C.3), and the two-generation statements for the Weyl algebra (filtered rings and simple quotients of enveloping algebras in the last sections).
 It imports only Mathlib and defines everything else inline.
 
 ## Conventions
@@ -892,6 +893,109 @@ theorem filteredGeneratorBounds : FilteredGeneratorBoundsStatement.{u, v} := by
 /-- Filtered rings with a domain as associated graded ring: Theorem A for every
 nonzero anchor, on both sides. -/
 theorem filteredDomain : FilteredDomainStatement.{u} := by
+  sorry
+
+/-! ## Simple quotients of enveloping algebras
+
+A simple quotient `U(𝔤)/J` of the universal enveloping algebra of a
+finite-dimensional Lie algebra `𝔤` over an infinite field `k` is a simple
+`k`-algebra `R` with a surjective `k`-algebra map `f : U(𝔤) → R`: by the first
+isomorphism theorem `R ≅ U(𝔤)/ker f`, and conversely the quotient map `U(𝔤) → U(𝔤)/J`
+is such a map. The Krull dimension bound is `dim 𝔤`. As for the filtered rings
+above, the statements for `R` and for `Rᵐᵒᵖ` are written out on both sides. -/
+
+/-- **Simple quotients of enveloping algebras, hypotheses.** For a finite-dimensional
+Lie algebra `𝔤` over an infinite field `k` and a simple quotient `R` of `U(𝔤)`,
+`R` and `Rᵐᵒᵖ` are Noetherian, have infinite centre and have Krull dimension at most
+`dim 𝔤`. -/
+def EnvelopingHypothesesStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    (IsNoetherian Rᵐᵒᵖ R ∧ Infinite (Subring.center R) ∧
+        DevDimLE R R (Module.finrank k L)) ∧
+      (IsNoetherian Rᵐᵒᵖᵐᵒᵖ Rᵐᵒᵖ ∧ Infinite (Subring.center Rᵐᵒᵖ) ∧
+        DevDimLE Rᵐᵒᵖ Rᵐᵒᵖ (Module.finrank k L))
+
+/-- **Simple quotients of enveloping algebras, Theorem A.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, Theorem A holds for `R` (right form
+`1 = d U + (B + H a) d V`) and for `Rᵐᵒᵖ` (left form `1 = U d + V d (B + a H)` of `R`). -/
+def EnvelopingTheoremAStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    FixedAnchorProperty R ∧ FixedAnchorProperty Rᵐᵒᵖ
+
+/-- **Simple quotients of enveloping algebras, Theorem A'.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, Theorem A' holds for `R` and for `Rᵐᵒᵖ`. -/
+def EnvelopingFixedIdealStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    FixedIdealProperty R ∧ FixedIdealProperty Rᵐᵒᵖ
+
+/-- **Simple quotients of enveloping algebras, Corollary B.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, the dimension part of Corollary B holds for `R` and for
+`Rᵐᵒᵖ`. -/
+def EnvelopingCorollaryBStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    CorollaryBProperty R ∧ CorollaryBProperty Rᵐᵒᵖ
+
+/-- **Simple quotients of enveloping algebras, Corollary C.1.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, the prescribed-generator and stable forms of C.1 hold for
+`R` and for `Rᵐᵒᵖ`. -/
+def EnvelopingPrescribedCyclicStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    (PrescribedCyclicProperty.{u, v} R ∧ StablyCyclicProperty.{u, v} R) ∧
+      (PrescribedCyclicProperty.{u, v} Rᵐᵒᵖ ∧ StablyCyclicProperty.{u, v} Rᵐᵒᵖ)
+
+/-- **Simple quotients of enveloping algebras, Corollary C.2.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, the two-generation statements of C.2 hold for `R` and for
+`Rᵐᵒᵖ`. -/
+def EnvelopingTwoGeneratedStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    TwoGeneratedProperty R ∧ TwoGeneratedProperty Rᵐᵒᵖ
+
+/-- **Simple quotients of enveloping algebras, Corollary C.3.** Under the hypotheses of
+`EnvelopingHypothesesStatement`, the generator bounds of C.3 hold for `R` and for `Rᵐᵒᵖ`. -/
+def EnvelopingGeneratorBoundsStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
+    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
+    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
+    GeneratorBoundsProperty.{u, v} R ∧ GeneratorBoundsProperty.{u, v} Rᵐᵒᵖ
+
+/-- Simple quotients of enveloping algebras: (N), (Z) and `Kdim ≤ dim 𝔤` on both sides. -/
+theorem envelopingHypotheses : EnvelopingHypothesesStatement.{u} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: Theorem A, both forms (right and left). -/
+theorem envelopingTheoremA : EnvelopingTheoremAStatement.{u} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: Theorem A' on both sides. -/
+theorem envelopingFixedIdeal : EnvelopingFixedIdealStatement.{u} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: the dimension part of Corollary B on both sides. -/
+theorem envelopingCorollaryB : EnvelopingCorollaryBStatement.{u} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: Corollary C.1 on both sides. -/
+theorem envelopingPrescribedCyclic : EnvelopingPrescribedCyclicStatement.{u, v} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: Corollary C.2 on both sides. -/
+theorem envelopingTwoGenerated : EnvelopingTwoGeneratedStatement.{u} := by
+  sorry
+
+/-- Simple quotients of enveloping algebras: Corollary C.3 on both sides. -/
+theorem envelopingGeneratorBounds : EnvelopingGeneratorBoundsStatement.{u, v} := by
   sorry
 
 end GeneralizedStaffordChallenge

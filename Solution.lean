@@ -1,6 +1,7 @@
 import GeneralizedStafford.Challenge.Transport
 import GeneralizedStafford.Challenge.WeylTransport
 import GeneralizedStafford.Challenge.FilteredTransport
+import GeneralizedStafford.Challenge.EnvelopingTransport
 
 /-!
 # Solution: Theorem A', Theorem A and Corollaries B and C
@@ -12,13 +13,12 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All thirty-three compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
-and Corollary B and C statements, the two Weyl algebra two-generation statements, the nine Weyl
-algebra statements (Conjecture 3.8, the affine form, Theorem A', torsion cyclicity and prescribed
-generators, right and left, and prescribed two-generation, right and left), proved in
-`GeneralizedStafford/Challenge/WeylTransport.lean`, and the eight filtered-ring statements
-(hypotheses, Theorem A both forms, Theorem A', Corollary B, C.1, C.2, C.3, and the domain case),
-proved in `GeneralizedStafford/Challenge/FilteredTransport.lean`.
+All forty compared challenge theorems are solved: the thirty-three earlier compared theorems
+(the fourteen Theorem A' / Theorem A and Corollary B and C statements, the two Weyl
+two-generation statements, the nine Weyl algebra statements, and the eight filtered-ring
+statements, proved in `GeneralizedStafford/Challenge/Transport.lean`, `WeylTransport.lean` and
+`FilteredTransport.lean`), and the seven simple-quotient statements of enveloping algebras,
+proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`.
 -/
 
 universe u v
@@ -157,5 +157,33 @@ theorem filteredGeneratorBounds : FilteredGeneratorBoundsStatement.{u, v} :=
 nonzero anchor, on both sides. -/
 theorem filteredDomain : FilteredDomainStatement.{u} :=
   filteredDomain_proof.{u}
+
+/-- Simple quotients of enveloping algebras: (N), (Z) and `Kdim ≤ dim 𝔤` on both sides. -/
+theorem envelopingHypotheses : EnvelopingHypothesesStatement.{u} :=
+  envelopingHypotheses_proof.{u}
+
+/-- Simple quotients of enveloping algebras: Theorem A, both forms (right and left). -/
+theorem envelopingTheoremA : EnvelopingTheoremAStatement.{u} :=
+  envelopingTheoremA_proof.{u}
+
+/-- Simple quotients of enveloping algebras: Theorem A' on both sides. -/
+theorem envelopingFixedIdeal : EnvelopingFixedIdealStatement.{u} :=
+  envelopingFixedIdeal_proof.{u}
+
+/-- Simple quotients of enveloping algebras: the dimension part of Corollary B on both sides. -/
+theorem envelopingCorollaryB : EnvelopingCorollaryBStatement.{u} :=
+  envelopingCorollaryB_proof.{u}
+
+/-- Simple quotients of enveloping algebras: Corollary C.1 on both sides. -/
+theorem envelopingPrescribedCyclic : EnvelopingPrescribedCyclicStatement.{u, v} :=
+  envelopingPrescribedCyclic_proof.{u, v}
+
+/-- Simple quotients of enveloping algebras: Corollary C.2 on both sides. -/
+theorem envelopingTwoGenerated : EnvelopingTwoGeneratedStatement.{u} :=
+  envelopingTwoGenerated_proof.{u}
+
+/-- Simple quotients of enveloping algebras: Corollary C.3 on both sides. -/
+theorem envelopingGeneratorBounds : EnvelopingGeneratorBoundsStatement.{u, v} :=
+  envelopingGeneratorBounds_proof.{u, v}
 
 end GeneralizedStaffordChallenge

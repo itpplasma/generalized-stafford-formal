@@ -5,7 +5,7 @@ import AlgebraicAnalysis.Filtration.Opposite
 /-!
 # Simple quotients of enveloping algebras
 
-Example "enveloping algebras" of the manuscript. Let `𝔤` be a finite-dimensional Lie
+Let `𝔤` be a finite-dimensional Lie
 algebra over an infinite field `k`, and let `R` be a simple `k`-algebra with a surjective
 `k`-algebra map `π : U(𝔤) → R` (so `R ≅ U(𝔤)/J` for a two-sided ideal `J`). Then `R` and
 `Rᵐᵒᵖ` satisfy (N), (Z) and `Kdim ≤ dim 𝔤`, and hence Theorem A, Theorem A', Corollary B
