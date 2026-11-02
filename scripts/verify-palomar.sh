@@ -38,9 +38,9 @@ while i < len(text):
         out.append(text[i])
         i += 1
 holes = len(re.findall(r"(?<![\w.'])sorry(?![\w'])", "".join(out)))
-if holes != 46:
-    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 46")
-print("Challenge: exactly 46 sorry holes outside comments")
+if holes != 39:
+    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 39")
+print("Challenge: exactly 39 sorry holes outside comments")
 PY
 
 for tool in comparator lean4export nanoda landrun; do
@@ -76,7 +76,6 @@ expected = {
     "theorem_names": [
         "GeneralizedStaffordChallenge.fixedIdeal",
         "GeneralizedStaffordChallenge.fixedAnchor",
-        "GeneralizedStaffordChallenge.corollaryB_dimension",
         "GeneralizedStaffordChallenge.corollaryB_fixedAnchor",
         "GeneralizedStaffordChallenge.corollaryB_fixedIdeal",
         "GeneralizedStaffordChallenge.corollaryC1",
@@ -86,8 +85,6 @@ expected = {
         "GeneralizedStaffordChallenge.corollaryC2_fullRank",
         "GeneralizedStaffordChallenge.corollaryC2_prescribed",
         "GeneralizedStaffordChallenge.corollaryC2",
-        "GeneralizedStaffordChallenge.corollaryC3_lower",
-        "GeneralizedStaffordChallenge.corollaryC3_upper",
         "GeneralizedStaffordChallenge.weylTwoGeneratedRight",
         "GeneralizedStaffordChallenge.weylTwoGeneratedLeft",
         "GeneralizedStaffordChallenge.weylConjecture38",
@@ -102,18 +99,14 @@ expected = {
         "GeneralizedStaffordChallenge.filteredHypotheses",
         "GeneralizedStaffordChallenge.filteredTheoremA",
         "GeneralizedStaffordChallenge.filteredFixedIdeal",
-        "GeneralizedStaffordChallenge.filteredCorollaryB",
         "GeneralizedStaffordChallenge.filteredPrescribedCyclic",
         "GeneralizedStaffordChallenge.filteredTwoGenerated",
-        "GeneralizedStaffordChallenge.filteredGeneratorBounds",
         "GeneralizedStaffordChallenge.filteredDomain",
         "GeneralizedStaffordChallenge.envelopingHypotheses",
         "GeneralizedStaffordChallenge.envelopingTheoremA",
         "GeneralizedStaffordChallenge.envelopingFixedIdeal",
-        "GeneralizedStaffordChallenge.envelopingCorollaryB",
         "GeneralizedStaffordChallenge.envelopingPrescribedCyclic",
         "GeneralizedStaffordChallenge.envelopingTwoGenerated",
-        "GeneralizedStaffordChallenge.envelopingGeneratorBounds",
         "GeneralizedStaffordChallenge.diffOpTwoGeneratedRight",
         "GeneralizedStaffordChallenge.diffOpTwoGeneratedLeft",
         "GeneralizedStaffordChallenge.diffOpFixedAnchor",

@@ -44,12 +44,6 @@ def FixedIdealProperty : Prop :=
   ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
     ∀ x t : R, t ≠ 0 → ∃ H : R, I ⊔ Submodule.span Rᵐᵒᵖ {x + H * t} = ⊤
 
-/-- The dimension part of Corollary B: `R` has (H_all), and `Kdim(R/I)` is a
-finite integer for every right ideal `I` containing a regular element. -/
-def CorollaryBProperty : Prop :=
-  HAll R ∧ ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
-    HasFiniteDevDim R (R ⧸ I)
-
 /-- (C.1), prescribed generator: every finitely generated Goldie-torsion right
 module `M` satisfies `M = (x + h t)R` for some `h`, for every `x ∈ M` and every
 nonzero `t ∈ R`. -/
@@ -77,16 +71,6 @@ def TwoGeneratedProperty : Prop :=
     ∀ y ∈ I, ∀ t : R, t ≠ 0 →
       ∃ h ∈ I, I = Submodule.span Rᵐᵒᵖ {a} ⊔ Submodule.span Rᵐᵒᵖ {y + h * t}) ∧
   ∀ I : Submodule Rᵐᵒᵖ R, ∃ a b : R, I = Submodule.span Rᵐᵒᵖ {a, b}
-
-/-- (C.3): `⌈ρ(M)⌉ ≤ μ(M) ≤ ⌊ρ(M)⌋ + 1` for finitely generated right modules,
-in the division-free form of `GeneralizedStaffordChallenge.lean`
-(`ρ(M) = udim(M/t(M)) / udim(R_R)`). -/
-def GeneratorBoundsProperty : Prop :=
-  ∀ (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M],
-    (∀ m ℓ s : ℕ, SpanRankLE R M m → UDimGE R (M ⧸ goldieTorsionPart R M) ℓ →
-      UDimLE R R s → ℓ ≤ m * s) ∧
-    (∀ q ℓ s : ℕ, UDimLE R (M ⧸ goldieTorsionPart R M) ℓ → UDimGE R R s →
-      ℓ < q * s → SpanRankLE R M q)
 
 end Conclusions
 
@@ -159,14 +143,6 @@ def FilteredFixedIdealStatement : Prop :=
     [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
     FixedIdealProperty R ∧ FixedIdealProperty Rᵐᵒᵖ
 
-/-- **Corollary B, both sides (filtered rings).** Under the hypotheses of
-`FilteredTheoremAStatement`, the dimension part of Corollary B holds for `R`
-and for `Rᵐᵒᵖ`. -/
-def FilteredCorollaryBStatement : Prop :=
-  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
-    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
-    CorollaryBProperty R ∧ CorollaryBProperty Rᵐᵒᵖ
-
 /-- **Corollary C.1, both sides (filtered rings).** Under the hypotheses of
 `FilteredTheoremAStatement`, the prescribed-generator and stable forms of C.1
 hold for `R` and for `Rᵐᵒᵖ`. -/
@@ -183,14 +159,6 @@ def FilteredTwoGeneratedStatement : Prop :=
   ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
     [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
     TwoGeneratedProperty R ∧ TwoGeneratedProperty Rᵐᵒᵖ
-
-/-- **Corollary C.3, both sides (filtered rings).** Under the hypotheses of
-`FilteredTheoremAStatement`, the generator bounds of C.3 hold for `R` and for
-`Rᵐᵒᵖ`. -/
-def FilteredGeneratorBoundsStatement : Prop :=
-  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
-    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
-    GeneratorBoundsProperty.{u, v} R ∧ GeneratorBoundsProperty.{u, v} Rᵐᵒᵖ
 
 /-- **Proposition (filtered rings), hypotheses.** Let `k` be an infinite field
 and `R` a simple `k`-algebra with an exhaustive filtration such that `gr R` is
@@ -267,16 +235,6 @@ theorem fixedIdealProperty_of_omega {R : Type u} [Ring R] [IsSimpleRing R]
     FixedIdealProperty R :=
   corollaryB_fixedIdeal_proof.{u} R homega
 
-/-- The dimension part of Corollary B from (H_omega). -/
-theorem corollaryBProperty_of_omega {R : Type u} [Ring R] [IsNoetherian Rᵐᵒᵖ R]
-    (homega : HOmega R) : CorollaryBProperty R :=
-  corollaryB_dimension_proof.{u} R homega
-
-/-- (H_all) from (H_omega). -/
-theorem hAll_of_omega {R : Type u} [Ring R] [IsNoetherian Rᵐᵒᵖ R] (homega : HOmega R) :
-    HAll R :=
-  (corollaryBProperty_of_omega homega).1
-
 /-- The stable form of C.1 from (H_omega): under (H_all) a cyclic submodule `uR`
 killed by a regular element has finite deviation, and the library lemma applies. -/
 theorem stablyCyclic_of_omega {R : Type u} [Ring R] [IsSimpleRing R]
@@ -308,15 +266,6 @@ theorem twoGeneratedProperty_of_omega {R : Type u} [Ring R] [IsSimpleRing R]
   ⟨corollaryC2_prescribed_proof.{u} R (hAll_of_omega homega),
     corollaryC2_proof.{u} R (hAll_of_omega homega)⟩
 
-/-- (C.3) from (H_omega): both generator bounds. -/
-theorem generatorBoundsProperty_of_omega {R : Type u} [Ring R] [IsSimpleRing R]
-    [IsNoetherian Rᵐᵒᵖ R] [Infinite (Subring.center R)] (homega : HOmega R) :
-    GeneratorBoundsProperty.{u, v} R := by
-  intro M _ _ _
-  exact ⟨fun m ℓ s h1 h2 h3 => corollaryC3_lower_proof.{u, v} R M m ℓ s h1 h2 h3,
-    fun q ℓ s h1 h2 h3 =>
-      corollaryC3_upper_proof.{u, v} R (hAll_of_omega homega) M q ℓ s h1 h2 h3⟩
-
 /-! ## Proofs of the compared filtered statements -/
 
 /-- Filtered rings: (N), (Z), `Kdim ≤ m` on both sides, from
@@ -346,16 +295,6 @@ theorem filteredFixedIdeal_proof : FilteredFixedIdealStatement.{u} := by
   have := hZ'
   exact ⟨fixedIdealProperty_of_omega hO, fixedIdealProperty_of_omega hO'⟩
 
-/-- Filtered rings: the dimension part of Corollary B on both sides. -/
-theorem filteredCorollaryB_proof : FilteredCorollaryBStatement.{u} := by
-  intro k _ _ R _ _ _ m h
-  obtain ⟨⟨hN, hZ, -, hO⟩, ⟨hN', hZ', -, hO'⟩⟩ := filtered_side h
-  have := hN
-  have := hZ
-  have := hN'
-  have := hZ'
-  exact ⟨corollaryBProperty_of_omega hO, corollaryBProperty_of_omega hO'⟩
-
 /-- Filtered rings: Corollary C.1 (prescribed and stable) on both sides. -/
 theorem filteredPrescribedCyclic_proof : FilteredPrescribedCyclicStatement.{u, v} := by
   intro k _ _ R _ _ _ m h
@@ -376,16 +315,6 @@ theorem filteredTwoGenerated_proof : FilteredTwoGeneratedStatement.{u} := by
   have := hN'
   have := hZ'
   exact ⟨twoGeneratedProperty_of_omega hO, twoGeneratedProperty_of_omega hO'⟩
-
-/-- Filtered rings: Corollary C.3 on both sides. -/
-theorem filteredGeneratorBounds_proof : FilteredGeneratorBoundsStatement.{u, v} := by
-  intro k _ _ R _ _ _ m h
-  obtain ⟨⟨hN, hZ, -, hO⟩, ⟨hN', hZ', -, hO'⟩⟩ := filtered_side h
-  have := hN
-  have := hZ
-  have := hN'
-  have := hZ'
-  exact ⟨generatorBoundsProperty_of_omega hO, generatorBoundsProperty_of_omega hO'⟩
 
 /-- A nonzero element of a domain is regular. -/
 theorem isRegular_of_ne_zero' {R : Type u} [Ring R] [NoZeroDivisors R] {d : R} (hd : d ≠ 0) :

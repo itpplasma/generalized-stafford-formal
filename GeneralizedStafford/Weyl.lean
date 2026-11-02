@@ -109,7 +109,7 @@ theorem prescribedTwoGenerated_of_domain [IsSimpleRing A] [IsNoetherian Aᵐᵒ�
     (I : Submodule Aᵐᵒᵖ A) (a : A) (haI : a ∈ I) (ha : a ≠ 0) (y : A) (hy : y ∈ I)
     (t : A) (ht : t ≠ 0) :
     ∃ h ∈ I, I = Submodule.span Aᵐᵒᵖ {a} ⊔ Submodule.span Aᵐᵒᵖ {y + h * t} := by
-  refine corollaryC2_prescribed_proof A (corollaryB_dimension_proof A hO).1
+  refine corollaryC2_prescribed_proof A (hAll_of_omega hO)
     I a haI ?_ y hy t ht
   intro z _
   by_cases hz : z = 0
@@ -135,7 +135,7 @@ theorem twoGeneratedRight (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)) :
   have := isSimpleRing k n
   have := isNoetherian k n
   have := infinite_center k n
-  exact corollaryC2_proof (WeylAlg k n) (corollaryB_dimension_proof _ (hOmega k n)).1 I
+  exact corollaryC2_proof (WeylAlg k n) (hAll_of_omega (hOmega k n)) I
 
 /-- Every left ideal of `A_n(k)` is two-generated, transferred from the right
 case by the transposition anti-automorphism. -/

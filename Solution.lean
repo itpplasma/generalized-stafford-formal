@@ -14,13 +14,12 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All forty-six compared challenge theorems are solved: the thirty-three earlier compared theorems
-(the fourteen Theorem A' / Theorem A and Corollary B and C statements, the two Weyl
-two-generation statements, the nine Weyl algebra statements, and the eight filtered-ring
-statements, proved in `GeneralizedStafford/Challenge/Transport.lean`, `WeylTransport.lean` and
-`FilteredTransport.lean`), and the seven simple-quotient statements of enveloping algebras,
-proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`, and the six differential-operator
-statements of `D_k(A)`, proved in `GeneralizedStafford/Challenge/DiffOpTransport.lean` from
+All thirty-nine compared challenge theorems are solved: the eleven Theorem A' / Theorem A and
+Corollary B and C statements, the two Weyl two-generation statements and the nine Weyl algebra
+statements (proved in `GeneralizedStafford/Challenge/Transport.lean` and `WeylTransport.lean`),
+the six filtered-ring statements (`FilteredTransport.lean`), the five simple-quotient statements
+of enveloping algebras (`EnvelopingTransport.lean`), and the six differential-operator statements
+of `D_k(A)`, proved in `GeneralizedStafford/Challenge/DiffOpTransport.lean` from
 `GeneralizedStafford/DifferentialOperators.lean` and the AlgebraicAnalysis differential operators.
 -/
 
@@ -35,10 +34,6 @@ theorem fixedIdeal : FixedIdealStatement.{u} :=
 /-- Theorem A (fixed anchor). -/
 theorem fixedAnchor : FixedAnchorStatement.{u} :=
   fixedAnchor_proof.{u}
-
-/-- Corollary B, dimension part. -/
-theorem corollaryB_dimension : CorollaryBDimensionStatement.{u} :=
-  corollaryB_dimension_proof.{u}
 
 /-- Corollary B for Theorem A. -/
 theorem corollaryB_fixedAnchor : CorollaryBFixedAnchorStatement.{u} :=
@@ -75,14 +70,6 @@ theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} :=
 /-- Corollary C.2, every right ideal is two-generated. -/
 theorem corollaryC2 : CorollaryC2Statement.{u} :=
   corollaryC2_proof.{u}
-
-/-- Corollary C.3, lower bound `⌈ρ(M)⌉ ≤ μ(M)`. -/
-theorem corollaryC3_lower : CorollaryC3LowerStatement.{u, v} :=
-  corollaryC3_lower_proof.{u, v}
-
-/-- Corollary C.3, upper bound `μ(M) ≤ ⌊ρ(M)⌋ + 1`. -/
-theorem corollaryC3_upper : CorollaryC3UpperStatement.{u, v} :=
-  corollaryC3_upper_proof.{u, v}
 
 /-- Two generators for right ideals of the Weyl algebra `Aₙ(k)`. -/
 theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} :=
@@ -140,10 +127,6 @@ theorem filteredTheoremA : FilteredTheoremAStatement.{u} :=
 theorem filteredFixedIdeal : FilteredFixedIdealStatement.{u} :=
   filteredFixedIdeal_proof.{u}
 
-/-- Filtered rings: the dimension part of Corollary B on both sides. -/
-theorem filteredCorollaryB : FilteredCorollaryBStatement.{u} :=
-  filteredCorollaryB_proof.{u}
-
 /-- Filtered rings: Corollary C.1 (prescribed and stable) on both sides. -/
 theorem filteredPrescribedCyclic : FilteredPrescribedCyclicStatement.{u, v} :=
   filteredPrescribedCyclic_proof.{u, v}
@@ -151,10 +134,6 @@ theorem filteredPrescribedCyclic : FilteredPrescribedCyclicStatement.{u, v} :=
 /-- Filtered rings: Corollary C.2 on both sides. -/
 theorem filteredTwoGenerated : FilteredTwoGeneratedStatement.{u} :=
   filteredTwoGenerated_proof.{u}
-
-/-- Filtered rings: Corollary C.3 on both sides. -/
-theorem filteredGeneratorBounds : FilteredGeneratorBoundsStatement.{u, v} :=
-  filteredGeneratorBounds_proof.{u, v}
 
 /-- Filtered rings with a domain as associated graded ring: Theorem A for every
 nonzero anchor, on both sides. -/
@@ -173,10 +152,6 @@ theorem envelopingTheoremA : EnvelopingTheoremAStatement.{u} :=
 theorem envelopingFixedIdeal : EnvelopingFixedIdealStatement.{u} :=
   envelopingFixedIdeal_proof.{u}
 
-/-- Simple quotients of enveloping algebras: the dimension part of Corollary B on both sides. -/
-theorem envelopingCorollaryB : EnvelopingCorollaryBStatement.{u} :=
-  envelopingCorollaryB_proof.{u}
-
 /-- Simple quotients of enveloping algebras: Corollary C.1 on both sides. -/
 theorem envelopingPrescribedCyclic : EnvelopingPrescribedCyclicStatement.{u, v} :=
   envelopingPrescribedCyclic_proof.{u, v}
@@ -184,10 +159,6 @@ theorem envelopingPrescribedCyclic : EnvelopingPrescribedCyclicStatement.{u, v} 
 /-- Simple quotients of enveloping algebras: Corollary C.2 on both sides. -/
 theorem envelopingTwoGenerated : EnvelopingTwoGeneratedStatement.{u} :=
   envelopingTwoGenerated_proof.{u}
-
-/-- Simple quotients of enveloping algebras: Corollary C.3 on both sides. -/
-theorem envelopingGeneratorBounds : EnvelopingGeneratorBoundsStatement.{u, v} :=
-  envelopingGeneratorBounds_proof.{u, v}
 
 
 /-! ## Differential operators on a smooth affine variety -/

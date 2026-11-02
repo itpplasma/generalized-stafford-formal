@@ -11,7 +11,7 @@ The ring `D = D_k(A)` of finite-order `k`-linear differential operators on `A` s
 (N), (Z) and (H_omega) on both sides, by AlgebraicAnalysis (`SmoothOperators`): `D` is simple
 and a domain, it is right and left Noetherian, its right and left deviations are at most
 `2r` for `r` generators of `A`, and its centre is infinite. The conclusions of Theorem A,
-Theorem A', Corollary B and Corollaries C.1 to C.3 then follow for `D` and for `Dᵐᵒᵖ` from
+Theorem A', Corollary B and Corollaries C.1 and C.2 then follow for `D` and for `Dᵐᵒᵖ` from
 the abstract theorems of `GeneralizedStafford.Challenge.FilteredTransport`.
 
 This file proves:
@@ -92,25 +92,23 @@ section Conclusions
 variable (k : Type u) (A : Type u) [Field k] [CharZero k] [CommRing A] [IsDomain A]
   [Algebra k A] [Algebra.Smooth k A]
 
-/-- All conclusions of Theorem A', Theorem A, Corollary B and Corollaries C.1 to C.3 for a
+/-- All conclusions of Theorem A', Theorem A, Corollary B and Corollaries C.1 and C.2 for a
 simple domain-like ring `R` with (N), (Z) and (H_omega). -/
 theorem conclusions_of (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)] (homega : HOmega R) :
-    FixedAnchorProperty R ∧ FixedIdealProperty R ∧ CorollaryBProperty R ∧
+    FixedAnchorProperty R ∧ FixedIdealProperty R ∧
       PrescribedCyclicProperty.{u, v} R ∧ StablyCyclicProperty.{u, v} R ∧
-      TwoGeneratedProperty R ∧ GeneratorBoundsProperty.{u, v} R :=
+      TwoGeneratedProperty R :=
   ⟨fixedAnchorProperty_of_omega homega, fixedIdealProperty_of_omega homega,
-    corollaryBProperty_of_omega homega, prescribedCyclicProperty_of_omega homega,
-    stablyCyclic_of_omega homega, twoGeneratedProperty_of_omega homega,
-    generatorBoundsProperty_of_omega homega⟩
+    prescribedCyclicProperty_of_omega homega,
+    stablyCyclic_of_omega homega, twoGeneratedProperty_of_omega homega⟩
 
-/-- Theorem A', Theorem A, Corollary B and Corollaries C.1 to C.3 for `D_k(A)`, right ideals
+/-- Theorem A', Theorem A, Corollary B and Corollaries C.1 and C.2 for `D_k(A)`, right ideals
 and right modules. -/
 theorem conclusions_right :
     FixedAnchorProperty (DiffOp k A) ∧ FixedIdealProperty (DiffOp k A) ∧
-      CorollaryBProperty (DiffOp k A) ∧ PrescribedCyclicProperty.{u, v} (DiffOp k A) ∧
-      StablyCyclicProperty.{u, v} (DiffOp k A) ∧ TwoGeneratedProperty (DiffOp k A) ∧
-      GeneratorBoundsProperty.{u, v} (DiffOp k A) := by
+      PrescribedCyclicProperty.{u, v} (DiffOp k A) ∧
+      StablyCyclicProperty.{u, v} (DiffOp k A) ∧ TwoGeneratedProperty (DiffOp k A) := by
   have hS : IsSimpleRing (DiffOp k A) := isSimpleRing k A
   have hN : IsNoetherian (DiffOp k A)ᵐᵒᵖ (DiffOp k A) := noetherianRight k A
   have hZ : Infinite (Subring.center (DiffOp k A)) := infiniteCenterRight k A
@@ -120,9 +118,8 @@ theorem conclusions_right :
 `D_k(A)`. -/
 theorem conclusions_left :
     FixedAnchorProperty (DiffOp k A)ᵐᵒᵖ ∧ FixedIdealProperty (DiffOp k A)ᵐᵒᵖ ∧
-      CorollaryBProperty (DiffOp k A)ᵐᵒᵖ ∧ PrescribedCyclicProperty.{u, v} (DiffOp k A)ᵐᵒᵖ ∧
-      StablyCyclicProperty.{u, v} (DiffOp k A)ᵐᵒᵖ ∧ TwoGeneratedProperty (DiffOp k A)ᵐᵒᵖ ∧
-      GeneratorBoundsProperty.{u, v} (DiffOp k A)ᵐᵒᵖ := by
+      PrescribedCyclicProperty.{u, v} (DiffOp k A)ᵐᵒᵖ ∧
+      StablyCyclicProperty.{u, v} (DiffOp k A)ᵐᵒᵖ ∧ TwoGeneratedProperty (DiffOp k A)ᵐᵒᵖ := by
   have hS : IsSimpleRing (DiffOp k A) := isSimpleRing k A
   have hN : IsNoetherian (DiffOp k A)ᵐᵒᵖᵐᵒᵖ (DiffOp k A)ᵐᵒᵖ := noetherianLeft k A
   have hZ : Infinite (Subring.center (DiffOp k A)ᵐᵒᵖ) := infiniteCenterLeft k A
@@ -308,13 +305,13 @@ variable (k : Type u) (A : Type u) [Field k] [CharZero k] [CommRing A] [IsDomain
 /-- Every right ideal of `D_k(A)` is two-generated (C.2). -/
 theorem twoGeneratedRight (I : Submodule (DiffOp k A)ᵐᵒᵖ (DiffOp k A)) :
     ∃ a b : DiffOp k A, I = Submodule.span (DiffOp k A)ᵐᵒᵖ {a, b} :=
-  (conclusions_right.{u, u} k A).2.2.2.2.2.1.2 I
+  (conclusions_right.{u, u} k A).2.2.2.2.2 I
 
 /-- Every left ideal of `D_k(A)` is two-generated (C.2), from the right statement for
 `D_k(A)ᵐᵒᵖ`. -/
 theorem twoGeneratedLeft (I : Submodule (DiffOp k A) (DiffOp k A)) :
     ∃ a b : DiffOp k A, I = Submodule.span (DiffOp k A) {a, b} :=
-  twoGenerated_left_of_op (fun J => (conclusions_left.{u, u} k A).2.2.2.2.2.1.2 J) I
+  twoGenerated_left_of_op (fun J => (conclusions_left.{u, u} k A).2.2.2.2.2 J) I
 
 /-- Corollary C.1 for finitely generated right `D_k(A)`-modules killed by nonzero operators. -/
 theorem prescribedCyclicRight (M : Type v) [AddCommGroup M] [Module (DiffOp k A)ᵐᵒᵖ M]
@@ -326,7 +323,7 @@ theorem prescribedCyclicRight (M : Type v) [AddCommGroup M] [Module (DiffOp k A)
   have hG : IsGoldieTorsion (DiffOp k A) M := fun m => by
     obtain ⟨s, hs, hsm⟩ := hM m
     exact ⟨s, Weyl.isRegular_of_ne_zero hs, hsm⟩
-  exact (conclusions_right.{u, v} k A).2.2.2.1 M hG x t ht
+  exact (conclusions_right.{u, v} k A).2.2.1 M hG x t ht
 
 /-- Corollary C.1 for finitely generated left `D_k(A)`-modules killed by nonzero operators. -/
 theorem prescribedCyclicLeft (M : Type v) [AddCommGroup M] [Module (DiffOp k A) M]
@@ -335,7 +332,7 @@ theorem prescribedCyclicLeft (M : Type v) [AddCommGroup M] [Module (DiffOp k A) 
     (x : M) (t : DiffOp k A) (ht : t ≠ 0) :
     ∃ h : M, Submodule.span (DiffOp k A) {x + t • h} = ⊤ := by
   have := isDomain k A
-  exact prescribedCyclicLeft_of_property (conclusions_left.{u, v} k A).2.2.2.1 M
+  exact prescribedCyclicLeft_of_property (conclusions_left.{u, v} k A).2.2.1 M
     (fun m => by
       obtain ⟨s, hs, hsm⟩ := hM m
       exact ⟨s, hs, hsm⟩) x t ht

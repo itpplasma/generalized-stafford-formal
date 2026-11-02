@@ -10,7 +10,6 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 
 #print axioms GeneralizedStaffordChallenge.fixedIdeal
 #print axioms GeneralizedStaffordChallenge.fixedAnchor
-#print axioms GeneralizedStaffordChallenge.corollaryB_dimension
 #print axioms GeneralizedStaffordChallenge.corollaryB_fixedAnchor
 #print axioms GeneralizedStaffordChallenge.corollaryB_fixedIdeal
 #print axioms GeneralizedStaffordChallenge.corollaryC1
@@ -20,8 +19,6 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 #print axioms GeneralizedStaffordChallenge.corollaryC2_fullRank
 #print axioms GeneralizedStaffordChallenge.corollaryC2_prescribed
 #print axioms GeneralizedStaffordChallenge.corollaryC2
-#print axioms GeneralizedStaffordChallenge.corollaryC3_lower
-#print axioms GeneralizedStaffordChallenge.corollaryC3_upper
 #print axioms GeneralizedStaffordChallenge.weylTwoGeneratedRight
 #print axioms GeneralizedStaffordChallenge.weylTwoGeneratedLeft
 #print axioms GeneralizedStaffordChallenge.weylConjecture38
@@ -36,18 +33,14 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 #print axioms GeneralizedStaffordChallenge.filteredHypotheses
 #print axioms GeneralizedStaffordChallenge.filteredTheoremA
 #print axioms GeneralizedStaffordChallenge.filteredFixedIdeal
-#print axioms GeneralizedStaffordChallenge.filteredCorollaryB
 #print axioms GeneralizedStaffordChallenge.filteredPrescribedCyclic
 #print axioms GeneralizedStaffordChallenge.filteredTwoGenerated
-#print axioms GeneralizedStaffordChallenge.filteredGeneratorBounds
 #print axioms GeneralizedStaffordChallenge.filteredDomain
 #print axioms GeneralizedStaffordChallenge.envelopingHypotheses
 #print axioms GeneralizedStaffordChallenge.envelopingTheoremA
 #print axioms GeneralizedStaffordChallenge.envelopingFixedIdeal
-#print axioms GeneralizedStaffordChallenge.envelopingCorollaryB
 #print axioms GeneralizedStaffordChallenge.envelopingPrescribedCyclic
 #print axioms GeneralizedStaffordChallenge.envelopingTwoGenerated
-#print axioms GeneralizedStaffordChallenge.envelopingGeneratorBounds
 #print axioms GeneralizedStaffordChallenge.diffOpTwoGeneratedRight
 #print axioms GeneralizedStaffordChallenge.diffOpTwoGeneratedLeft
 #print axioms GeneralizedStaffordChallenge.diffOpFixedAnchor

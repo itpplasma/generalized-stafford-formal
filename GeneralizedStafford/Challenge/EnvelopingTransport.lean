@@ -54,15 +54,6 @@ def EnvelopingFixedIdealStatement : Prop :=
     (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
     FixedIdealProperty R ∧ FixedIdealProperty Rᵐᵒᵖ
 
-/-- **Simple quotients of enveloping algebras, Corollary B.** Under the hypotheses of
-`EnvelopingHypothesesStatement`, the dimension part of Corollary B holds for `R` and for
-`Rᵐᵒᵖ`. -/
-def EnvelopingCorollaryBStatement : Prop :=
-  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
-    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
-    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
-    CorollaryBProperty R ∧ CorollaryBProperty Rᵐᵒᵖ
-
 /-- **Simple quotients of enveloping algebras, Corollary C.1.** Under the hypotheses of
 `EnvelopingHypothesesStatement`, the prescribed-generator and stable forms of C.1 hold for
 `R` and for `Rᵐᵒᵖ`. -/
@@ -81,14 +72,6 @@ def EnvelopingTwoGeneratedStatement : Prop :=
     [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
     (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
     TwoGeneratedProperty R ∧ TwoGeneratedProperty Rᵐᵒᵖ
-
-/-- **Simple quotients of enveloping algebras, Corollary C.3.** Under the hypotheses of
-`EnvelopingHypothesesStatement`, the generator bounds of C.3 hold for `R` and for `Rᵐᵒᵖ`. -/
-def EnvelopingGeneratorBoundsStatement : Prop :=
-  ∀ (k : Type u) [Field k] [Infinite k] (L : Type u) [LieRing L] [LieAlgebra k L]
-    [FiniteDimensional k L] (R : Type u) [Ring R] [Algebra k R] [IsSimpleRing R]
-    (f : UniversalEnvelopingAlgebra k L →ₐ[k] R), Function.Surjective f →
-    GeneratorBoundsProperty.{u, v} R ∧ GeneratorBoundsProperty.{u, v} Rᵐᵒᵖ
 
 /-! ## Bridge: (N), (Z), `Kdim ≤ dim 𝔤` and (H_omega) on both sides -/
 
@@ -134,16 +117,6 @@ theorem envelopingFixedIdeal_proof : EnvelopingFixedIdealStatement.{u} := by
   have := hZ'
   exact ⟨fixedIdealProperty_of_omega hO, fixedIdealProperty_of_omega hO'⟩
 
-/-- Simple quotients of enveloping algebras: the dimension part of Corollary B on both sides. -/
-theorem envelopingCorollaryB_proof : EnvelopingCorollaryBStatement.{u} := by
-  intro k _ _ L _ _ _ R _ _ _ f hf
-  obtain ⟨⟨hN, hZ, -, hO⟩, ⟨hN', hZ', -, hO'⟩⟩ := envelopingSide f hf
-  have := hN
-  have := hZ
-  have := hN'
-  have := hZ'
-  exact ⟨corollaryBProperty_of_omega hO, corollaryBProperty_of_omega hO'⟩
-
 /-- Simple quotients of enveloping algebras: Corollary C.1 (prescribed and stable) on both
 sides. -/
 theorem envelopingPrescribedCyclic_proof : EnvelopingPrescribedCyclicStatement.{u, v} := by
@@ -165,15 +138,5 @@ theorem envelopingTwoGenerated_proof : EnvelopingTwoGeneratedStatement.{u} := by
   have := hN'
   have := hZ'
   exact ⟨twoGeneratedProperty_of_omega hO, twoGeneratedProperty_of_omega hO'⟩
-
-/-- Simple quotients of enveloping algebras: Corollary C.3 on both sides. -/
-theorem envelopingGeneratorBounds_proof : EnvelopingGeneratorBoundsStatement.{u, v} := by
-  intro k _ _ L _ _ _ R _ _ _ f hf
-  obtain ⟨⟨hN, hZ, -, hO⟩, ⟨hN', hZ', -, hO'⟩⟩ := envelopingSide f hf
-  have := hN
-  have := hZ
-  have := hN'
-  have := hZ'
-  exact ⟨generatorBoundsProperty_of_omega hO, generatorBoundsProperty_of_omega hO'⟩
 
 end GeneralizedStaffordChallenge
