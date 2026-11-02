@@ -1,13 +1,36 @@
-Symplectic Stafford formalization
+Generalized Stafford: Theorem A, Lean 4 formalization
 
-Copyright 2026 ITP Plasma contributors.
+Copyright 2026 Christopher Albert
 
-This distribution includes the Lean formalization and its verification
-metadata. Third-party dependencies retain their own copyright and license
-notices in their respective distributions.
+This project is distributed under the Apache License, Version 2.0. The full
+license text is provided in LICENSE.
 
-Generalized Stafford
+The project depends on Lean, Mathlib and the separately distributed
+AlgebraicAnalysis library. Those projects retain their own copyright notices
+and licenses.
 
-Derived from the Mathlib-only Symplectic Stafford proof at
-0e55a8059cc923ef39d6ddb66c5b6f6a2682b46b, with generalized filtration
-hypotheses and a new namespace. See docs/provenance.md.
+Provenance
+
+The repository began as an import of the Mathlib-only proof of the
+Symplectic Stafford formalization (itpplasma/symplectic-stafford-formal,
+commit 0e55a8059cc923ef39d6ddb66c5b6f6a2682b46b, Apache-2.0, copyright 2026
+ITP Plasma contributors), with generalized filtration hypotheses and a new
+namespace. That development and its successors are preserved on branch
+archive/pre-palomar-2026-11-02 (commit
+7697e11786b4b20e28b6c727650d3cf036232969). The current library replaces it
+with the proof of docs/core-theorem.md of the research repository.
+
+Goldie theory, deviation dimension, the germ calculus, central pencils, Ore
+localization of modules and uniform dimension are imported from
+AlgebraicAnalysis. Parts of its Goldie theory were first written in this
+repository and moved there; AlgebraicAnalysis docs/provenance.yaml records
+the move.
+
+scripts/landrun-wrapper.sh is adapted from PalomarRegistry/PalomarTemplate
+at commit 128a6c5ce5f48622e69927ccd639cbff401022e8, under Apache-2.0:
+https://github.com/PalomarRegistry/PalomarTemplate/blob/128a6c5ce5f48622e69927ccd639cbff401022e8/scripts/landrun-wrapper.sh
+The verification scripts follow the layout of itpplasma/stafford38-formal
+and itpplasma/global-stafford-formal (Apache-2.0, same author).
+
+The manuscript and the research history are separate private works and are
+not included in this repository.

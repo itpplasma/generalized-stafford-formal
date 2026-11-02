@@ -1,0 +1,47 @@
+cff-version: 1.2.0
+message: >-
+  If you use this formalization, please cite it as below. No release, DOI or
+  Palomar record exists yet.
+title: "Generalized Stafford: Theorem A. Lean 4 formalization"
+type: software
+authors:
+  - family-names: Albert
+    given-names: Christopher
+    orcid: "https://orcid.org/0000-0003-4773-416X"
+    affiliation: "Graz University of Technology"
+repository-code: "https://github.com/itpplasma/generalized-stafford-formal"
+license: Apache-2.0
+abstract: >-
+  A Lean 4 and Mathlib formalization of affine generation over simple right
+  Noetherian rings with infinite centre: for a regular d with Kdim(R/dR)
+  finite, every nonzero a and every B, there are H, U, V with
+  1 = dU + (B + Ha)dV (Theorem A), together with the fixed-ideal form
+  (Theorem A') and the corollaries for Kdim R <= omega, prescribed cyclic
+  generators of torsion modules, two-generated right ideals and generator
+  bounds by normalized Goldie rank.
+keywords:
+  - Lean
+  - Mathlib
+  - simple Noetherian rings
+  - Krull dimension
+  - number of generators
+  - Stafford's conjecture
+  - formal mathematics
+references:
+  - type: article
+    title: "Module structure of Weyl algebras"
+    authors:
+      - family-names: Stafford
+        given-names: J. T.
+    journal: "Journal of the London Mathematical Society (2)"
+    volume: 18
+    year: 1978
+    start: 429
+    end: 442
+    doi: 10.1112/jlms/s2-18.3.429
+  - type: software
+    title: "AlgebraicAnalysis"
+    authors:
+      - family-names: Albert
+        given-names: Christopher
+    repository-code: "https://github.com/itpplasma/algebraic-analysis"
