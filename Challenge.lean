@@ -8,6 +8,8 @@ import Mathlib.Order.SupIndep
 import Mathlib.Algebra.RingQuot
 import Mathlib.Algebra.FreeAlgebra
 import Mathlib.LinearAlgebra.SymplecticGroup
+import Mathlib.RingTheory.GradedAlgebra.Basic
+import Mathlib.RingTheory.KrullDimension.Basic
 
 /-!
 # Affine generation over simple Noetherian rings with infinite centre
@@ -645,6 +647,255 @@ theorem weylPrescribedTwoGeneratedRight : GeneralizedStaffordWeylChallenge.Presc
 
 /-- Corollary C.2, prescribed first generator, left ideals: `I = Aₙ(k) a + Aₙ(k) (y + t h)`. -/
 theorem weylPrescribedTwoGeneratedLeft : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedLeftStatement.{u} := by
+  sorry
+
+end GeneralizedStaffordChallenge
+
+/-! ## Filtered rings (Proposition `prop:filtered`)
+
+The hypothesis "`gr R` is commutative Noetherian of finite Krull dimension" is
+stated through an identification of `gr R = ⨁ₙ Fₙ/Fₙ₋₁` with a commutative
+graded `k`-algebra `G = ⨁ₙ 𝒜ₙ` (`GradedAlgebra 𝒜`): surjective `k`-linear
+symbol maps `grₙ : Fₙ → 𝒜ₙ` with kernel `Fₙ₋₁` (`F₋₁ = 0`) that multiply,
+`gr_{i+j}(x y) = grᵢ(x) grⱼ(y)`.
+
+*Equivalence with the classical hypothesis.* If `gr R` (with its usual
+multiplication of classes) is commutative, take `G = gr R`, `𝒜ₙ = Fₙ/Fₙ₋₁`
+and `grₙ` the quotient maps. Conversely, the maps `grₙ` induce `k`-linear
+isomorphisms `Fₙ/Fₙ₋₁ ≅ 𝒜ₙ` which carry the product of classes to the
+product of `G` (`gr_mul`); since `G` is the internal direct sum of the `𝒜ₙ`,
+their sum is a graded ring isomorphism `gr R ≅ G`. Being Noetherian and the
+Krull dimension (`ringKrullDim`, chains of prime ideals) are invariant under
+ring isomorphism. So the existential hypothesis below holds iff `gr R` is
+commutative Noetherian of Krull dimension `≤ m`. The ring `G` is taken in the
+universe of `R`, where `gr R` lives. The structures mirror
+`AlgebraicAnalysis.RingFiltration` and
+`AlgebraicAnalysis.RingFiltration.GradedSymbol` field by field (here with
+elementwise multiplicativity and exhaustiveness). -/
+
+namespace GeneralizedStaffordChallenge
+
+open MulOpposite
+
+section Conclusions
+
+variable (R : Type u) [Ring R]
+
+/-- The conclusion of Theorem A for every regular anchor (Corollary B): for
+every regular `d`, every nonzero `a` and every `B` there are `H, U, V` with
+`1 = d U + (B + H a) d V`. -/
+def FixedAnchorProperty : Prop :=
+  ∀ d a B : R, IsRegularElement d → a ≠ 0 →
+    ∃ H U V : R, 1 = d * U + (B + H * a) * d * V
+
+/-- The conclusion of Theorem A' for every right ideal containing a regular
+element (Corollary B): `I + (x + H t)R = R` for some `H`, for every `x` and
+every nonzero `t`. -/
+def FixedIdealProperty : Prop :=
+  ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
+    ∀ x t : R, t ≠ 0 → ∃ H : R, I ⊔ Submodule.span Rᵐᵒᵖ {x + H * t} = ⊤
+
+/-- The dimension part of Corollary B: `R` has (H_all), and `Kdim(R/I)` is a
+finite integer for every right ideal `I` containing a regular element. -/
+def CorollaryBProperty : Prop :=
+  HAll R ∧ ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
+    HasFiniteDevDim R (R ⧸ I)
+
+/-- (C.1), prescribed generator: every finitely generated Goldie-torsion right
+module `M` satisfies `M = (x + h t)R` for some `h`, for every `x ∈ M` and every
+nonzero `t ∈ R`. -/
+def PrescribedCyclicProperty : Prop :=
+  ∀ (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M],
+    IsGoldieTorsion R M →
+    ∀ (x : M) (t : R), t ≠ 0 → ∃ h : M, Submodule.span Rᵐᵒᵖ {x + op t • h} = ⊤
+
+/-- (C.1), stable cyclicity: for Goldie-torsion elements `c, u` of a right
+module and every nonzero `t` there is `H` with `cR + uR = (c + u H t)R`. -/
+def StablyCyclicProperty : Prop :=
+  ∀ (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] (c u : M),
+    (∃ s : R, IsRegularElement s ∧ op s • c = 0) →
+    (∃ s : R, IsRegularElement s ∧ op s • u = 0) →
+    ∀ t : R, t ≠ 0 →
+      ∃ H : R, Submodule.span Rᵐᵒᵖ {c, u} = Submodule.span Rᵐᵒᵖ {c + op (H * t) • u}
+
+/-- (C.2): every right ideal `I` is `aR + (y + h t)R` for every `a ∈ I` with
+`aQ = IQ` (every `y' ∈ I` has a regular `s` with `y' s ∈ aR`), every `y ∈ I`
+and every nonzero `t`, with some `h ∈ I`; and every right ideal is generated
+by two elements. -/
+def TwoGeneratedProperty : Prop :=
+  (∀ (I : Submodule Rᵐᵒᵖ R) (a : R), a ∈ I →
+    (∀ y ∈ I, ∃ s : R, IsRegularElement s ∧ y * s ∈ Submodule.span Rᵐᵒᵖ {a}) →
+    ∀ y ∈ I, ∀ t : R, t ≠ 0 →
+      ∃ h ∈ I, I = Submodule.span Rᵐᵒᵖ {a} ⊔ Submodule.span Rᵐᵒᵖ {y + h * t}) ∧
+  ∀ I : Submodule Rᵐᵒᵖ R, ∃ a b : R, I = Submodule.span Rᵐᵒᵖ {a, b}
+
+/-- (C.3): `⌈ρ(M)⌉ ≤ μ(M) ≤ ⌊ρ(M)⌋ + 1` for finitely generated right modules,
+in the division-free form of `GeneralizedStaffordChallenge.lean`
+(`ρ(M) = udim(M/t(M)) / udim(R_R)`). -/
+def GeneratorBoundsProperty : Prop :=
+  ∀ (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M],
+    (∀ m ℓ s : ℕ, SpanRankLE R M m → UDimGE R (M ⧸ goldieTorsionPart R M) ℓ →
+      UDimLE R R s → ℓ ≤ m * s) ∧
+    (∀ q ℓ s : ℕ, UDimLE R (M ⧸ goldieTorsionPart R M) ℓ → UDimGE R R s →
+      ℓ < q * s → SpanRankLE R M q)
+
+end Conclusions
+
+/-- An exhaustive increasing filtration `F₀ ⊆ F₁ ⊆ ⋯` of the `k`-algebra `R`
+by `k`-subspaces with `1 ∈ F₀` and `Fᵢ Fⱼ ⊆ Fᵢ₊ⱼ`. -/
+structure RingFiltration (k R : Type u) [CommRing k] [Ring R] [Algebra k R] where
+  /-- The filtration pieces `Fₙ`. -/
+  F : ℕ → Submodule k R
+  /-- `Fᵢ ⊆ Fⱼ` for `i ≤ j`. -/
+  mono : Monotone F
+  /-- `1 ∈ F₀`. -/
+  one_mem : (1 : R) ∈ F 0
+  /-- `Fᵢ Fⱼ ⊆ Fᵢ₊ⱼ`. -/
+  mul_mem : ∀ {i j : ℕ} {x y : R}, x ∈ F i → y ∈ F j → x * y ∈ F (i + j)
+  /-- The filtration is exhaustive. -/
+  exhaustive : ∀ x : R, ∃ n, x ∈ F n
+
+/-- The previous filtration piece `Fₙ₋₁`, with `F₋₁ = 0`. -/
+def RingFiltration.below {k R : Type u} [CommRing k] [Ring R] [Algebra k R]
+    (φ : RingFiltration k R) : ℕ → Submodule k R
+  | 0 => ⊥
+  | n + 1 => φ.F n
+
+/-- Principal-symbol data identifying `gr R = ⨁ₙ Fₙ/Fₙ₋₁` with the commutative
+graded algebra `G = ⨁ₙ 𝒜ₙ`: surjective `k`-linear maps `grₙ : Fₙ → 𝒜ₙ` with
+kernel `Fₙ₋₁` that multiply symbols. -/
+structure GradedSymbol {k R G : Type u} [CommRing k] [Ring R] [Algebra k R] [CommRing G]
+    [Algebra k G] (φ : RingFiltration k R) (𝒜 : ℕ → Submodule k G) where
+  /-- The degree-`n` symbol map `Fₙ → 𝒜ₙ`. -/
+  gr : ∀ n, φ.F n →ₗ[k] 𝒜 n
+  /-- Every homogeneous element of degree `n` is a symbol. -/
+  gr_surjective : ∀ n, Function.Surjective (gr n)
+  /-- The kernel of `grₙ` is `Fₙ₋₁`. -/
+  gr_eq_zero_iff : ∀ n (x : φ.F n), gr n x = 0 ↔ (x : R) ∈ φ.below n
+  /-- Symbols multiply: `gr_{i+j}(x y) = grᵢ(x) grⱼ(y)`. -/
+  gr_mul : ∀ i j (x : φ.F i) (y : φ.F j),
+    ((gr (i + j) ⟨x * y, φ.mul_mem x.2 y.2⟩ : 𝒜 (i + j)) : G) =
+      (gr i x : G) * (gr j y : G)
+
+/-- `R` has an exhaustive filtration whose associated graded ring is a
+commutative Noetherian ring of Krull dimension at most `m`. -/
+def HasCommNoetherianGr (k R : Type u) [CommRing k] [Ring R] [Algebra k R] (m : ℕ) :
+    Prop :=
+  ∃ (φ : RingFiltration k R) (G : Type u) (_ : CommRing G) (_ : Algebra k G)
+    (𝒜 : ℕ → Submodule k G) (_ : GradedAlgebra 𝒜),
+    Nonempty (GradedSymbol φ 𝒜) ∧ IsNoetherianRing G ∧ ringKrullDim G ≤ m
+
+/-- `R` has an exhaustive filtration whose associated graded ring is a
+commutative Noetherian **domain** of finite Krull dimension. -/
+def HasCommNoetherianDomainGr (k R : Type u) [CommRing k] [Ring R] [Algebra k R] :
+    Prop :=
+  ∃ (φ : RingFiltration k R) (G : Type u) (_ : CommRing G) (_ : Algebra k G)
+    (𝒜 : ℕ → Submodule k G) (_ : GradedAlgebra 𝒜),
+    Nonempty (GradedSymbol φ 𝒜) ∧ IsNoetherianRing G ∧ IsDomain G ∧ ringKrullDim G < ⊤
+
+/-- **Theorem A, both forms (filtered rings).** Let `k` be an infinite field and
+`R` a simple `k`-algebra with an exhaustive filtration such that `gr R` is
+commutative Noetherian of Krull dimension at most `m`. Then Theorem A holds for
+`R` (right form `1 = d U + (B + H a) d V`) and for `Rᵐᵒᵖ` (left form
+`1 = U d + V d (B + a H)` of `R`). -/
+def FilteredTheoremAStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    FixedAnchorProperty R ∧ FixedAnchorProperty Rᵐᵒᵖ
+
+/-- **Theorem A', both sides (filtered rings).** Under the hypotheses of
+`FilteredTheoremAStatement`, Theorem A' holds for `R` and for `Rᵐᵒᵖ`. -/
+def FilteredFixedIdealStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    FixedIdealProperty R ∧ FixedIdealProperty Rᵐᵒᵖ
+
+/-- **Corollary B, both sides (filtered rings).** Under the hypotheses of
+`FilteredTheoremAStatement`, the dimension part of Corollary B holds for `R`
+and for `Rᵐᵒᵖ`. -/
+def FilteredCorollaryBStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    CorollaryBProperty R ∧ CorollaryBProperty Rᵐᵒᵖ
+
+/-- **Corollary C.1, both sides (filtered rings).** Under the hypotheses of
+`FilteredTheoremAStatement`, the prescribed-generator and stable forms of C.1
+hold for `R` and for `Rᵐᵒᵖ`. -/
+def FilteredPrescribedCyclicStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    (PrescribedCyclicProperty.{u, v} R ∧ StablyCyclicProperty.{u, v} R) ∧
+      (PrescribedCyclicProperty.{u, v} Rᵐᵒᵖ ∧ StablyCyclicProperty.{u, v} Rᵐᵒᵖ)
+
+/-- **Corollary C.2, both sides (filtered rings).** Under the hypotheses of
+`FilteredTheoremAStatement`, the two-generation statements of C.2 hold for `R`
+and for `Rᵐᵒᵖ`. -/
+def FilteredTwoGeneratedStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    TwoGeneratedProperty R ∧ TwoGeneratedProperty Rᵐᵒᵖ
+
+/-- **Corollary C.3, both sides (filtered rings).** Under the hypotheses of
+`FilteredTheoremAStatement`, the generator bounds of C.3 hold for `R` and for
+`Rᵐᵒᵖ`. -/
+def FilteredGeneratorBoundsStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    GeneratorBoundsProperty.{u, v} R ∧ GeneratorBoundsProperty.{u, v} Rᵐᵒᵖ
+
+/-- **Proposition (filtered rings), hypotheses.** Let `k` be an infinite field
+and `R` a simple `k`-algebra with an exhaustive filtration such that `gr R` is
+commutative Noetherian of Krull dimension at most `m`. Then `R` and `Rᵐᵒᵖ`
+satisfy (N), (Z) and `Kdim ≤ m`. (`Rᵐᵒᵖ` is simple by Mathlib's instance.) -/
+def FilteredHypothesesStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R] (m : ℕ), HasCommNoetherianGr k R m →
+    (IsNoetherian Rᵐᵒᵖ R ∧ Infinite (Subring.center R) ∧ DevDimLE R R m) ∧
+    (IsNoetherian Rᵐᵒᵖᵐᵒᵖ Rᵐᵒᵖ ∧ Infinite (Subring.center Rᵐᵒᵖ) ∧ DevDimLE Rᵐᵒᵖ Rᵐᵒᵖ m)
+
+/-- **Simple quantizations.** If `R` is a simple algebra over an infinite field
+`k` with an exhaustive filtration whose associated graded ring is a commutative
+Noetherian domain of finite Krull dimension (for instance `gr R ≅ ℂ[X]` for an
+irreducible affine variety `X`), then for every nonzero `d` and `a` and every
+`B` there are `H, U, V` with `1 = d U + (B + H a) d V`, and the same holds in
+`Rᵐᵒᵖ`, i.e. `1 = U d + V d (B + a H)` in `R`. -/
+def FilteredDomainStatement : Prop :=
+  ∀ (k : Type u) [Field k] [Infinite k] (R : Type u) [Ring R] [Algebra k R]
+    [IsSimpleRing R], HasCommNoetherianDomainGr k R →
+    (∀ d a B : R, d ≠ 0 → a ≠ 0 → ∃ H U V : R, 1 = d * U + (B + H * a) * d * V) ∧
+    (∀ d a B : R, d ≠ 0 → a ≠ 0 → ∃ H U V : R, 1 = U * d + V * d * (B + a * H))
+
+/-- Filtered rings: (N), (Z), `Kdim ≤ m` on both sides. -/
+theorem filteredHypotheses : FilteredHypothesesStatement.{u} := by
+  sorry
+
+/-- Filtered rings: Theorem A, both forms (right and left). -/
+theorem filteredTheoremA : FilteredTheoremAStatement.{u} := by
+  sorry
+
+/-- Filtered rings: Theorem A' on both sides. -/
+theorem filteredFixedIdeal : FilteredFixedIdealStatement.{u} := by
+  sorry
+
+/-- Filtered rings: the dimension part of Corollary B on both sides. -/
+theorem filteredCorollaryB : FilteredCorollaryBStatement.{u} := by
+  sorry
+
+/-- Filtered rings: Corollary C.1 on both sides. -/
+theorem filteredPrescribedCyclic : FilteredPrescribedCyclicStatement.{u, v} := by
+  sorry
+
+/-- Filtered rings: Corollary C.2 on both sides. -/
+theorem filteredTwoGenerated : FilteredTwoGeneratedStatement.{u} := by
+  sorry
+
+/-- Filtered rings: Corollary C.3 on both sides. -/
+theorem filteredGeneratorBounds : FilteredGeneratorBoundsStatement.{u, v} := by
+  sorry
+
+/-- Filtered rings with a domain as associated graded ring: Theorem A for every
+nonzero anchor, on both sides. -/
+theorem filteredDomain : FilteredDomainStatement.{u} := by
   sorry
 
 end GeneralizedStaffordChallenge
