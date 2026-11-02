@@ -10,7 +10,7 @@ rev = "c55e6e786f49471c72fbddbec5415808896aec1e"
 [[require]]
 name = "algebraicAnalysis"
 git = "https://github.com/itpplasma/algebraic-analysis"
-rev = "5443734b336e78edafe40c9f5a62e1ea5b7cb64e"
+rev = "b412460a7f30c37bbb99cd9ef6e08318ae025199"
 
 [[lean_lib]]
 name = "GeneralizedStafford"
