@@ -86,7 +86,22 @@ theorem idealBound_initial {I : Submodule Rᵐᵒᵖ R} {N : ℕ}
 
 include k in
 /-- **The two-call step `P(h) → P(h+1)`** for a right ideal `I` containing a
-regular element `s`: `IdealBound I (e + 1)` implies `IdealBound I e`. -/
+regular element `s`: `IdealBound I (e + 1)` implies `IdealBound I e`.
+
+The proof follows steps 1--8 of core Section 4, marked by comments in the
+proof. One difference from the paper: core step 1 splits into the case
+`Kdim R/J < e`, where `f` already proves `P(h+1)`, and the case
+`Kdim R/J = e`. The Lean proof makes no case split. The unit test
+`(e, V_J, q_J, 0, 1)` (`unitTest`) is formed at level `e` whenever
+`Kdim R/J ≤ e`, and steps 2--8 then go through uniformly; in the first case
+the top `F_e(R/J)` is zero and the unit test is vacuous.
+
+The two hypotheses enter as in core Section 5. **E1** (infinite centre)
+enters in steps 5--7 only: step 5 needs a nonzero central `λ` outside a finite
+exceptional set, which exists because `k` is infinite; steps 6 and 7 use that
+`λ` is a central unit (`mul_mem_sup_pencil`, `test_pencil_identity`). **E2**
+(finite deviation) is not used here; it enters only in the termination
+`idealBound_zero`, where `Kdim R/I ≤ N` bounds the number of steps. -/
 theorem idealBound_step {I : Submodule Rᵐᵒᵖ R} {s : R} (hsI : s ∈ I) (hs : s ∈ R⁰)
     (e : ℕ) (hbound : IdealBound I (e + 1)) : IdealBound I e := by
   classical

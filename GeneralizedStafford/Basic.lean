@@ -36,7 +36,13 @@ universe u v
 
 variable {R : Type u} [Ring R]
 
-/-- Hypothesis (H_all): `δ(d) = Kdim(R/dR)` is finite for every regular `d`. -/
+/-- Hypothesis (H_all): `δ(d) = Kdim(R/dR)` is finite for every regular `d`.
+
+The name `HAll` is taken by the challenge's own copy of this hypothesis,
+`GeneralizedStaffordChallenge.HAll`, which the transport file restates while
+opening this namespace; the library predicate keeps a descriptive name to
+avoid that clash, and `GeneralizedStaffordChallenge.hAll_iff` identifies the
+two. -/
 def PrincipalQuotientsFinite (R : Type u) [Ring R] : Prop :=
   ∀ d : R, d ∈ nonZeroDivisors R → ∃ N, Module.DevLE Rᵐᵒᵖ N (R ⧸ principalRightIdeal d)
 

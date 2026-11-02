@@ -40,8 +40,12 @@ need it to build or verify.
   files give the proof idea in a few sentences, because the paper cites them
   as the proof.
 - Every public declaration has a docstring in plain mathematical English with
-  the paper's notation (`d, a, B, H, U, V, I, x, t`). Hypotheses are named as
-  in the paper (`hS`, `hN`, `hZ`, `hreg`, `hfin`).
+  the paper's notation (`d, a, B, H, U, V, I, x, t`). In the library, (S) and
+  (N) are instance arguments (`[IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]`) and
+  (Z) is an infinite central field `k` with `[Field k] [Infinite k]
+  [Algebra k R]`. Named hypotheses follow the paper: `hreg` (a regular
+  element), `hfin` (finite deviation), `homega` (`Kdim R ≤ ω`) and `hall`
+  ((H_all)).
 - Mathlib naming and sidedness conventions. `#print axioms` lines belong in
   tests and verifier scripts, not in library files.
 

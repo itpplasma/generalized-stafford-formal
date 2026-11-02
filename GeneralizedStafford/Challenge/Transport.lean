@@ -436,11 +436,11 @@ theorem corollaryC1_proof : CorollaryC1Statement.{u, v} := by
   refine withCentre R _ fun k _ _ _ => ?_
   exact prescribed_cyclic (k := k) (isGoldieTorsion_iff.mp htor) ((devDimLE_iff N).mp hN) x ht
 
-/-- Corollary C.1 under (H_all), from `GeneralizedStafford.prescribed_cyclic_of_principal`. -/
+/-- Corollary C.1 under (H_all), from `GeneralizedStafford.prescribed_cyclic_of_hAll`. -/
 theorem corollaryC1_hAll_proof : CorollaryC1HAllStatement.{u, v} := by
   intro R _ _ _ _ hall M _ _ _ htor x t ht
   refine withCentre R _ fun k _ _ _ => ?_
-  exact prescribed_cyclic_of_principal (k := k) (hAll_iff.mp hall)
+  exact prescribed_cyclic_of_hAll (k := k) (hAll_iff.mp hall)
     (isGoldieTorsion_iff.mp htor) x ht
 
 /-- Corollary C.1 under (H_omega), from
@@ -459,18 +459,20 @@ theorem corollaryC1_stable_proof : CorollaryC1StableStatement.{u, v} := by
   exact span_pair_eq_span_affine (k := k) c u hc hu ⟨N, (devDimLE_iff N).mp hN⟩ ht
 
 /-- Existence of a full-rank element, from Goldie's theorem
-`AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem`. -/
+`AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem`. This is a thin
+wrapper: the proof is that AlgebraicAnalysis theorem (pinned revision
+`dd37590`), after translating the challenge's spans and regularity. -/
 theorem corollaryC2_fullRank_proof : CorollaryC2FullRankStatement.{u} := by
   intro R _ _ _ I
   simp only [span_singleton_eq, isRegular_iff]
   exact AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem I
 
-/-- Corollary C.2, prescribed form, from `GeneralizedStafford.two_generated_of_principal`. -/
+/-- Corollary C.2, prescribed form, from `GeneralizedStafford.two_generated_prescribed`. -/
 theorem corollaryC2_prescribed_proof : CorollaryC2PrescribedStatement.{u} := by
   intro R _ _ _ _ hall I a haI hIa y hyI t ht
   refine withCentre R _ fun k _ _ _ => ?_
   simp only [span_singleton_eq] at hIa ⊢
-  exact two_generated_of_principal (k := k) (hAll_iff.mp hall) haI hIa hyI ht
+  exact two_generated_prescribed (k := k) (hAll_iff.mp hall) haI hIa hyI ht
 
 /-- Corollary C.2, two generators, from `GeneralizedStafford.two_generated`. -/
 theorem corollaryC2_proof : CorollaryC2Statement.{u} := by

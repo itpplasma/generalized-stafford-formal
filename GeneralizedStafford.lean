@@ -17,6 +17,10 @@ Theorem A' (fixed ideal), Theorem A (fixed anchor), Corollary B and
 Corollary C.1, C.1 stable, C.2 and C.3 of `docs/core-theorem.md`, for simple right
 Noetherian rings with an infinite central field; zero divisors are allowed.
 
+Paths such as `docs/core-theorem.md` and `docs/manuscript/main.tex` in the
+module docstrings refer to the private research repository
+`itpplasma/generalized-stafford`, not to this repository.
+
 * `GeneralizedStafford.Basic`: conventions and deviation facts (Section 0).
 * `GeneralizedStafford.Germs`: germs and source selection (Section 3).
 * `GeneralizedStafford.Descent`: the two-call descent (Section 4).

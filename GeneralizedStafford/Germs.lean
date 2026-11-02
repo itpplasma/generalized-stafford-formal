@@ -193,8 +193,9 @@ variable [∀ i, Module Rᵐᵒᵖ (Wᵢ i)] [∀ i, SMulCommClass Rᵐᵒᵖ (E
 spaces into Goldie-torsion bimodules `Wᵢ`, `Zᵢ` arbitrary, `a ≠ 0` and `bᵢ`
 regular. There is a direction `H` such that `d ↦ Zᵢ d + Pᵢ(d) (B + σ(c) H a) bᵢ`
 is injective for all `i` and all but finitely many central scalars `c`.
-Step 1 combines maximal rank (Lemma 3.5) for each `i` by ordinary pencils;
-Step 2 is a reversed pencil (Lemma 3.3). -/
+Step 1 combines maximal rank (Lemma 3.5) for each `i` by ordinary pencils
+(AlgebraicAnalysis `exists_simultaneously_injective`); Step 2 is a reversed
+pencil (Lemma 3.3, AlgebraicAnalysis `reversed_centralPencil_injective_finite`). -/
 theorem exists_affine_direction_of_goldie
     (hW : ∀ i, IsGoldieTorsion R (Wᵢ i))
     (σ : k →+* R) (κ : ∀ i, k →+* Eᵢ i)
@@ -261,6 +262,47 @@ theorem exists_affine_source_of_goldie
   exact hc ⟨i, hi, hbad⟩
 
 end FiniteSelection
+
+/-! ## Tests -/
+
+/-- A **test** `(e, V, q, z, c)` of core-theorem.md Section 3: a Noetherian
+Goldie-torsion module `V` (the target) with `Kdim V ≤ e`, an epic germ `q`, an
+arbitrary germ `z` (the offset) and a regular tail `c`. -/
+structure GermTest (R : Type u) [Ring R] where
+  /-- The level `e`. -/
+  level : ℕ
+  /-- The target module `V`. -/
+  Target : Type u
+  [addCommGroup : AddCommGroup Target]
+  [module : Module Rᵐᵒᵖ Target]
+  [noetherian : IsNoetherian Rᵐᵒᵖ Target]
+  /-- `Kdim V ≤ e`. -/
+  bounded : Module.DevLE Rᵐᵒᵖ level Target
+  /-- `V` is Goldie-torsion. -/
+  torsion : IsGoldieTorsion R Target
+  /-- The epic germ `q`. -/
+  q : Hom Rᵐᵒᵖ level R Target
+  /-- The offset germ `z`. -/
+  offset : Hom Rᵐᵒᵖ level R Target
+  /-- `q` is epic. -/
+  epic : Hom.Epic q
+  /-- The tail `c`. -/
+  tail : R
+  /-- The tail `c` is regular. -/
+  tail_reg : tail ∈ R⁰
+
+attribute [instance] GermTest.addCommGroup GermTest.module GermTest.noetherian
+
+section Tests
+
+variable {R : Type u} [Ring R]
+
+/-- An element `f` **satisfies** the test `(e, V, q, z, c)` if `z + q f c` is
+epic. -/
+def GermTest.Satisfied (τ : GermTest R) (f : R) : Prop :=
+  Hom.Epic (τ.offset + op (f * τ.tail) • τ.q)
+
+end Tests
 
 /-! ## Lemma 3.6: source selection for germ tests -/
 
@@ -347,44 +389,11 @@ theorem exists_affine_epic_tests
 
 end Selection
 
-/-! ## Tests -/
+/-! ## Tests: stability, selection and the unit test -/
 
-/-- A **test** `(e, V, q, z, c)` of core-theorem.md Section 3: a Noetherian
-Goldie-torsion module `V` (the target) with `Kdim V ≤ e`, an epic germ `q`, an
-arbitrary germ `z` (the offset) and a regular tail `c`. -/
-structure GermTest (R : Type u) [Ring R] where
-  /-- The level `e`. -/
-  level : ℕ
-  /-- The target module `V`. -/
-  Target : Type u
-  [addCommGroup : AddCommGroup Target]
-  [module : Module Rᵐᵒᵖ Target]
-  [noetherian : IsNoetherian Rᵐᵒᵖ Target]
-  /-- `Kdim V ≤ e`. -/
-  bounded : Module.DevLE Rᵐᵒᵖ level Target
-  /-- `V` is Goldie-torsion. -/
-  torsion : IsGoldieTorsion R Target
-  /-- The epic germ `q`. -/
-  q : Hom Rᵐᵒᵖ level R Target
-  /-- The offset germ `z`. -/
-  offset : Hom Rᵐᵒᵖ level R Target
-  /-- `q` is epic. -/
-  epic : Hom.Epic q
-  /-- The tail `c`. -/
-  tail : R
-  /-- The tail `c` is regular. -/
-  tail_reg : tail ∈ R⁰
-
-attribute [instance] GermTest.addCommGroup GermTest.module GermTest.noetherian
-
-section Tests
+section TestLemmas
 
 variable {R : Type u} [Ring R]
-
-/-- An element `f` **satisfies** the test `(e, V, q, z, c)` if `z + q f c` is
-epic. -/
-def GermTest.Satisfied (τ : GermTest R) (f : R) : Prop :=
-  Hom.Epic (τ.offset + op (f * τ.tail) • τ.q)
 
 /-- For a central `λ`: `z + q (f + λ g) c = (z + q f c) + (q g c) λ`. -/
 theorem test_pencil_identity {M : Type u} [AddCommGroup M] [Module Rᵐᵒᵖ M]
@@ -445,6 +454,6 @@ theorem unitTest_satisfied_iff [IsNoetherian Rᵐᵒᵖ R] (J : Submodule Rᵐ�
   rw [zero_add, mul_one]
   exact smul_mkQ_epic_iff J f
 
-end Tests
+end TestLemmas
 
 end GeneralizedStafford
