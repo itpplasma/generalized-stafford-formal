@@ -6,7 +6,7 @@
 | --- | --- |
 | Lean | `leanprover/lean4:v4.35.0-rc3` |
 | Mathlib | `c55e6e786f49471c72fbddbec5415808896aec1e` |
-| [AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis) | `dd375904ef6ddffcdadc6f60ee567a6547623be5` |
+| [AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis) | `5443734b336e78edafe40c9f5a62e1ea5b7cb64e` |
 
 `lean-toolchain` sets Lean. `lakefile.toml` sets the two dependencies, and
 `lake-manifest.json` resolves them. `dependency-pins.json` is the reviewed
