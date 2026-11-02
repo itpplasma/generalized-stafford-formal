@@ -5,7 +5,7 @@ Noetherian rings with infinite centre, and of its module corollaries. The
 case `a = 1`, `B = 0` of Theorem A is the identity `R = dR + HdR`, which
 Stafford conjectured for the Weyl algebras (Conjecture 3.8 of Stafford 1978).
 
-Status: all 40 challenge theorems (Theorem A′, A, Corollaries B, C.1–C.3; eleven Weyl-algebra applications; eight filtered-ring and seven enveloping-algebra applications on both sides) are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. Independent human review is pending.
+Status: all 46 challenge theorems (Theorem A′, A, Corollaries B, C.1–C.3; eleven Weyl-algebra applications; eight filtered-ring and seven enveloping-algebra applications on both sides; six applications to differential operators on smooth affine varieties, including two-generation of one-sided ideals and the Global Stafford identity) are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. Independent human review is pending.
 
 ## The theorem
 
@@ -74,7 +74,7 @@ Theorem A' for every such `I`.
   `two_generated*` and the C.3 bounds). The library endpoints are listed in
   [docs/endpoints.txt](docs/endpoints.txt).
 - Palomar challenge: `GeneralizedStaffordChallenge.lean` (identical copy
-  `Challenge.lean`) states the 40 compared theorems with Mathlib-only
+  `Challenge.lean`) states the 46 compared theorems with Mathlib-only
   definitions. `GeneralizedStaffordSolution.lean` (identical copy
   `Solution.lean`) proves them by transport from the library and does not
   import the challenge. `comparator.json` lists the theorems.
@@ -83,7 +83,7 @@ The challenge encodes C.3 without division or rounding, through uniform
 dimensions: `s = udim(R_R)` and `length_Q(M ⊗_R Q) = udim(M/t(M))`. These two
 classical identities (Goldie theory) connect the Lean statements to `rho`.
 
-The project declares no axioms. The only `sorry`s are the 40 deliberate
+The project declares no axioms. The only `sorry`s are the 46 deliberate
 placeholders in each challenge file. The endpoints depend only on `propext`,
 `Classical.choice` and `Quot.sound`.
 

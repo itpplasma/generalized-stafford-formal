@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 40 of 40 challenge theorems (14 abstract, 11 Weyl-algebra, 8 filtered-ring, 7 enveloping-algebra applications) proved and verified at commit `20940f6fbe16` (2 November 2026; the Lean sources are those of that commit, and the later commit recording it changes no Lean file); gates below.
+Status: 46 of 46 challenge theorems (14 abstract, 11 Weyl-algebra, 8 filtered-ring, 7 enveloping-algebra, 6 differential-operator applications) proved and verified at commit `4eca6de8e3ce` (2 November 2026; the Lean sources are those of that commit, and the later commit recording it changes no Lean file); gates below.
 
 This file records the formal state only.
 
@@ -10,7 +10,7 @@ This file records the formal state only.
 
 The library formalizes Theorem A', Theorem A and Corollaries B, C.1, C.2 and
 C.3. The Palomar challenge `GeneralizedStaffordChallenge.lean` (copy
-`Challenge.lean`) states the 40 compared theorems listed in `comparator.json`.
+`Challenge.lean`) states the 46 compared theorems listed in `comparator.json`.
 
 ## Gates
 
@@ -18,7 +18,7 @@ C.3. The Palomar challenge `GeneralizedStaffordChallenge.lean` (copy
 | --- | --- | --- |
 | Build | PASSED | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the release commit. |
 | Axiom audit | PASSED (46 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
-| Palomar check (local replay) | PASSED (40 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
+| Palomar check (local replay) | PASSED (46 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
 | Statement faithfulness | PASS | An independent statement-faithfulness audit (2 November 2026) passed; audited challenge sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`. Definitions, hypotheses, statements and the C.3 encoding passed; readability repairs (renames and docstrings) were applied without statement change. Later challenge changes are name/docstring-only, confirmed by the final review of 2 November 2026. |
 | Human review | OPEN | Agent audits are not human review. |
 | Palomar registration | NOT DONE | Requires explicit human authorization ([runbook](docs/release-runbook.md)). |
