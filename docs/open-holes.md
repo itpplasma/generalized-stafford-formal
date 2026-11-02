@@ -4,7 +4,7 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes among the 33 compared theorems of `comparator.json`. All 33 are proved
+Status: no open holes among the 40 compared theorems of `comparator.json`. All 40 are proved
 and accepted by the local Comparator replay. Twenty-five are as before (fourteen via
 `GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
 Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`). The eight filtered-ring
@@ -33,6 +33,14 @@ commutative Noetherian graded algebra of finite Krull dimension, both sides): `f
 (Theorem A'), `filteredCorollaryB` (dimension part of Corollary B), `filteredPrescribedCyclic`
 (C.1, prescribed and stable), `filteredTwoGenerated` (C.2), `filteredGeneratorBounds` (C.3) and
 `filteredDomain` (Theorem A for nonzero anchors when the symbol is a domain).
+
+Solved simple-quotient statements of enveloping algebras (`U(𝔤)/J` as a simple `k`-algebra `R`
+with a surjective algebra map `U(𝔤) → R`, `𝔤` finite-dimensional, `k` infinite): `envelopingHypotheses`
+((N), (Z), `Kdim ≤ dim 𝔤` on both sides), `envelopingTheoremA`, `envelopingFixedIdeal`,
+`envelopingCorollaryB`, `envelopingPrescribedCyclic` (C.1), `envelopingTwoGenerated` (C.2) and
+`envelopingGeneratorBounds` (C.3). They are proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`
+from `GeneralizedStafford/Enveloping.lean`, which uses the PBW symbol presentation of AlgebraicAnalysis
+(`pbwSymbolPresentation`, no PBW theorem beyond spanning), with no hypothesis beyond the statements.
 
 Add a solution theorem only when its proof is checked; never add `sorry`.
 When one is added, extend `Solution.lean`, `GeneralizedStaffordSolution.lean`,

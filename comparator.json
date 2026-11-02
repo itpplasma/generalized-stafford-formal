@@ -34,7 +34,14 @@
     "GeneralizedStaffordChallenge.filteredPrescribedCyclic",
     "GeneralizedStaffordChallenge.filteredTwoGenerated",
     "GeneralizedStaffordChallenge.filteredGeneratorBounds",
-    "GeneralizedStaffordChallenge.filteredDomain"
+    "GeneralizedStaffordChallenge.filteredDomain",
+    "GeneralizedStaffordChallenge.envelopingHypotheses",
+    "GeneralizedStaffordChallenge.envelopingTheoremA",
+    "GeneralizedStaffordChallenge.envelopingFixedIdeal",
+    "GeneralizedStaffordChallenge.envelopingCorollaryB",
+    "GeneralizedStaffordChallenge.envelopingPrescribedCyclic",
+    "GeneralizedStaffordChallenge.envelopingTwoGenerated",
+    "GeneralizedStaffordChallenge.envelopingGeneratorBounds"
   ],
   "permitted_axioms": [
     "propext",
