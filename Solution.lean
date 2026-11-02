@@ -1,5 +1,6 @@
 import GeneralizedStafford.Challenge.Transport
 import GeneralizedStafford.Challenge.WeylTransport
+import GeneralizedStafford.Challenge.FilteredTransport
 
 /-!
 # Solution: Theorem A', Theorem A and Corollaries B and C
@@ -11,11 +12,13 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All twenty-five compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
-and Corollary B and C statements, the two Weyl algebra two-generation statements, and the
-nine Weyl algebra statements (Conjecture 3.8, the affine form, Theorem A', torsion cyclicity
-and prescribed generators, right and left, and prescribed two-generation, right and left),
-proved in `GeneralizedStafford/Challenge/WeylTransport.lean`.
+All thirty-three compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
+and Corollary B and C statements, the two Weyl algebra two-generation statements, the nine Weyl
+algebra statements (Conjecture 3.8, the affine form, Theorem A', torsion cyclicity and prescribed
+generators, right and left, and prescribed two-generation, right and left), proved in
+`GeneralizedStafford/Challenge/WeylTransport.lean`, and the eight filtered-ring statements
+(hypotheses, Theorem A both forms, Theorem A', Corollary B, C.1, C.2, C.3, and the domain case),
+proved in `GeneralizedStafford/Challenge/FilteredTransport.lean`.
 -/
 
 universe u v
@@ -121,5 +124,38 @@ theorem weylPrescribedTwoGeneratedRight : GeneralizedStaffordWeylChallenge.Presc
 /-- Corollary C.2, prescribed first generator, left ideals: `I = Aₙ(k) a + Aₙ(k) (y + t h)`. -/
 theorem weylPrescribedTwoGeneratedLeft : GeneralizedStaffordWeylChallenge.PrescribedTwoGeneratedLeftStatement.{u} :=
   weylPrescribedTwoGeneratedLeft_proof.{u}
+
+/-- Filtered rings: (N), (Z) and `Kdim ≤ m` on both sides. -/
+theorem filteredHypotheses : FilteredHypothesesStatement.{u} :=
+  filteredHypotheses_proof.{u}
+
+/-- Filtered rings: Theorem A, right and left forms. -/
+theorem filteredTheoremA : FilteredTheoremAStatement.{u} :=
+  filteredTheoremA_proof.{u}
+
+/-- Filtered rings: Theorem A' on both sides. -/
+theorem filteredFixedIdeal : FilteredFixedIdealStatement.{u} :=
+  filteredFixedIdeal_proof.{u}
+
+/-- Filtered rings: the dimension part of Corollary B on both sides. -/
+theorem filteredCorollaryB : FilteredCorollaryBStatement.{u} :=
+  filteredCorollaryB_proof.{u}
+
+/-- Filtered rings: Corollary C.1 (prescribed and stable) on both sides. -/
+theorem filteredPrescribedCyclic : FilteredPrescribedCyclicStatement.{u, v} :=
+  filteredPrescribedCyclic_proof.{u, v}
+
+/-- Filtered rings: Corollary C.2 on both sides. -/
+theorem filteredTwoGenerated : FilteredTwoGeneratedStatement.{u} :=
+  filteredTwoGenerated_proof.{u}
+
+/-- Filtered rings: Corollary C.3 on both sides. -/
+theorem filteredGeneratorBounds : FilteredGeneratorBoundsStatement.{u, v} :=
+  filteredGeneratorBounds_proof.{u, v}
+
+/-- Filtered rings with a domain as associated graded ring: Theorem A for every
+nonzero anchor, on both sides. -/
+theorem filteredDomain : FilteredDomainStatement.{u} :=
+  filteredDomain_proof.{u}
 
 end GeneralizedStaffordChallenge

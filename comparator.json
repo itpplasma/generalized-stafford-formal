@@ -26,7 +26,15 @@
     "GeneralizedStaffordChallenge.weylPrescribedCyclicRight",
     "GeneralizedStaffordChallenge.weylPrescribedCyclicLeft",
     "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedRight",
-    "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedLeft"
+    "GeneralizedStaffordChallenge.weylPrescribedTwoGeneratedLeft",
+    "GeneralizedStaffordChallenge.filteredHypotheses",
+    "GeneralizedStaffordChallenge.filteredTheoremA",
+    "GeneralizedStaffordChallenge.filteredFixedIdeal",
+    "GeneralizedStaffordChallenge.filteredCorollaryB",
+    "GeneralizedStaffordChallenge.filteredPrescribedCyclic",
+    "GeneralizedStaffordChallenge.filteredTwoGenerated",
+    "GeneralizedStaffordChallenge.filteredGeneratorBounds",
+    "GeneralizedStaffordChallenge.filteredDomain"
   ],
   "permitted_axioms": [
     "propext",

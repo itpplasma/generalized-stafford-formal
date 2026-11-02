@@ -4,11 +4,13 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes. All 25 theorems of `comparator.json` are proved and accepted by the
-comparator. Fourteen are proved via `GeneralizedStafford/Challenge/Transport.lean`; the two
-`weylTwoGenerated*` theorems and the nine Weyl algebra statements below are proved in
-`GeneralizedStafford/Challenge/WeylTransport.lean` from `GeneralizedStafford/Weyl.lean`,
-with no hypothesis beyond the statements themselves.
+Status: no open holes among the 33 compared theorems of `comparator.json`. All 33 are proved
+and accepted by the local Comparator replay. Twenty-five are as before (fourteen via
+`GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
+Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`). The eight filtered-ring
+statements below are proved in `GeneralizedStafford/Challenge/FilteredTransport.lean` from
+`GeneralizedStafford/Filtered.lean` and the AlgebraicAnalysis symbol lemmas, with no hypothesis beyond
+the statements themselves.
 
 Solved: `fixedIdeal`, `fixedAnchor`, `corollaryB_dimension`,
 `corollaryB_fixedAnchor`, `corollaryB_fixedIdeal`, `corollaryC1`,
@@ -24,6 +26,13 @@ Solved Weyl algebra statements (`A_n(k)`, `k` of characteristic zero): `weylConj
 generator), `weylPrescribedTwoGeneratedRight` and `weylPrescribedTwoGeneratedLeft`
 (Corollary C.2, prescribed first generator). The regular-element facts they need come from
 AlgebraicAnalysis `Weyl.isDomain` (`A_n(k)` is a domain).
+
+Solved filtered-ring statements (a simple `k`-algebra `R` with a filtration and a symbol into a
+commutative Noetherian graded algebra of finite Krull dimension, both sides): `filteredHypotheses`
+((N), (Z), `Kdim ≤ m`), `filteredTheoremA` (Theorem A, right and left forms), `filteredFixedIdeal`
+(Theorem A'), `filteredCorollaryB` (dimension part of Corollary B), `filteredPrescribedCyclic`
+(C.1, prescribed and stable), `filteredTwoGenerated` (C.2), `filteredGeneratorBounds` (C.3) and
+`filteredDomain` (Theorem A for nonzero anchors when the symbol is a domain).
 
 Add a solution theorem only when its proof is checked; never add `sorry`.
 When one is added, extend `Solution.lean`, `GeneralizedStaffordSolution.lean`,
