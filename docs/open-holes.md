@@ -4,9 +4,8 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes among the 46 compared theorems of `comparator.json`. The first 40 are proved
-and were accepted by the local Comparator replay; the six differential-operator statements below are
-proved locally and await the Palomar replay. Twenty-five are as before (fourteen via
+Status: no open holes among the 46 compared theorems of `comparator.json`. All 46 are proved and
+were accepted by the local replay of the Palomar check ([verification](verification.md)). Twenty-five are as before (fourteen via
 `GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
 Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`). The eight filtered-ring
 statements below are proved in `GeneralizedStafford/Challenge/FilteredTransport.lean` from
@@ -49,7 +48,7 @@ generators for right and left ideals), `diffOpFixedAnchor` (Theorem A, right and
 `diffOpGlobalStafford` (the identity `1 = d R + F d S`), and `diffOpCyclicRight` and `diffOpCyclicLeft`
 (cyclicity of finitely generated torsion modules). They are proved in
 `GeneralizedStafford/Challenge/DiffOpTransport.lean` from `GeneralizedStafford/DifferentialOperators.lean`
-and the AlgebraicAnalysis differential operators (pin `71af6ec`). The bridge is `IsDifferentialOperator P`
+and the AlgebraicAnalysis differential operators (revision pinned in `dependency-pins.json`). The bridge is `IsDifferentialOperator P`
 equals membership in AlgebraicAnalysis' `DifferentialOperators.algebra`, and `diffOps k A` equals that
 subalgebra. The closure proofs of `diffOps` are complete inside the challenge and are not compared.
 
