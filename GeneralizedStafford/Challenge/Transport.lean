@@ -5,31 +5,29 @@ import Mathlib.LinearAlgebra.Quotient.Basic
 import Mathlib.Algebra.Module.Opposite
 import Mathlib.Algebra.Ring.Subring.Basic
 import Mathlib.Order.SupIndep
-import GeneralizedStafford.FixedAnchor.Regular
+
+import GeneralizedStafford.Modules
 
 /-!
-# Challenge transport for Theorem A, Theorem A' and Corollaries B, C.1, C.2
+# Challenge transport: the challenge definitions and their proofs
 
-Module `GeneralizedStafford.Challenge.Transport` (paper: `docs/core-theorem.md`
-Sections 0, 1 and 6; manuscript `docs/manuscript/main.tex`).
+Paper: `docs/core-theorem.md` Sections 0, 1 and 6; manuscript
+`docs/manuscript/main.tex`, introduction and Section 6 (`sec:modules`).
 
-The definitions of `GeneralizedStaffordChallenge.lean` (and of its copy
-`Challenge.lean`) are restated verbatim below, in the same namespace and under
-the same names, so that this file does not import the challenge. The
-statements of the challenge `theorem`s are not restated here: each proved
-statement `<name>` of the challenge is proved below as `<name>_proof`, and
-`GeneralizedStaffordSolution.lean` transports it to the challenge name.
+The definitions and statement definitions of `GeneralizedStaffordChallenge.lean`
+(identical copy `Challenge.lean`) are restated verbatim below, in the same
+namespace and under the same names, so that the solution never imports the
+challenge. The compared `theorem`s of the challenge are not restated: each
+challenge theorem `<name>` is proved here as `<name>_proof`, and
+`GeneralizedStaffordSolution.lean` restates it under its challenge name.
 
-Nine of the fourteen challenge statements are proved here. The five others
-(`corollaryC1_stable`, `corollaryC2_fullRank`, `corollaryC2`,
-`corollaryC3_lower`, `corollaryC3_upper`) are open; see `docs/open-holes.md`.
-
-The bridge lemmas translate the challenge's conventions into those of
-`GeneralizedStafford.FixedAnchor.Regular`: `Submodule.span Rᵐᵒᵖ {x}` is the
-principal right ideal `anchor x` (`span_eq_anchor`), `IsRegularElement d` is
-`d ∈ R⁰` (`isRegular_iff`), the deviation bounds of the challenge are the
-AlgebraicAnalysis bounds (`krullDimLE_iff`, `hOmega_iff`), and the algebraic
-centre is turned into an infinite central field (`withCentre`).
+The bridge lemmas translate the challenge conventions into those of the
+library: `Submodule.span Rᵐᵒᵖ {d}` is `principalRightIdeal d`
+(`span_singleton_eq`), `IsRegularElement d` is `d ∈ R⁰` (`isRegular_iff`), the
+deviation bounds are AlgebraicAnalysis' `Module.DevLE` and `Module.DevLEOmega`
+(`devDimLE_iff`, `hOmega_iff`), (H_all) is `PrincipalQuotientsFinite`
+(`hAll_iff`), and the infinite centre becomes an infinite central field
+(`withCentre`).
 -/
 
 universe u v
@@ -53,7 +51,8 @@ def IsRegularElement {R : Type u} [Ring R] (d : R) : Prop :=
 /-- Finite Gabriel--Rentschler deviation of a partial order. `PosetDevLE 0 α`
 says that every descending chain in `α` stabilizes; `PosetDevLE (n + 1) α`
 says that for every descending chain `c₀ ≥ c₁ ≥ ⋯` all but finitely many
-closed intervals `[cᵢ₊₁, cᵢ]` satisfy `PosetDevLE n`. -/
+closed intervals `[cᵢ₊₁, cᵢ]` satisfy `PosetDevLE n`, i.e. all but finitely
+many factors have deviation `< n + 1` (C3 with `α = n + 1`). -/
 def PosetDevLE : (n : ℕ) → (α : Type v) → [PartialOrder α] → Prop
   | 0, α, _ => ∀ c : ℕ → α, Antitone c → ∃ N, ∀ i, N ≤ i → c i = c N
   | n + 1, α, _ => ∀ c : ℕ → α, Antitone c →
@@ -61,21 +60,22 @@ def PosetDevLE : (n : ℕ) → (α : Type v) → [PartialOrder α] → Prop
 
 variable (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M]
 
-/-- `KrullDimLE R M n`: the right module `M` has right Gabriel--Rentschler
-(deviation) dimension `Kdim M ≤ n` (convention C3), defined on the lattice of
-right submodules of `M`. -/
-def KrullDimLE (n : ℕ) : Prop :=
+/-- `DevDimLE R M n`: `Kdim M ≤ n` (written `Kdim` in the paper;
+Gabriel--Rentschler deviation, not classical Krull dimension). The right
+module `M` has right deviation dimension at most `n` (convention C3), defined
+on the lattice of right submodules of `M`. -/
+def DevDimLE (n : ℕ) : Prop :=
   PosetDevLE n (Submodule Rᵐᵒᵖ M)
 
 /-- `Kdim M` is a finite integer (possibly `-1`, which happens exactly when
 `M = 0`). -/
-def HasFiniteKrullDim : Prop :=
-  ∃ n : ℕ, KrullDimLE R M n
+def HasFiniteDevDim : Prop :=
+  ∃ n : ℕ, DevDimLE R M n
 
-/-- `KrullDimLEOmega R M`: `Kdim M ≤ ω`, that is, for every descending chain of
+/-- `DevDimLEOmega R M`: `Kdim M ≤ ω`, that is, for every descending chain of
 right submodules `M₀ ≥ M₁ ≥ ⋯` all but finitely many factors `Mᵢ/Mᵢ₊₁`
 (the intervals `[Mᵢ₊₁, Mᵢ]`) have finite deviation. -/
-def KrullDimLEOmega : Prop :=
+def DevDimLEOmega : Prop :=
   ∀ c : ℕ → Submodule Rᵐᵒᵖ M, Antitone c → ∃ N, ∀ i, N ≤ i →
     ∃ n : ℕ, PosetDevLE n (Set.Icc (c (i + 1)) (c i))
 
@@ -101,19 +101,19 @@ is, `M` contains no direct sum of `n + 1` nonzero right submodules. -/
 def UDimLE (n : ℕ) : Prop :=
   ¬ UDimGE R M (n + 1)
 
-/-- `GeneratedBy R M m`: the right module `M` is generated by at most `m`
+/-- `SpanRankLE R M m`: the right module `M` is generated by at most `m`
 elements, i.e. `μ_R(M) ≤ m`. -/
-def GeneratedBy (m : ℕ) : Prop :=
+def SpanRankLE (m : ℕ) : Prop :=
   ∃ s : Finset M, s.card ≤ m ∧ Submodule.span Rᵐᵒᵖ (s : Set M) = ⊤
 
 /-- Hypothesis (H_all): `δ(d) = Kdim(R/dR)` is a finite integer for every
 regular `d`. -/
 def HAll : Prop :=
-  ∀ d : R, IsRegularElement d → HasFiniteKrullDim R (R ⧸ Submodule.span Rᵐᵒᵖ {d})
+  ∀ d : R, IsRegularElement d → HasFiniteDevDim R (R ⧸ Submodule.span Rᵐᵒᵖ {d})
 
 /-- Hypothesis (H_omega): `Kdim R ≤ ω` for the right regular module `R_R`. -/
 def HOmega : Prop :=
-  KrullDimLEOmega R R
+  DevDimLEOmega R R
 
 end Definitions
 
@@ -127,7 +127,7 @@ every `x ∈ R` and every nonzero `t ∈ R` there is `H ∈ R` with
 def FixedIdealStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)] (I : Submodule Rᵐᵒᵖ R),
-    (∃ s ∈ I, IsRegularElement s) → HasFiniteKrullDim R (R ⧸ I) →
+    (∃ s ∈ I, IsRegularElement s) → HasFiniteDevDim R (R ⧸ I) →
     ∀ x t : R, t ≠ 0 →
       ∃ H : R, I ⊔ Submodule.span Rᵐᵒᵖ {x + H * t} = ⊤
 
@@ -138,7 +138,7 @@ with `1 = d U + (B + H a) d V`. -/
 def FixedAnchorStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)] (d : R),
-    IsRegularElement d → HasFiniteKrullDim R (R ⧸ Submodule.span Rᵐᵒᵖ {d}) →
+    IsRegularElement d → HasFiniteDevDim R (R ⧸ Submodule.span Rᵐᵒᵖ {d}) →
     ∀ a B : R, a ≠ 0 →
       ∃ H U V : R, 1 = d * U + (B + H * a) * d * V
 
@@ -147,11 +147,12 @@ def FixedAnchorStatement : Prop :=
 /-- **Corollary B, dimension part (Lemma 6.1).** Let `R` be right Noetherian
 with `Kdim R ≤ ω` (H_omega). Then `δ(d) = Kdim(R/dR)` is a finite integer for
 every regular `d` (so (H_all) holds), and `Kdim(R/I)` is a finite integer for
-every right ideal `I` containing a regular element. -/
+every right ideal `I` containing a regular element. The ordinal clause
+`δ(d) < Kdim R` of manuscript Lemma `lem:Hall` is deliberately not stated. -/
 def CorollaryBDimensionStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsNoetherian Rᵐᵒᵖ R], HOmega R →
     HAll R ∧ ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
-      HasFiniteKrullDim R (R ⧸ I)
+      HasFiniteDevDim R (R ⧸ I)
 
 /-- **Corollary B, fixed anchor.** Let `R` satisfy (S), (N), (Z) and
 `Kdim R ≤ ω`. For every regular `d`, every nonzero `a` and every `B` there are
@@ -182,7 +183,7 @@ def CorollaryC1Statement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)]
     (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M],
-    IsGoldieTorsion R M → HasFiniteKrullDim R M →
+    IsGoldieTorsion R M → HasFiniteDevDim R M →
     ∀ (x : M) (t : R), t ≠ 0 →
       ∃ h : M, Submodule.span Rᵐᵒᵖ {x + op t • h} = ⊤
 
@@ -218,7 +219,7 @@ def CorollaryC1StableStatement : Prop :=
     (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] (c u : M),
     (∃ s : R, IsRegularElement s ∧ op s • c = 0) →
     (∃ s : R, IsRegularElement s ∧ op s • u = 0) →
-    HasFiniteKrullDim R (Submodule.span Rᵐᵒᵖ {u}) →
+    HasFiniteDevDim R (Submodule.span Rᵐᵒᵖ {u}) →
     ∀ t : R, t ≠ 0 →
       ∃ H : R, Submodule.span Rᵐᵒᵖ {c, u} = Submodule.span Rᵐᵒᵖ {c + op (H * t) • u}
 
@@ -231,7 +232,9 @@ and `y ∈ aQ` iff `y = a r s⁻¹` iff `y s = a r` for some `r` and regular `s`
 
 /-- **Existence of a full-rank element** (first step of Lemma 6.3). Let `R`
 satisfy (S) and (N). Every right ideal `I` contains an `a` with `aQ = IQ`, that
-is, every `y ∈ I` has a regular `s` with `y s ∈ aR`. -/
+is, every `y ∈ I` has a regular `s` with `y s ∈ aR`. The paper states C.2
+under (S), (N), (Z), (H_all); this step needs only (S) and (N) (Goldie's
+theorem), so the statement here has fewer hypotheses and is still true. -/
 def CorollaryC2FullRankStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     (I : Submodule Rᵐᵒᵖ R),
@@ -283,72 +286,82 @@ Hence `ρ(M) = udim(M/t(M)) / udim(R_R)`. Writing `ℓ = udim(M/t(M))` and
 /-- **Corollary C.3, lower bound** `⌈ρ(M)⌉ ≤ μ(M)`. Let `R` satisfy (S) and (N)
 and let `M` be a finitely generated right module. If `M` is generated by `m`
 elements, `M/t(M)` contains a direct sum of `ℓ` nonzero submodules and `R_R`
-contains no direct sum of `s + 1` nonzero right ideals, then `ℓ ≤ m s`. -/
+contains no direct sum of `s + 1` nonzero right ideals, then `ℓ ≤ m s`.
+This is equivalent to `⌈ρ(M)⌉ ≤ μ(M)` given the classical identities
+`s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; [MR] 2.2--2.3); it
+is not a literal formalization of `ρ`. -/
 def CorollaryC3LowerStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M]
     (m ℓ s : ℕ),
-    GeneratedBy R M m → UDimGE R (M ⧸ goldieTorsionPart R M) ℓ → UDimLE R R s →
+    SpanRankLE R M m → UDimGE R (M ⧸ goldieTorsionPart R M) ℓ → UDimLE R R s →
       ℓ ≤ m * s
 
 /-- **Corollary C.3, upper bound** `μ(M) ≤ ⌊ρ(M)⌋ + 1`. Let `R` satisfy (S), (N),
 (Z) and (H_all) and let `M` be a finitely generated right module. If `M/t(M)`
 contains no direct sum of `ℓ + 1` nonzero submodules, `R_R` contains a direct
 sum of `s` nonzero right ideals, and `ℓ < q s`, then `M` is generated by `q`
-elements. -/
+elements. This is equivalent to `μ(M) ≤ ⌊ρ(M)⌋ + 1` given the classical
+identities `s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; [MR]
+2.2--2.3); it is not a literal formalization of `ρ`. -/
 def CorollaryC3UpperStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)], HAll R →
     ∀ (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M] [Module.Finite Rᵐᵒᵖ M]
       (q ℓ s : ℕ),
       UDimLE R (M ⧸ goldieTorsionPart R M) ℓ → UDimGE R R s → ℓ < q * s →
-        GeneratedBy R M q
+        SpanRankLE R M q
 
-open nonZeroDivisors AlgebraicAnalysis GeneralizedStafford.FixedAnchor.Regular
-open AlgebraicAnalysis.ColonSupport AlgebraicAnalysis.DenominatorTorsion
+/-! ## Bridge lemmas: challenge conventions and library conventions -/
 
-/-! ## Bridge lemmas -/
+open nonZeroDivisors AlgebraicAnalysis AlgebraicAnalysis.DenominatorTorsion
+open GeneralizedStafford
 
+/-- The challenge's deviation bound on a poset is AlgebraicAnalysis' `Order.DevLE`. -/
 theorem posetDevLE_iff : ∀ (n : ℕ) (α : Type v) [PartialOrder α],
     PosetDevLE n α ↔ Order.DevLE n α
   | 0, α, _ => Iff.rfl
   | n + 1, α, _ => by
     simp only [PosetDevLE, Order.devLE_succ_iff, posetDevLE_iff n]
 
-theorem krullDimLE_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
-    [Module Rᵐᵒᵖ M] (n : ℕ) : KrullDimLE R M n ↔ Module.DevLE Rᵐᵒᵖ n M :=
+/-- `DevDimLE R M n` is `Module.DevLE Rᵐᵒᵖ n M`. -/
+theorem devDimLE_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
+    [Module Rᵐᵒᵖ M] (n : ℕ) : DevDimLE R M n ↔ Module.DevLE Rᵐᵒᵖ n M :=
   posetDevLE_iff n _
 
+/-- (H_omega) is `Module.DevLEOmega Rᵐᵒᵖ R`. -/
 theorem hOmega_iff {R : Type u} [Ring R] : HOmega R ↔ Module.DevLEOmega Rᵐᵒᵖ R := by
-  simp only [HOmega, KrullDimLEOmega, Module.DevLEOmega, posetDevLE_iff]
+  simp only [HOmega, DevDimLEOmega, Module.DevLEOmega, posetDevLE_iff]
 
+/-- `IsRegularElement d` is `d ∈ R⁰`, by definition. -/
 theorem isRegular_iff {R : Type u} [Ring R] (d : R) : IsRegularElement d ↔ d ∈ R⁰ :=
   Iff.rfl
 
-theorem span_eq_anchor {R : Type u} [Ring R] (d : R) :
-    Submodule.span Rᵐᵒᵖ {d} = anchor d := by
+/-- The span of `{d}` is the principal right ideal `dR`. -/
+theorem span_singleton_eq {R : Type u} [Ring R] (d : R) :
+    Submodule.span Rᵐᵒᵖ {d} = principalRightIdeal d := by
   ext y
   rw [Submodule.mem_span_singleton]
   constructor
   · rintro ⟨a, rfl⟩; exact ⟨unop a, rfl⟩
   · rintro ⟨r, rfl⟩; exact ⟨op r, rfl⟩
 
-theorem goldie_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
+/-- The challenge's Goldie torsion is AlgebraicAnalysis' Goldie torsion. -/
+theorem isGoldieTorsion_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
     [Module Rᵐᵒᵖ M] :
     GeneralizedStaffordChallenge.IsGoldieTorsion R M ↔
       AlgebraicAnalysis.Goldie.IsGoldieTorsion R M := by
   simp only [GeneralizedStaffordChallenge.IsGoldieTorsion,
     AlgebraicAnalysis.Goldie.IsGoldieTorsion, isRegular_iff]
 
-theorem hAll_iff {R : Type u} [Ring R] : HAll R ↔
-    ∀ d : R, d ∈ R⁰ → ∃ N, Module.DevLE Rᵐᵒᵖ N (R ⧸ anchor d) := by
-  simp only [HAll, HasFiniteKrullDim, krullDimLE_iff, isRegular_iff]
+/-- (H_all) of the challenge is the library's `PrincipalQuotientsFinite`. -/
+theorem hAll_iff {R : Type u} [Ring R] : HAll R ↔ PrincipalQuotientsFinite R := by
+  simp only [HAll, HasFiniteDevDim, devDimLE_iff, isRegular_iff, PrincipalQuotientsFinite]
   refine forall₂_congr fun d _ => ?_
-  rw [span_eq_anchor]
+  rw [span_singleton_eq]
 
-/-- The centre of a simple ring is an infinite field, so an algebra over an
-infinite central field is available: the hypotheses of the fixed-anchor
-results of `GeneralizedStafford.FixedAnchor.Regular` hold for it. -/
+/-- The centre of a simple ring is a field, so (Z) provides an infinite
+central field `k` with `[Algebra k R]`, as the library assumes. -/
 theorem withCentre (R : Type u) [Ring R] [IsSimpleRing R] [Infinite (Subring.center R)]
     (P : Prop)
     (h : ∀ (k : Type u) [Field k] [Infinite k] [Algebra k R], P) : P := by
@@ -358,70 +371,95 @@ theorem withCentre (R : Type u) [Ring R] [IsSimpleRing R] [Infinite (Subring.cen
       (Subring.mem_center_iff.mp c.2 x).symm
   exact h (Subring.center R)
 
-/-! ## Proofs of the transported statements -/
+/-! ## Proofs of the challenge statements -/
 
-/-- Theorem A' (fixed ideal), proved from `Regular.fixed_ideal`. -/
+/-- Theorem A' (fixed ideal), from `GeneralizedStafford.fixed_ideal`. -/
 theorem fixedIdeal_proof : FixedIdealStatement.{u} := by
   intro R _ _ _ _ I hreg hfin x t ht
   obtain ⟨N, hN⟩ := hfin
   refine withCentre R _ fun k _ _ _ => ?_
-  obtain ⟨H, hH⟩ := fixed_ideal (k := k) (I := I) hreg ((krullDimLE_iff N).mp hN) x ht
-  exact ⟨H, by rw [span_eq_anchor]; exact hH⟩
+  obtain ⟨H, hH⟩ := fixed_ideal (k := k) (I := I) hreg ((devDimLE_iff N).mp hN) x ht
+  exact ⟨H, by rw [span_singleton_eq]; exact hH⟩
 
-/-- Theorem A (fixed anchor), proved from `Regular.fixed_anchor`. -/
+/-- Theorem A (fixed anchor), from `GeneralizedStafford.fixed_anchor`. -/
 theorem fixedAnchor_proof : FixedAnchorStatement.{u} := by
   intro R _ _ _ _ d hd hfin a B ha
   obtain ⟨N, hN⟩ := hfin
-  rw [span_eq_anchor] at hN
+  rw [span_singleton_eq] at hN
   refine withCentre R _ fun k _ _ _ => ?_
-  exact fixed_anchor (k := k) hd ha ((krullDimLE_iff N).mp hN) B
+  exact fixed_anchor (k := k) hd ((devDimLE_iff N).mp hN) ha B
 
-/-- Corollary C.1 with a finite Krull dimension hypothesis, proved from
-`Regular.prescribed_cyclic`. -/
+/-- Corollary B, dimension part, from `GeneralizedStafford.quotient_finite_of_omega`. -/
+theorem corollaryB_dimension_proof : CorollaryBDimensionStatement.{u} := by
+  intro R _ _ homega
+  refine ⟨hAll_iff.mpr (principalQuotientsFinite_of_devLE_omega (hOmega_iff.mp homega)),
+    fun I hreg => ?_⟩
+  obtain ⟨N, hN⟩ := quotient_finite_of_omega (hOmega_iff.mp homega) hreg
+  exact ⟨N, (devDimLE_iff N).mpr hN⟩
+
+/-- Corollary B for Theorem A, from `GeneralizedStafford.fixed_anchor_of_devLE_omega`. -/
+theorem corollaryB_fixedAnchor_proof : CorollaryBFixedAnchorStatement.{u} := by
+  intro R _ _ _ _ homega d a B hd ha
+  refine withCentre R _ fun k _ _ _ => ?_
+  exact fixed_anchor_of_devLE_omega (k := k) (hOmega_iff.mp homega) hd ha B
+
+/-- Corollary B for Theorem A', from `GeneralizedStafford.fixed_ideal_of_devLE_omega`. -/
+theorem corollaryB_fixedIdeal_proof : CorollaryBFixedIdealStatement.{u} := by
+  intro R _ _ _ _ homega I hreg x t ht
+  refine withCentre R _ fun k _ _ _ => ?_
+  obtain ⟨H, hH⟩ := fixed_ideal_of_devLE_omega (k := k) (hOmega_iff.mp homega) hreg x ht
+  exact ⟨H, by rw [span_singleton_eq]; exact hH⟩
+
+/-- Corollary C.1, from `GeneralizedStafford.prescribed_cyclic`. -/
 theorem corollaryC1_proof : CorollaryC1Statement.{u, v} := by
   intro R _ _ _ _ M _ _ _ htor hfin x t ht
   obtain ⟨N, hN⟩ := hfin
   refine withCentre R _ fun k _ _ _ => ?_
-  exact prescribed_cyclic (k := k) (goldie_iff.mp htor) ((krullDimLE_iff N).mp hN) x ht
+  exact prescribed_cyclic (k := k) (isGoldieTorsion_iff.mp htor) ((devDimLE_iff N).mp hN) x ht
 
-/-- Corollary C.1 under (H_omega), proved from `Regular.prescribed_cyclic_of_devLE_omega`. -/
-theorem corollaryC1_omega_proof : CorollaryC1OmegaStatement.{u, v} := by
-  intro R _ _ _ _ hR M _ _ _ htor x t ht
-  refine withCentre R _ fun k _ _ _ => ?_
-  exact prescribed_cyclic_of_devLE_omega (k := k) (hOmega_iff.mp hR) (goldie_iff.mp htor) x ht
-
-/-- Corollary C.1 under (H_all), proved from `Regular.prescribed_cyclic_of_principal`. -/
+/-- Corollary C.1 under (H_all), from `GeneralizedStafford.prescribed_cyclic_of_principal`. -/
 theorem corollaryC1_hAll_proof : CorollaryC1HAllStatement.{u, v} := by
   intro R _ _ _ _ hall M _ _ _ htor x t ht
   refine withCentre R _ fun k _ _ _ => ?_
-  exact prescribed_cyclic_of_principal (k := k) (hAll_iff.mp hall) (goldie_iff.mp htor) x ht
+  exact prescribed_cyclic_of_principal (k := k) (hAll_iff.mp hall)
+    (isGoldieTorsion_iff.mp htor) x ht
 
-/-- Corollary B, dimension part (Lemma 6.1), from the finite-case quotient lemmas. -/
-theorem corollaryB_dimension_proof : CorollaryBDimensionStatement.{u} := by
-  intro R _ _ hR
-  refine ⟨hAll_iff.mpr fun d hd => principal_quotient_finite_of_omega (hOmega_iff.mp hR) hd,
-    fun I hreg => ?_⟩
-  obtain ⟨N, hN⟩ := quotient_finite_of_omega (hOmega_iff.mp hR) hreg
-  exact ⟨N, (krullDimLE_iff N).mpr hN⟩
-
-/-- Corollary B for Theorem A, from `Regular.fixed_anchor_of_devLE_omega`. -/
-theorem corollaryB_fixedAnchor_proof : CorollaryBFixedAnchorStatement.{u} := by
-  intro R _ _ _ _ hR d a B hd ha
+/-- Corollary C.1 under (H_omega), from
+`GeneralizedStafford.prescribed_cyclic_of_devLE_omega`. -/
+theorem corollaryC1_omega_proof : CorollaryC1OmegaStatement.{u, v} := by
+  intro R _ _ _ _ homega M _ _ _ htor x t ht
   refine withCentre R _ fun k _ _ _ => ?_
-  exact fixed_anchor_of_devLE_omega (k := k) (hOmega_iff.mp hR) hd ha B
+  exact prescribed_cyclic_of_devLE_omega (k := k) (hOmega_iff.mp homega)
+    (isGoldieTorsion_iff.mp htor) x ht
 
-/-- Corollary B for Theorem A', from `Regular.fixed_ideal_of_devLE_omega`. -/
-theorem corollaryB_fixedIdeal_proof : CorollaryBFixedIdealStatement.{u} := by
-  intro R _ _ _ _ hR I hreg x t ht
+/-- Corollary C.1, stable cyclicity, from `GeneralizedStafford.span_pair_eq_span_affine`. -/
+theorem corollaryC1_stable_proof : CorollaryC1StableStatement.{u, v} := by
+  intro R _ _ _ _ M _ _ c u hc hu hfin t ht
+  obtain ⟨N, hN⟩ := hfin
   refine withCentre R _ fun k _ _ _ => ?_
-  obtain ⟨H, hH⟩ := fixed_ideal_of_devLE_omega (k := k) (hOmega_iff.mp hR) hreg x ht
-  exact ⟨H, by rw [span_eq_anchor]; exact hH⟩
+  exact span_pair_eq_span_affine (k := k) c u hc hu ⟨N, (devDimLE_iff N).mp hN⟩ ht
 
-/-- Corollary C.2, prescribed form, from `Regular.two_generated_of_principal`. -/
+/-- Existence of a full-rank element, from Goldie's theorem
+`AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem`. -/
+theorem corollaryC2_fullRank_proof : CorollaryC2FullRankStatement.{u} := by
+  intro R _ _ _ I
+  simp only [span_singleton_eq, isRegular_iff]
+  exact AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem I
+
+/-- Corollary C.2, prescribed form, from `GeneralizedStafford.two_generated_of_principal`. -/
 theorem corollaryC2_prescribed_proof : CorollaryC2PrescribedStatement.{u} := by
   intro R _ _ _ _ hall I a haI hIa y hyI t ht
   refine withCentre R _ fun k _ _ _ => ?_
-  simp only [span_eq_anchor] at hIa ⊢
+  simp only [span_singleton_eq] at hIa ⊢
   exact two_generated_of_principal (k := k) (hAll_iff.mp hall) haI hIa hyI ht
+
+/-- Corollary C.2, two generators, from `GeneralizedStafford.two_generated`. -/
+theorem corollaryC2_proof : CorollaryC2Statement.{u} := by
+  intro R _ _ _ _ hall I
+  refine withCentre R _ fun k _ _ _ => ?_
+  obtain ⟨a, b, hI⟩ := two_generated (k := k) (hAll_iff.mp hall) I
+  refine ⟨a, b, ?_⟩
+  rw [Submodule.span_insert, span_singleton_eq, span_singleton_eq]
+  exact hI
 
 end GeneralizedStaffordChallenge

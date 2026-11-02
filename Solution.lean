@@ -1,7 +1,7 @@
 import GeneralizedStafford.Challenge.Transport
 
 /-!
-# Solution: Theorem A', Theorem A and Corollaries B, C.1, C.2 (prescribed form)
+# Solution: Theorem A', Theorem A and Corollaries B, C.1 and C.2
 
 Palomar solution module for `GeneralizedStaffordChallenge.lean`. The definitions
 of the challenge are restated verbatim in
@@ -10,9 +10,8 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-Five challenge statements are not solved yet and are deliberately absent here:
-`corollaryC1_stable`, `corollaryC2_fullRank`, `corollaryC2`, `corollaryC3_lower`,
-`corollaryC3_upper` (see `docs/open-holes.md`).
+Two challenge statements are not solved yet and are deliberately absent here:
+`corollaryC3_lower` and `corollaryC3_upper` (see `docs/open-holes.md`).
 -/
 
 universe u v
@@ -39,7 +38,7 @@ theorem corollaryB_fixedAnchor : CorollaryBFixedAnchorStatement.{u} :=
 theorem corollaryB_fixedIdeal : CorollaryBFixedIdealStatement.{u} :=
   corollaryB_fixedIdeal_proof.{u}
 
-/-- Corollary C.1 (finite Krull dimension hypothesis). -/
+/-- Corollary C.1 (finite dimension hypothesis). -/
 theorem corollaryC1 : CorollaryC1Statement.{u, v} :=
   corollaryC1_proof.{u, v}
 
@@ -51,8 +50,20 @@ theorem corollaryC1_hAll : CorollaryC1HAllStatement.{u, v} :=
 theorem corollaryC1_omega : CorollaryC1OmegaStatement.{u, v} :=
   corollaryC1_omega_proof.{u, v}
 
+/-- Corollary C.1, stable cyclicity. -/
+theorem corollaryC1_stable : CorollaryC1StableStatement.{u, v} :=
+  corollaryC1_stable_proof.{u, v}
+
+/-- Corollary C.2, existence of a full-rank element. -/
+theorem corollaryC2_fullRank : CorollaryC2FullRankStatement.{u} :=
+  corollaryC2_fullRank_proof.{u}
+
 /-- Corollary C.2, prescribed form. -/
 theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} :=
   corollaryC2_prescribed_proof.{u}
+
+/-- Corollary C.2, every right ideal is two-generated. -/
+theorem corollaryC2 : CorollaryC2Statement.{u} :=
+  corollaryC2_proof.{u}
 
 end GeneralizedStaffordChallenge

@@ -50,7 +50,10 @@ expected = {
         "GeneralizedStaffordChallenge.corollaryC1",
         "GeneralizedStaffordChallenge.corollaryC1_hAll",
         "GeneralizedStaffordChallenge.corollaryC1_omega",
-        "GeneralizedStaffordChallenge.corollaryC2_prescribed"
+        "GeneralizedStaffordChallenge.corollaryC1_stable",
+        "GeneralizedStaffordChallenge.corollaryC2_fullRank",
+        "GeneralizedStaffordChallenge.corollaryC2_prescribed",
+        "GeneralizedStaffordChallenge.corollaryC2"
     ],
     "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
     "enable_nanoda": True,

@@ -8,7 +8,7 @@ python_bin=${PYTHON:-python3}
 mkdir -p .lake/verification
 
 "$python_bin" scripts/check-pins.py
-lake build GeneralizedStafford > .lake/verification/build.log 2>&1
+lake build GeneralizedStafford GeneralizedStaffordSolution > .lake/verification/build.log 2>&1
 
 project_lean() {
   lake env bash -c '
@@ -20,10 +20,10 @@ project_lean() {
 }
 
 {
-  echo 'module'
   echo 'import GeneralizedStafford'
+  echo 'import GeneralizedStaffordSolution'
   sed '/^[[:space:]]*$/d; s/^/#print axioms /' docs/endpoints.txt
 } > .lake/verification/AxiomAudit.lean
 project_lean .lake/verification/AxiomAudit.lean > .lake/verification/axioms.log 2>&1
 "$python_bin" scripts/check-axiom-closure.py --endpoints docs/endpoints.txt .lake/verification/axioms.log
-echo 'Verification passed: pinned dependencies, full library, and endpoint axioms.'
+echo 'Verification passed: pinned dependencies, full library, solution, and endpoint axioms.'
