@@ -7,7 +7,7 @@ authorization from Christopher Albert, given for that action.
 
 | Action | State |
 | --- | --- |
-| Change repository visibility (private to public) | not done |
+| Change repository visibility (private to public) | done 2 November 2026 (authorized by Christopher Albert) |
 | Create a tag or GitHub release | not done |
 | Archive on Zenodo and mint a DOI | not done |
 | Register on Palomar | not done |

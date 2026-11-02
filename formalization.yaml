@@ -33,8 +33,9 @@ repository:
   url: "https://github.com/itpplasma/generalized-stafford-formal"
   registration_status: "not-registered"
   note: >-
-    Private repository. Registration, release, DOI and visibility change each
-    require explicit human authorization (docs/release-runbook.md).
+    Public repository (made public 2 November 2026, authorized by the
+    maintainer). Palomar registration, release and DOI each require explicit
+    human authorization (docs/release-runbook.md).
 
 classification:
   arxiv:
@@ -216,10 +217,9 @@ review:
   status: "agent-reviewed"
   reviewers: []
   notes: >-
-    The written proof passed independent agent proof-audits. The earlier
-    46-theorem challenge passed an independent statement-faithfulness audit
-    (2 November 2026); the reduced 41-theorem challenge still needs one.
-    Human expert review is open.
+    The written proof passed independent agent proof-audits. The 41-theorem
+    challenge passed independent statement-faithfulness audits (2 November
+    2026). Human expert review is open.
 
 alignment:
   namespace: "GeneralizedStafford"

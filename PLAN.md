@@ -1,6 +1,6 @@
 # Generalized Stafford formal: live state
 
-Updated: 2 November 2026. Private repository.
+Updated: 2 November 2026. Public repository.
 
 Status: 41 of 41 challenge theorems (13 abstract, 11 Weyl-algebra, 6 filtered-ring, 5 enveloping-algebra, 6 differential-operator applications) proved and verified on branch `paper-scope` at commit `e63321970bcb7cf360a378bf48368f23d9bc1e6a` (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`). The challenge now states exactly the numbered results of the paper; the earlier 46-theorem freeze `17f84e3bc693b309f40dc5c75a901ec891214bf0` is superseded, and a new freeze waits for the statement-faithfulness audit of the reduced challenge; gates below.
 
