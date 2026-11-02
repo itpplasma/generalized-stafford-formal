@@ -118,6 +118,13 @@ def FixedAnchorStatement : Prop :=
 
 /-! ## Corollary B -/
 
+/-- **Known input to Corollary B** (McConnell--Robson 2001, 6.3.9). Let `R` be
+right Noetherian with `Kdim R ≤ ω` (H_omega). Then `δ(d) = Kdim(R/dR)` is a
+finite integer for every regular `d`, that is, (H_all) holds. The paper cites
+this classical result; it is stated here because Corollary B uses it. -/
+def KnownDimensionStatement : Prop :=
+  ∀ (R : Type u) [Ring R] [IsNoetherian Rᵐᵒᵖ R], HOmega R → HAll R
+
 /-- **Corollary B, fixed anchor.** Let `R` satisfy (S), (N), (Z) and
 `Kdim R ≤ ω`. For every regular `d`, every nonzero `a` and every `B` there are
 `H, U, V` with `1 = d U + (B + H a) d V`. -/
@@ -328,6 +335,10 @@ theorem corollaryB_fixedIdeal_proof : CorollaryBFixedIdealStatement.{u} := by
 theorem hAll_of_omega {R : Type u} [Ring R] [IsNoetherian Rᵐᵒᵖ R] (homega : HOmega R) :
     HAll R :=
   hAll_iff.mpr (principalQuotientsFinite_of_devLE_omega (hOmega_iff.mp homega))
+
+/-- `Kdim R ≤ ω` implies (H_all) (McConnell--Robson 2001, 6.3.9), from `hAll_of_omega`. -/
+theorem knownDimension_hAll_of_omega_proof : KnownDimensionStatement.{u} :=
+  fun _ _ _ homega => hAll_of_omega homega
 
 /-- Corollary C.1, from `GeneralizedStafford.prescribed_cyclic`. -/
 theorem corollaryC1_proof : CorollaryC1Statement.{u, v} := by

@@ -14,7 +14,7 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All forty compared challenge theorems are solved: the twelve Theorem A' / Theorem A and
+All forty-one compared challenge theorems are solved: the thirteen Theorem A' / Theorem A and
 Corollary B and C statements, the two Weyl two-generation statements and the nine Weyl algebra
 statements (proved in `GeneralizedStafford/Challenge/Transport.lean` and `WeylTransport.lean`),
 the six filtered-ring statements (`FilteredTransport.lean`), the five simple-quotient statements
@@ -34,6 +34,10 @@ theorem fixedIdeal : FixedIdealStatement.{u} :=
 /-- Theorem A (fixed anchor). -/
 theorem fixedAnchor : FixedAnchorStatement.{u} :=
   fixedAnchor_proof.{u}
+
+/-- `Kdim R ≤ ω` implies (H_all) (McConnell--Robson 2001, 6.3.9). -/
+theorem knownDimension_hAll_of_omega : KnownDimensionStatement.{u} :=
+  knownDimension_hAll_of_omega_proof.{u}
 
 /-- Corollary B for Theorem A. -/
 theorem corollaryB_fixedAnchor : CorollaryBFixedAnchorStatement.{u} :=

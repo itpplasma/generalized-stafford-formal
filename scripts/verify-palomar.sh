@@ -38,9 +38,9 @@ while i < len(text):
         out.append(text[i])
         i += 1
 holes = len(re.findall(r"(?<![\w.'])sorry(?![\w'])", "".join(out)))
-if holes != 40:
-    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 40")
-print("Challenge: exactly 40 sorry holes outside comments")
+if holes != 41:
+    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 41")
+print("Challenge: exactly 41 sorry holes outside comments")
 PY
 
 for tool in comparator lean4export nanoda landrun; do
@@ -76,6 +76,7 @@ expected = {
     "theorem_names": [
         "GeneralizedStaffordChallenge.fixedIdeal",
         "GeneralizedStaffordChallenge.fixedAnchor",
+        "GeneralizedStaffordChallenge.knownDimension_hAll_of_omega",
         "GeneralizedStaffordChallenge.corollaryB_fixedAnchor",
         "GeneralizedStaffordChallenge.corollaryB_fixedIdeal",
         "GeneralizedStaffordChallenge.corollaryC1",

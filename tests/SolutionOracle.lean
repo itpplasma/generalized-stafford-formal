@@ -10,6 +10,7 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 
 #print axioms GeneralizedStaffordChallenge.fixedIdeal
 #print axioms GeneralizedStaffordChallenge.fixedAnchor
+#print axioms GeneralizedStaffordChallenge.knownDimension_hAll_of_omega
 #print axioms GeneralizedStaffordChallenge.corollaryB_fixedAnchor
 #print axioms GeneralizedStaffordChallenge.corollaryB_fixedIdeal
 #print axioms GeneralizedStaffordChallenge.corollaryC1
