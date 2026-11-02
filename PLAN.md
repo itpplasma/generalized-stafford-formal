@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 39 of 39 challenge theorems (11 abstract, 11 Weyl-algebra, 6 filtered-ring, 5 enveloping-algebra, 6 differential-operator applications) proved and verified on branch `paper-scope` at commit `9f2c555ca02d7e8da30106a022649008edf226c1` (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`). The challenge now states exactly the numbered results of the paper; the earlier 46-theorem freeze `17f84e3bc693b309f40dc5c75a901ec891214bf0` is superseded, and a new freeze waits for the statement-faithfulness audit of the reduced challenge; gates below.
+Status: 40 of 40 challenge theorems (12 abstract, 11 Weyl-algebra, 6 filtered-ring, 5 enveloping-algebra, 6 differential-operator applications) proved and verified on branch `paper-scope` at commit `a4f2831fcec539f987dd3f765b0468e4fe994f3d` (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`). The challenge now states exactly the numbered results of the paper; the earlier 46-theorem freeze `17f84e3bc693b309f40dc5c75a901ec891214bf0` is superseded, and a new freeze waits for the statement-faithfulness audit of the reduced challenge; gates below.
 
 This file records the formal state only.
 
@@ -15,7 +15,7 @@ graded ring is commutative Noetherian of finite Krull dimension, to simple
 quotients of enveloping algebras of finite-dimensional Lie algebras over an
 infinite field, and to differential operators `D_k(A)` on
 smooth affine domains in characteristic zero. The Palomar challenge
-`GeneralizedStaffordChallenge.lean` (copy `Challenge.lean`) states the 39 compared theorems listed in `comparator.json`, one or more for each numbered result of the paper and nothing beyond them.
+`GeneralizedStaffordChallenge.lean` (copy `Challenge.lean`) states the 40 compared theorems listed in `comparator.json`, one or more for each numbered result of the paper and nothing beyond them.
 The paper no longer states Corollary C.3 (generator bounds) or the dimension
 fact "`Kdim R <= omega` implies `Kdim(R/dR)` finite" (it cites McConnell-Robson
 6.3.9); the seven compared theorems for them were removed with the C.3 library
@@ -27,9 +27,9 @@ because Corollary B uses it.
 | Gate | State | Evidence or remaining obligation |
 | --- | --- | --- |
 | Build | PASSED | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the verified commit. |
-| Axiom audit | PASSED (79 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
-| Palomar check (local replay) | PASSED (39 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
-| Statement faithfulness | OPEN | The reduced challenge (sha256 `e8cf70b8f47ecb47eb33a9f63e2e0457cd15e91259b805d414766e6cc9257187`) needs an independent statement-faithfulness audit. Its 39 statements are textually those of the earlier challenge; the audit of 2 November 2026 (sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`) covered that earlier 46-theorem file and does not by itself certify the reduced one. |
+| Axiom audit | PASSED (80 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
+| Palomar check (local replay) | PASSED (40 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
+| Statement faithfulness | OPEN | The reduced challenge (sha256 `07efe11f7053f996c687016f383c3a8d53c7c11ed91e799fe3f8d916d8e76ad8`) needs an independent statement-faithfulness audit. Its 40 statements are those of the earlier challenge except the new `corollaryC2_omega` (the omega case of C.2, stated in the paper's Corollary C); the audit of 2 November 2026 (sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`) covered that earlier 46-theorem file and does not by itself certify the reduced one. |
 | Human review | OPEN | Agent audits are not human review. |
 | Palomar registration | NOT DONE | Requires explicit human authorization ([runbook](docs/release-runbook.md)). |
 | Release, DOI, visibility change | NOT DONE | Requires explicit human authorization. |

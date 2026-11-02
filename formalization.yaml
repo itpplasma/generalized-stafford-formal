@@ -121,23 +121,23 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "9f2c555ca02d7e8da30106a022649008edf226c1"
+  commit: "a4f2831fcec539f987dd3f765b0468e4fe994f3d"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 status:
   scope: >-
-    Theorem A', Theorem A and Corollaries B, C.1 and C.2 (11 statements)
+    Theorem A', Theorem A and Corollaries B, C.1 and C.2 (12 statements)
     and their applications to Weyl algebras (11), filtered rings (6), simple
     quotients of enveloping algebras (5) and differential operators on smooth
-    affine domains (6) are stated in the Mathlib-only challenge (39 compared
+    affine domains (6) are stated in the Mathlib-only challenge (40 compared
     theorems, the numbered results of the paper) and proved in the solution by
     transport from the library, and accepted in a local replay of the Palomar
     check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
     mode). The reduced challenge has not yet had a statement-faithfulness
     audit; the audit of 2 November 2026 covered the earlier 46-theorem
     challenge. Human review is open. Not registered on Palomar.
-  sorry_count: 78
+  sorry_count: 80
   sorry_in_definitions: 0
   axioms:
     - "propext"
@@ -218,7 +218,7 @@ review:
   notes: >-
     The written proof passed independent agent proof-audits. The earlier
     46-theorem challenge passed an independent statement-faithfulness audit
-    (2 November 2026); the reduced 39-theorem challenge still needs one.
+    (2 November 2026); the reduced 40-theorem challenge still needs one.
     Human expert review is open.
 
 alignment:
@@ -266,6 +266,10 @@ alignment:
       status: "proved"
     - source: "Corollary C.2, two generators"
       lean: "GeneralizedStaffordChallenge.corollaryC2"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "Corollary C.2 under (H_omega)"
+      lean: "GeneralizedStaffordChallenge.corollaryC2_omega"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Weyl algebras: two generators, right ideals"
