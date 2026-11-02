@@ -1,6 +1,6 @@
 name = "generalizedStafford"
 version = "0.1.0"
-defaultTargets = ["GeneralizedStafford"]
+defaultTargets = ["GeneralizedStafford", "GeneralizedStaffordSolution"]
 
 [[require]]
 name = "mathlib"
@@ -14,3 +14,15 @@ rev = "7295b18a6a6e48940bde139125a96d6a2426864d"
 
 [[lean_lib]]
 name = "GeneralizedStafford"
+
+[[lean_lib]]
+name = "Challenge"
+
+[[lean_lib]]
+name = "Solution"
+
+[[lean_lib]]
+name = "GeneralizedStaffordChallenge"
+
+[[lean_lib]]
+name = "GeneralizedStaffordSolution"
