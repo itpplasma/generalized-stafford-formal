@@ -33,7 +33,7 @@ namespace GeneralizedStafford.FixedAnchor.Regular
 
 open Module Module.Germ MulOpposite nonZeroDivisors AlgebraicAnalysis
 open AlgebraicAnalysis.ColonSupport AlgebraicAnalysis.DenominatorTorsion
-open GeneralizedStafford.Goldie
+open AlgebraicAnalysis.Goldie GeneralizedStafford.Goldie
 
 universe u v
 
@@ -70,7 +70,7 @@ theorem exists_affine_germ_tests
   let P (i : ι) := Hom.precompLinear (C := C i) (q i)
   let Z (i : ι) := Hom.precompLinear (C := C i) (z i)
   obtain ⟨H, hH⟩ := exists_affine_source_of_goldie
-    (fun i => section_isGoldieTorsion (hC i) (ht i))
+    (fun i => isGoldieTorsion_section (hC i) (ht i))
     (algebraMap k R) κ
     (fun i c x => (End.centralMap_commute (oppositeCentralField (R := R) k c) x).eq)
     (fun i c w => section_central_scalar (oppositeCentralField (R := R) k c) w)
@@ -512,19 +512,6 @@ section CorollaryC2
 variable {R : Type u} [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
 variable {k : Type*} [Field k] [Infinite k] [Algebra k R]
 
-omit [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R] in
-/-- If every `y ∈ I` has a regular `s` with `y s ∈ aR` (the content of
-`aQ = IQ`), then `I/aR` is Goldie-torsion. -/
-theorem ideal_quotient_isGoldieTorsion {I : Submodule Rᵐᵒᵖ R} {a : R}
-    (hIa : ∀ y ∈ I, ∃ s ∈ R⁰, y * s ∈ principalRightIdeal a) :
-    IsGoldieTorsion R (↥I ⧸ (principalRightIdeal a).comap I.subtype) := by
-  intro z
-  obtain ⟨⟨m, hm⟩, rfl⟩ := Submodule.mkQ_surjective _ z
-  obtain ⟨s, hs, hms⟩ := hIa m hm
-  refine ⟨s, hs, ?_⟩
-  rw [← map_smul]
-  exact (Submodule.Quotient.mk_eq_zero _).mpr hms
-
 include k in
 /-- **Corollary C.2** (Lemma 6.3), zero divisors allowed, under (H_all): if
 `a ∈ I` and every `y ∈ I` has a regular `s` with `y s ∈ aR` (the elementwise
@@ -539,7 +526,7 @@ theorem two_generated_of_principal
   classical
   set K := (principalRightIdeal a).comap I.subtype
   obtain ⟨hbar, hh⟩ := prescribed_cyclic_of_principal (k := k) (M := ↥I ⧸ K) hall
-    (ideal_quotient_isGoldieTorsion hIa) (K.mkQ ⟨y, hyI⟩) ht
+    (isGoldieTorsion_quotient_of_forall_exists_mul_mem hIa) (K.mkQ ⟨y, hyI⟩) ht
   obtain ⟨⟨h, hhI⟩, rfl⟩ := Submodule.mkQ_surjective K hbar
   refine ⟨h, hhI, le_antisymm ?_ ?_⟩
   · intro m hm

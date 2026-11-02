@@ -336,9 +336,9 @@ theorem span_eq_anchor {R : Type u} [Ring R] (d : R) :
 theorem goldie_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
     [Module Rᵐᵒᵖ M] :
     GeneralizedStaffordChallenge.IsGoldieTorsion R M ↔
-      GeneralizedStafford.Goldie.IsGoldieTorsion R M := by
+      AlgebraicAnalysis.Goldie.IsGoldieTorsion R M := by
   simp only [GeneralizedStaffordChallenge.IsGoldieTorsion,
-    GeneralizedStafford.Goldie.IsGoldieTorsion, isRegular_iff]
+    AlgebraicAnalysis.Goldie.IsGoldieTorsion, isRegular_iff]
 
 theorem hAll_iff {R : Type u} [Ring R] : HAll R ↔
     ∀ d : R, d ∈ R⁰ → ∃ N, Module.DevLE Rᵐᵒᵖ N (R ⧸ anchor d) := by

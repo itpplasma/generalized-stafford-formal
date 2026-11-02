@@ -17,7 +17,6 @@ public import GeneralizedStafford.FixedAnchor.Pencils
 public import GeneralizedStafford.FixedAnchor.Reduction
 public import GeneralizedStafford.FixedAnchor.Regular
 public import GeneralizedStafford.FixedAnchor.SecondCall
-public import GeneralizedStafford.Goldie.Basic
 public import GeneralizedStafford.Goldie.Torsion
 
 @[expose] public section
