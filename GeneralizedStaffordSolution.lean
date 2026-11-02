@@ -86,7 +86,7 @@ theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} :=
 theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} :=
   weylTwoGeneratedLeft_proof.{u}
 
-/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: every nonzero `d` is Stafford-38 (`1 = d R + F d S`). -/
+/-- Stafford's Conjecture 3.8 for `Aₙ(k)`: for every nonzero `d` there are `F, R, S` with `1 = d R + F d S`. -/
 theorem weylConjecture38 : GeneralizedStaffordWeylChallenge.Conjecture38Statement.{u} :=
   weylConjecture38_proof.{u}
 
