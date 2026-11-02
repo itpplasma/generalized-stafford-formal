@@ -1,0 +1,272 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Generalized Stafford: Theorem A"
+  description: >-
+    Lean formalization of affine generation over simple right Noetherian rings
+    with infinite centre. For a right ideal I containing a regular element with
+    Kdim(R/I) finite, every x and nonzero t admit H with I + (x + H t)R = R
+    (Theorem A'). For a regular d with Kdim(R/dR) finite, every nonzero a and
+    every B admit H, U, V with 1 = d*U + (B + H*a)*d*V (Theorem A). Corollaries:
+    the dimension hypothesis holds when Kdim R <= omega (B); prescribed cyclic
+    generators of finite Goldie-torsion modules (C.1); two-generated right
+    ideals (C.2); and ceil(rho M) <= mu(M) <= floor(rho M) + 1 for the
+    normalized Goldie rank rho (C.3).
+  authors:
+    - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+  responsible_maintainers:
+    - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+  license: "Apache-2.0"
+
+repository:
+  role: "substantive-development"
+  url: "https://github.com/itpplasma/generalized-stafford-formal"
+  registration_status: "not-registered"
+  note: >-
+    Private repository. Registration, release, DOI and visibility change each
+    require explicit human authorization (docs/release-runbook.md).
+
+classification:
+  arxiv:
+    - "math.RA"
+  msc2020:
+    - "16P40"
+    - "16P60"
+    - "16D25"
+
+sources:
+  - title: "Theorem A: affine generation over simple Noetherian rings with infinite centre"
+    authors:
+      - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+    type: "original-proof"
+    relationship: "other"
+    location: >-
+      itpplasma/generalized-stafford (private): docs/core-theorem.md, Sections
+      0-6; docs/lane-C3-rank-without-morita.md (upper bound of C.3);
+      docs/manuscript/main.tex, Sections 1-6
+    note: >-
+      Project-written proof with independent agent proof-audits; not
+      human-reviewed. The label original-proof classifies the source; it is not
+      a novelty or priority claim. The manuscript contains the core proof
+      (Theorems A' and A); the corollary proofs are the Lean proofs of this
+      repository.
+    author_endorsement: "participated"
+  - title: "Module structure of Weyl algebras"
+    authors:
+      - "J. T. Stafford"
+    type: "paper"
+    id: "https://doi.org/10.1112/jlms/s2-18.3.429"
+    location: >-
+      Journal of the London Mathematical Society (2) 18 (1978), 429-442,
+      Theorem 3.1 and Conjecture 3.8
+    relationship: "background"
+    note: >-
+      Source of the identity R = dR + HdR for Weyl algebras, the case a = 1,
+      B = 0 of Theorem A.
+  - title: "Module structure of Weyl algebras"
+    authors:
+      - "Gwyn Bellamy"
+    type: "paper"
+    id: "https://doi.org/10.1112/jlms.70373"
+    location: >-
+      Journal of the London Mathematical Society (2) 113 (2026), e70373
+    relationship: "background"
+    note: >-
+      Survey of Stafford's results and open questions on module structure.
+  - title: "The structure of prime rings under ascending chain conditions"
+    authors:
+      - "A. W. Goldie"
+    type: "paper"
+    location: >-
+      Proceedings of the London Mathematical Society (3) 8 (1958), 589-608
+    relationship: "background"
+    note: >-
+      Goldie's theorem; formalized for simple right Noetherian rings in
+      AlgebraicAnalysis.RingTheory.Goldie.
+  - title: "Noncommutative Noetherian Rings"
+    authors:
+      - "J. C. McConnell"
+      - "J. C. Robson"
+    type: "book"
+    location: >-
+      Graduate Studies in Mathematics 30, American Mathematical Society (2001),
+      Chapters 2 and 6
+    relationship: "background"
+    note: >-
+      Standard reference for Ore localization, Goldie theory, uniform dimension
+      and Krull (deviation) dimension.
+
+related_formalizations:
+  - name: "AlgebraicAnalysis"
+    id: "https://github.com/itpplasma/algebraic-analysis"
+    url: "https://github.com/itpplasma/algebraic-analysis"
+    relationship: "builds-on"
+    note: >-
+      Lean library pinned in lakefile.toml. Supplies deviation dimension, the
+      germ calculus, central pencils, Goldie theory, Ore localization of modules
+      and uniform dimension.
+  - name: "Stafford 3.8"
+    id: "https://doi.org/10.5281/zenodo.22667041"
+    url: "https://github.com/itpplasma/stafford38-formal"
+    relationship: "independent"
+    note: >-
+      Stafford's Conjecture 3.8 for Weyl algebras in characteristic zero, by a
+      different route. Not a dependency.
+
+verification:
+  commit: "TO BE FILLED BY THE CONTROLLER"
+  statement_correspondence: "docs/paper-lean-specification.md"
+  literature_review: "docs/literature.md"
+  allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+status:
+  scope: >-
+    Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 are stated in the
+    Mathlib-only challenge (14 compared theorems) and proved in the solution by
+    transport from the library. The statement-faithfulness audit passed. Human
+    review is open. Not registered on Palomar.
+  sorry_count: 28
+  sorry_in_definitions: 0
+  axioms:
+    - "propext"
+    - "Quot.sound"
+    - "Classical.choice"
+  main_results:
+    - declaration: "GeneralizedStafford.fixed_ideal"
+      file: "GeneralizedStafford/TheoremA.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      literature_dependencies: []
+    - declaration: "GeneralizedStafford.fixed_anchor"
+      file: "GeneralizedStafford/TheoremA.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      literature_dependencies: []
+    - declaration: "GeneralizedStaffordChallenge.fixedIdeal"
+      file: "GeneralizedStaffordSolution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+    - declaration: "GeneralizedStaffordChallenge.fixedAnchor"
+      file: "GeneralizedStaffordSolution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Quot.sound", "Classical.choice"]
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "manual"
+      framework: "Lean 4 and Mathlib"
+      tool_setup: >-
+        Human mathematical direction, task selection, integration and release
+        control.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local workstation and cloud containers"
+      prompting_notes: "n/a"
+    - method: "agent"
+      models:
+        - "claude-opus-5-5"
+      framework: "Claude Code"
+      tool_setup: >-
+        A controller agent assigns tasks and integrates; worker agents write
+        Lean, documentation and independent statement audits.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local workstation and cloud containers"
+      prompting_notes: >-
+        Tasks name the paper statement, allowed files and the verification
+        commands; audits receive a frozen candidate and named scopes.
+  spend_usd: "not tracked"
+  notes: >-
+    Model use records process assistance and does not assign authorship of a
+    mathematical idea.
+
+fidelity:
+  divergences: >-
+    Right modules are modules over the opposite ring. Kdim is defined inline as
+    a deviation bound on submodule lattices. The condition aQ = IQ of C.2 is
+    stated elementwise (every y in I has a regular s with y s in aR). C.3 is
+    stated through uniform dimensions without division or rounding; its
+    identification with rho uses s = udim(R_R) and
+    length_Q(M (x) Q) = udim(M/t(M)). The C.2 full-rank existence statement
+    assumes only (S), (N). The ordinal clause of the dimension lemma and
+    opposite-side statements are omitted.
+
+review:
+  status: "agent-reviewed"
+  reviewers: []
+  notes: >-
+    The written proof passed independent agent proof-audits. The challenge
+    statements passed an independent statement-faithfulness audit
+    (docs/paper-lean-specification.md). Human expert review is open.
+
+alignment:
+  namespace: "GeneralizedStafford"
+  statements:
+    - source: "core-theorem.md, Theorem A' (fixed ideal)"
+      lean: "GeneralizedStaffordChallenge.fixedIdeal"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Theorem A (fixed anchor)"
+      lean: "GeneralizedStaffordChallenge.fixedAnchor"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary B and Lemma 6.1"
+      lean: "GeneralizedStaffordChallenge.corollaryB_dimension"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary B for Theorem A"
+      lean: "GeneralizedStaffordChallenge.corollaryB_fixedAnchor"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary B for Theorem A'"
+      lean: "GeneralizedStaffordChallenge.corollaryB_fixedIdeal"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.1 and Lemma 6.2"
+      lean: "GeneralizedStaffordChallenge.corollaryC1"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.1 under (H_all)"
+      lean: "GeneralizedStaffordChallenge.corollaryC1_hAll"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.1 under (H_omega)"
+      lean: "GeneralizedStaffordChallenge.corollaryC1_omega"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "main.tex, Proposition prop:C1(a) (stable cyclicity)"
+      lean: "GeneralizedStaffordChallenge.corollaryC1_stable"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Lemma 6.3, existence of a with aQ = IQ"
+      lean: "GeneralizedStaffordChallenge.corollaryC2_fullRank"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.2, prescribed form"
+      lean: "GeneralizedStaffordChallenge.corollaryC2_prescribed"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.2, two generators"
+      lean: "GeneralizedStaffordChallenge.corollaryC2"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.3 and Lemma 6.4, lower bound"
+      lean: "GeneralizedStaffordChallenge.corollaryC3_lower"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+    - source: "core-theorem.md, Corollary C.3; lane-C3 note, upper bound"
+      lean: "GeneralizedStaffordChallenge.corollaryC3_upper"
+      module: "GeneralizedStaffordSolution"
+      status: "proved"
+
+acknowledgements: >-
+  Builds on Lean, Mathlib and the AlgebraicAnalysis library. Comparator,
+  lean4export, NanoDa and Landrun provide the independent submission-checking
+  path; scripts/landrun-wrapper.sh is adapted from PalomarRegistry/PalomarTemplate.
