@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: TO BE FINALIZED BY THE CONTROLLER (expected: 14 of 14 challenge theorems proved at commit <SHA>; gates below).
+Status: 14 of 14 challenge theorems proved and verified at commit `2539e681d971` (2 November 2026); gates below.
 
 The private research repository `itpplasma/generalized-stafford` owns the
 mathematics and its status. This file owns the formal state only.
@@ -21,9 +21,9 @@ each statement to its challenge name and library declaration.
 
 | Gate | State | Evidence or remaining obligation |
 | --- | --- | --- |
-| Build | CONTROLLER | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the release commit. |
-| Axiom audit | CONTROLLER | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
-| Palomar comparator | CONTROLLER | `scripts/verify-palomar.sh`: Comparator with NanoDa and the Lean kernel, sandboxed by Landrun; see [verification](docs/verification.md). The run of 2 November 2026 covered the 12 theorems solved then. |
+| Build | PASSED | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the release commit. |
+| Axiom audit | PASSED (46 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
+| Palomar comparator | PASSED (14 theorems) | `scripts/verify-palomar.sh`: Comparator with NanoDa and the Lean kernel, sandboxed by Landrun; see [verification](docs/verification.md). The run of 2 November 2026 at `2539e681d971` covered all 14 theorems. |
 | Statement faithfulness | PASS | Independent audit `review1` of the challenge: definitions, hypotheses, statements and the C.3 encoding PASS; readability REPAIR (renames and docstrings) applied without statement change. |
 | Human review | OPEN | Agent audits are not human review. |
 | Palomar registration | NOT DONE | Requires explicit human authorization ([runbook](docs/release-runbook.md)). |

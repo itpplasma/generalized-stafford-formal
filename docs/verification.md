@@ -21,7 +21,7 @@ them is publication.
 
 ## Release verification record
 
-Status: TO BE FILLED BY THE CONTROLLER (commit, date, outcome of `scripts/verify.sh` and `scripts/verify-palomar.sh` for the 14 compared theorems).
+Status: commit `2539e681d9712ef9f135ffab62ce3b485ad5f0de`, 2 November 2026. `PYTHON=python3 scripts/verify.sh` passed (pins; full build; solution; 46 endpoint axiom reports, axioms exactly `propext`, `Classical.choice`, `Quot.sound`). `scripts/verify-palomar.sh` passed: Comparator with NanoDa and the Lean kernel accepted all 14 compared theorems; `tests/SolutionOracle.lean` reports only the three permitted axioms for each.
 
 ## Palomar comparator run, 2 November 2026
 

@@ -5,7 +5,7 @@ Noetherian rings with infinite centre, and of its module corollaries. The
 case `a = 1`, `B = 0` of Theorem A is the identity `R = dR + HdR`, which
 Stafford conjectured for the Weyl algebras (Conjecture 3.8 of Stafford 1978).
 
-Status: TO BE FINALIZED BY THE CONTROLLER (expected: all 14 challenge theorems proved; human review pending; not registered on Palomar).
+Status: all 14 challenge theorems are proved and accepted by the Palomar comparator (NanoDa and Lean kernels); independent human review is pending; not registered on Palomar.
 
 ## The theorem
 

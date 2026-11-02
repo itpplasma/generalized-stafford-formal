@@ -115,7 +115,7 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "TO BE FILLED BY THE CONTROLLER"
+  commit: "2539e681d9712ef9f135ffab62ce3b485ad5f0de"
   statement_correspondence: "docs/paper-lean-specification.md"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
