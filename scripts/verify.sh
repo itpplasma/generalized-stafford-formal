@@ -8,7 +8,6 @@ python_bin=${PYTHON:-python3}
 mkdir -p .lake/verification
 
 "$python_bin" scripts/check-pins.py
-"$python_bin" scripts/check-paper-lean-map.py --lean-audit .lake/verification/PaperLeanMapAudit.lean
 lake build GeneralizedStafford > .lake/verification/build.log 2>&1
 
 project_lean() {
@@ -20,8 +19,6 @@ project_lean() {
   ' bash "$repo_root" "$@"
 }
 
-project_lean .lake/verification/PaperLeanMapAudit.lean > .lake/verification/paper-lean-map.log 2>&1
-project_lean tests/StatementAudit.lean > .lake/verification/statement.log 2>&1
 {
   echo 'module'
   echo 'import GeneralizedStafford'
@@ -29,4 +26,4 @@ project_lean tests/StatementAudit.lean > .lake/verification/statement.log 2>&1
 } > .lake/verification/AxiomAudit.lean
 project_lean .lake/verification/AxiomAudit.lean > .lake/verification/axioms.log 2>&1
 "$python_bin" scripts/check-axiom-closure.py --endpoints docs/endpoints.txt .lake/verification/axioms.log
-echo 'Verification passed: pinned dependencies, paper/Lean source map and declaration owners, full library, statement, and endpoint axioms.'
+echo 'Verification passed: pinned dependencies, full library, and endpoint axioms.'

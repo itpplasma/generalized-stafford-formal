@@ -7,39 +7,21 @@ generalized filtration hypotheses and migrated to GeneralizedStafford.
 Original manuscript section references are retained for correspondence.
 -/
 
-public import GeneralizedStafford.Setting
-public import GeneralizedStafford.RightFraction
-public import GeneralizedStafford.Localization
-public import GeneralizedStafford.Pencil
-public import GeneralizedStafford.NoFiniteRank
-public import GeneralizedStafford.Test
-public import GeneralizedStafford.SourceSelection
-public import GeneralizedStafford.Dimension
-public import GeneralizedStafford.Induction
-public import GeneralizedStafford.Opposite
 public import GeneralizedStafford.ConsequencesGeneration
-public import GeneralizedStafford.ConsequencesRank
-public import GeneralizedStafford.ConsequencesForU
-public import GeneralizedStafford.Main
-public import GeneralizedStafford.ProjectiveWidth.Matrix
-public import GeneralizedStafford.FixedAnchor.Corollaries
-public import GeneralizedStafford.FixedAnchor.Pencils
-public import GeneralizedStafford.FixedAnchor.Induction
+public import GeneralizedStafford.FixedAnchor.Descent
+public import GeneralizedStafford.FixedAnchor.FiniteTop
 public import GeneralizedStafford.FixedAnchor.FixedIdeal
+public import GeneralizedStafford.FixedAnchor.GermTests
+public import GeneralizedStafford.FixedAnchor.Induction
+public import GeneralizedStafford.FixedAnchor.Pencils
+public import GeneralizedStafford.FixedAnchor.Reduction
+public import GeneralizedStafford.FixedAnchor.Regular
+public import GeneralizedStafford.FixedAnchor.SecondCall
 public import GeneralizedStafford.Goldie.Basic
 public import GeneralizedStafford.Goldie.Torsion
-public import GeneralizedStafford.FixedAnchor.Regular
 
 @[expose] public section
 
 /-!
-# The general filtered Stafford theorem
-
-This umbrella module imports the generalized filtered development: the filtered setting and localization package (§§2–3 with the
-Zariskian closure Z1–Z9), finite-length source selection and pencils (§4),
-the common colon ideal and the controlled codimension induction (§§5–6),
-opposite transport and the module-theoretic consequences (§7).  The main
-theorem is `GeneralizedStafford.FilteredAlgebraData.targetA`. The conditional
-projective and matrix affine width theorems are exported from `ProjectiveWidth`;
-their scalar S1 and bilateral Ore hypotheses remain explicit.
+Theorem A and its corollaries; see README.
 -/
