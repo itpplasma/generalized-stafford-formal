@@ -2,7 +2,7 @@
 
 Updated: 2 November 2026. Private repository.
 
-Status: 41 of 41 challenge theorems (13 abstract, 11 Weyl-algebra, 6 filtered-ring, 5 enveloping-algebra, 6 differential-operator applications) proved and verified on branch `paper-scope` at commit `7f225191531b4e766b2f42992714b1d30b2e3494` (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`). The challenge now states exactly the numbered results of the paper; the earlier 46-theorem freeze `17f84e3bc693b309f40dc5c75a901ec891214bf0` is superseded, and a new freeze waits for the statement-faithfulness audit of the reduced challenge; gates below.
+Status: 41 of 41 challenge theorems (13 abstract, 11 Weyl-algebra, 6 filtered-ring, 5 enveloping-algebra, 6 differential-operator applications) proved and verified on branch `paper-scope` at commit `e63321970bcb7cf360a378bf48368f23d9bc1e6a` (2 November 2026; AlgebraicAnalysis pinned at `22b3946c0cfc13960cd238319acea76ae0d5f168`). The challenge now states exactly the numbered results of the paper; the earlier 46-theorem freeze `17f84e3bc693b309f40dc5c75a901ec891214bf0` is superseded, and a new freeze waits for the statement-faithfulness audit of the reduced challenge; gates below.
 
 This file records the formal state only.
 
@@ -29,7 +29,7 @@ because Corollary B uses it, and the challenge states it in the form (H_omega) i
 | Build | PASSED | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the verified commit. |
 | Axiom audit | PASSED (81 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
 | Palomar check (local replay) | PASSED (41 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
-| Statement faithfulness | OPEN | The reduced challenge (sha256 `778588a0d79f7216ce1e416159ad53092a38aa172dcdf095505dc4764be9890a`) needs an independent statement-faithfulness audit. Its 41 statements are those of the earlier challenge except the new `corollaryC2_omega` (the omega case of C.2, stated in the paper's Corollary C) and `knownDimension_hAll_of_omega` (McConnell-Robson 6.3.9, cited input of Corollary B); the audit of 2 November 2026 (sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`) covered that earlier 46-theorem file and does not by itself certify the reduced one. |
+| Statement faithfulness | PASS | PASS: independent statement-faithfulness audits of 2 November 2026 of the 40-theorem challenge (sha256 `07efe11f…`, all statements unchanged from the audited 46-theorem challenge except the new `corollaryC2_omega`; repair applied: `knownDimension_hAll_of_omega` added) and of that addition (sha256 `778588a0…`); the final change is docstring-only (precise McConnell--Robson locators 6.2.3 and 6.3.9), sha256 `272c7eb9454d5ef02e6d5bb5ea41e0cbc3d112be9d2a5e931a29b7226dfd413f`. |
 | Human review | OPEN | Agent audits are not human review. |
 | Palomar registration | NOT DONE | Requires explicit human authorization ([runbook](docs/release-runbook.md)). |
 | Release, DOI, visibility change | NOT DONE | Requires explicit human authorization. |

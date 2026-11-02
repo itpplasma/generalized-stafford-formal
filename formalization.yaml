@@ -121,7 +121,7 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "7f225191531b4e766b2f42992714b1d30b2e3494"
+  commit: "e63321970bcb7cf360a378bf48368f23d9bc1e6a"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
