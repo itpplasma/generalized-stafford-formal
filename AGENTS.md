@@ -1,7 +1,7 @@
 # Agent rules: generalized-stafford-formal
 
 This repository owns the Lean 4 formalization of Theorem A', Theorem A and
-Corollaries B, C.1-C.3, and their Palomar interface. `PLAN.md` is the only
+Corollaries B, C.1 and C.2, and their Palomar interface. `PLAN.md` is the only
 live status document; read it before any edit. The written proof lives in the
 written proof is kept outside this repository. Nothing here imports it or
 needs it to build or verify.

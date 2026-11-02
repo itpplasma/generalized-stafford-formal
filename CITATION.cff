@@ -17,8 +17,7 @@ abstract: >-
   finite, every nonzero a and every B, there are H, U, V with
   1 = dU + (B + Ha)dV (Theorem A), together with the fixed-ideal form
   (Theorem A') and the corollaries for Kdim R <= omega, prescribed cyclic
-  generators of torsion modules, two-generated right ideals and generator
-  bounds by normalized Goldie rank. Applications, several also in left-sided
+  generators of torsion modules and two-generated right ideals. Applications, several also in left-sided
   form, cover the Weyl algebras in characteristic zero, simple filtered algebras with
   commutative Noetherian associated graded ring, simple quotients of
   enveloping algebras and differential operators on smooth affine domains in

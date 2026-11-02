@@ -5,7 +5,7 @@ Noetherian rings with infinite centre, and of its module corollaries. The
 case `a = 1`, `B = 0` of Theorem A is the identity `R = dR + HdR`, which
 Stafford conjectured for the Weyl algebras (Conjecture 3.8 of Stafford 1978).
 
-Status: all 46 challenge theorems (Theorem A′, A, Corollaries B, C.1–C.3; eleven Weyl-algebra applications; eight filtered-ring and seven enveloping-algebra applications on both sides; six applications to differential operators on smooth affine varieties, including two-generation of one-sided ideals and the Global Stafford identity) are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. Independent human review is pending.
+Status: all 39 challenge theorems (Theorem A′, A, Corollaries B, C.1, C.2; eleven Weyl-algebra applications; six filtered-ring and five enveloping-algebra applications on both sides; six applications to differential operators on smooth affine varieties, including two-generation of one-sided ideals and the Global Stafford identity) are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. The challenge states exactly the numbered results of the paper; this reduced challenge still needs a statement-faithfulness audit, and independent human review is pending.
 
 ## The theorem
 
@@ -43,10 +43,12 @@ I + (x + H t) R = R.
 1 = d U + (B + H a) d V.
 ```
 
-**Corollary B.** If `R` is right Noetherian with `Kdim R <= omega`, then
-`Kdim(R/I)` is finite for every right ideal `I` containing a regular element.
-Hence, under (S), (N), (Z), Theorem A holds for every regular `d` and
-Theorem A' for every such `I`.
+**Corollary B.** Assume (S), (N), (Z) and `Kdim R <= omega`. Then the
+conclusion of Theorem A holds for every regular `d`, and that of Theorem A'
+for every right ideal containing a regular element. The proof uses that
+`Kdim(R/dR)` is finite for every regular `d` when `Kdim R <= omega`
+(McConnell-Robson 6.3.9); the library proves this fact, but the challenge does
+not state it separately.
 
 **Corollary C.** Assume (S), (N), (Z).
 
@@ -60,10 +62,6 @@ Theorem A' for every such `I`.
   precisely, if `a` in `I` satisfies `aQ = IQ` (`Q` the classical right
   quotient ring), then for every `y` in `I` and nonzero `t` there is `h` in `I`
   with `I = aR + (y + h t) R`.
-- (C.3) Under (H_all), for every finite module `M`,
-  `ceil(rho M) <= mu(M) <= floor(rho M) + 1`, where `mu` is the minimal number
-  of generators and `rho(M) = length_Q(M ⊗_R Q) / s` for `Q = M_s(D)`. The
-  lower bound needs only (S), (N).
 
 ## What is formalized
 
@@ -71,21 +69,17 @@ Theorem A' for every such `I`.
   (`fixed_anchor`), Corollary B (`quotient_finite_of_omega`,
   `fixed_ideal_of_devLE_omega`, `fixed_anchor_of_devLE_omega`) and
   Corollary C (`span_pair_eq_span_affine`, `prescribed_cyclic*`,
-  `two_generated*` and the C.3 bounds), and the applications to the Weyl
+  `two_generated*`), and the applications to the Weyl
   algebras, filtered rings, simple quotients of enveloping algebras and
   differential operators on smooth affine domains. The library endpoints are
   listed in [docs/endpoints.txt](docs/endpoints.txt).
 - Palomar challenge: `GeneralizedStaffordChallenge.lean` (identical copy
-  `Challenge.lean`) states the 46 compared theorems with Mathlib-only
+  `Challenge.lean`) states the 39 compared theorems with Mathlib-only
   definitions. `GeneralizedStaffordSolution.lean` (identical copy
   `Solution.lean`) proves them by transport from the library and does not
   import the challenge. `comparator.json` lists the theorems.
 
-The challenge encodes C.3 without division or rounding, through uniform
-dimensions: `s = udim(R_R)` and `length_Q(M ⊗_R Q) = udim(M/t(M))`. These two
-classical identities (Goldie theory) connect the Lean statements to `rho`.
-
-The project declares no axioms. The only `sorry`s are the 46 deliberate
+The project declares no axioms. The only `sorry`s are the 39 deliberate
 placeholders in each challenge file. The endpoints depend only on `propext`,
 `Classical.choice` and `Quot.sound`.
 
@@ -93,9 +87,8 @@ The abstract theorems are stated for right ideals and right modules. Left-sided
 forms are stated for the applications: all filtered-ring and enveloping-algebra
 statements hold for `R` and `Rᵐᵒᵖ`, and the Weyl-algebra and `D_k(A)`
 two-generation and cyclicity statements (for `D_k(A)` also Theorem A) have
-right and left forms. Not formalized: the ordinal refinement `delta(d) < Kdim R`
-in the dimension part of Corollary B, results beyond `omega`, and applications
-other than these four classes.
+right and left forms. Not formalized: the ordinal refinement `delta(d) < Kdim R`,
+results beyond `omega`, and applications other than these four classes.
 
 ## Proof structure
 
@@ -104,8 +97,7 @@ the affine generator `x + H t` by one whose quotient `R/(I + fR)` has strictly
 smaller deviation, using Goldie's theorem and a good nonzero central scalar.
 Theorem A follows from Theorem A' with `I = dR`, `x = B d` and `t = a d`. The
 corollaries are proved in their own files, and each corollary file opens with a
-short account of its proof. The upper bound of C.3 is proved by induction on
-the number of generators `q`, without transferring the module to a matrix ring.
+short account of its proof.
 
 ## Building and checking
 

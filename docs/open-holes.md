@@ -4,20 +4,19 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes among the 46 compared theorems of `comparator.json`. All 46 are proved and
-were accepted by the local replay of the Palomar check ([verification](verification.md)). Twenty-five are as before (fourteen via
-`GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
-Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`). The eight filtered-ring
+Status: no open holes among the 39 compared theorems of `comparator.json`. All 39 are proved and
+were accepted by the local replay of the Palomar check ([verification](verification.md)). Eleven are
+proved via `GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
+Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`. The six filtered-ring
 statements below are proved in `GeneralizedStafford/Challenge/FilteredTransport.lean` from
 `GeneralizedStafford/Filtered.lean` and the AlgebraicAnalysis symbol lemmas, with no hypothesis beyond
 the statements themselves.
 
-Solved: `fixedIdeal`, `fixedAnchor`, `corollaryB_dimension`,
+Solved: `fixedIdeal`, `fixedAnchor`,
 `corollaryB_fixedAnchor`, `corollaryB_fixedIdeal`, `corollaryC1`,
 `corollaryC1_hAll`, `corollaryC1_omega`, `corollaryC1_stable`,
 `corollaryC2_fullRank`, `corollaryC2_prescribed`, `corollaryC2`,
-`corollaryC3_lower`, `corollaryC3_upper`, `weylTwoGeneratedRight`,
-`weylTwoGeneratedLeft`.
+`weylTwoGeneratedRight`, `weylTwoGeneratedLeft`.
 
 Solved Weyl algebra statements (`A_n(k)`, `k` of characteristic zero): `weylConjecture38`
 (Stafford's Conjecture 3.8), `weylAffineForm` (Theorem A), `weylFixedIdeal` (Theorem A'),
@@ -30,15 +29,13 @@ AlgebraicAnalysis `Weyl.isDomain` (`A_n(k)` is a domain).
 Solved filtered-ring statements (a simple `k`-algebra `R` with a filtration and a symbol into a
 commutative Noetherian graded algebra of finite Krull dimension, both sides): `filteredHypotheses`
 ((N), (Z), `Kdim ≤ m`), `filteredTheoremA` (Theorem A, right and left forms), `filteredFixedIdeal`
-(Theorem A'), `filteredCorollaryB` (dimension part of Corollary B), `filteredPrescribedCyclic`
-(C.1, prescribed and stable), `filteredTwoGenerated` (C.2), `filteredGeneratorBounds` (C.3) and
-`filteredDomain` (Theorem A for nonzero anchors when the symbol is a domain).
+(Theorem A'), `filteredPrescribedCyclic` (C.1, prescribed and stable), `filteredTwoGenerated`
+(C.2) and `filteredDomain` (Theorem A for nonzero anchors when the symbol is a domain).
 
 Solved simple-quotient statements of enveloping algebras (`U(𝔤)/J` as a simple `k`-algebra `R`
 with a surjective algebra map `U(𝔤) → R`, `𝔤` finite-dimensional, `k` infinite): `envelopingHypotheses`
 ((N), (Z), `Kdim ≤ dim 𝔤` on both sides), `envelopingTheoremA`, `envelopingFixedIdeal`,
-`envelopingCorollaryB`, `envelopingPrescribedCyclic` (C.1), `envelopingTwoGenerated` (C.2) and
-`envelopingGeneratorBounds` (C.3). They are proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`
+`envelopingPrescribedCyclic` (C.1) and `envelopingTwoGenerated` (C.2). They are proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`
 from `GeneralizedStafford/Enveloping.lean`, which uses the PBW symbol presentation of AlgebraicAnalysis
 (`pbwSymbolPresentation`, no PBW theorem beyond spanning), with no hypothesis beyond the statements.
 

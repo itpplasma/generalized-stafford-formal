@@ -9,10 +9,10 @@ project:
     Kdim(R/I) finite, every x and nonzero t admit H with I + (x + H t)R = R
     (Theorem A'). For a regular d with Kdim(R/dR) finite, every nonzero a and
     every B admit H, U, V with 1 = d*U + (B + H*a)*d*V (Theorem A). Corollaries:
-    the dimension hypothesis holds when Kdim R <= omega (B); prescribed cyclic
-    generators of finite Goldie-torsion modules (C.1); two-generated right
-    ideals (C.2); and ceil(rho M) <= mu(M) <= floor(rho M) + 1 for the
-    normalized Goldie rank rho (C.3). Applications: Weyl algebras in
+    Theorems A and A' hold for every regular d and every right ideal with a
+    regular element when Kdim R <= omega (B); prescribed cyclic generators of
+    finite Goldie-torsion modules (C.1); two-generated right ideals (C.2).
+    Applications: Weyl algebras in
     characteristic zero (including Stafford's Conjecture 3.8), simple filtered
     algebras with commutative Noetherian associated graded ring, simple
     quotients of enveloping algebras, and differential operators on smooth
@@ -121,22 +121,23 @@ related_formalizations:
       different route. Not a dependency.
 
 verification:
-  commit: "17f84e3bc693b309f40dc5c75a901ec891214bf0"
+  commit: "9f2c555ca02d7e8da30106a022649008edf226c1"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
 status:
   scope: >-
-    Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 (14 statements)
-    and their applications to Weyl algebras (11), filtered rings (8), simple
-    quotients of enveloping algebras (7) and differential operators on smooth
-    affine domains (6) are stated in the Mathlib-only challenge (46 compared
-    theorems) and proved in the solution by
+    Theorem A', Theorem A and Corollaries B, C.1 and C.2 (11 statements)
+    and their applications to Weyl algebras (11), filtered rings (6), simple
+    quotients of enveloping algebras (5) and differential operators on smooth
+    affine domains (6) are stated in the Mathlib-only challenge (39 compared
+    theorems, the numbered results of the paper) and proved in the solution by
     transport from the library, and accepted in a local replay of the Palomar
     check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
-    mode). An independent statement-faithfulness audit (2 November 2026)
-    passed. Human review is open. Not registered on Palomar.
-  sorry_count: 92
+    mode). The reduced challenge has not yet had a statement-faithfulness
+    audit; the audit of 2 November 2026 covered the earlier 46-theorem
+    challenge. Human review is open. Not registered on Palomar.
+  sorry_count: 78
   sorry_in_definitions: 0
   axioms:
     - "propext"
@@ -201,12 +202,11 @@ fidelity:
   divergences: >-
     Right modules are modules over the opposite ring. Kdim is defined inline as
     a deviation bound on submodule lattices. The condition aQ = IQ of C.2 is
-    stated elementwise (every y in I has a regular s with y s in aR). C.3 is
-    stated through uniform dimensions without division or rounding; its
-    identification with rho uses s = udim(R_R) and
-    length_Q(M (x) Q) = udim(M/t(M)). The C.2 full-rank existence statement
-    assumes only (S), (N). The ordinal refinement delta(d) < Kdim R of the
-    dimension part of Corollary B is omitted. The abstract theorems are stated
+    stated elementwise (every y in I has a regular s with y s in aR). The C.2
+    full-rank existence statement assumes only (S), (N). The dimension fact
+    used by Corollary B (Kdim R <= omega implies Kdim(R/dR) finite, cited in
+    the paper from McConnell-Robson 6.3.9) is proved in the library but is not
+    a compared statement. The abstract theorems are stated
     for right ideals and right modules only; left-sided forms are stated for
     the applications (all filtered-ring and enveloping-algebra statements for R
     and its opposite ring; the Weyl-algebra and D_k(A) two-generation and
@@ -216,9 +216,10 @@ review:
   status: "agent-reviewed"
   reviewers: []
   notes: >-
-    The written proof passed independent agent proof-audits. The challenge
-    statements passed an independent statement-faithfulness audit
-    (2 November 2026). Human expert review is open.
+    The written proof passed independent agent proof-audits. The earlier
+    46-theorem challenge passed an independent statement-faithfulness audit
+    (2 November 2026); the reduced 39-theorem challenge still needs one.
+    Human expert review is open.
 
 alignment:
   namespace: "GeneralizedStafford"
@@ -229,10 +230,6 @@ alignment:
       status: "proved"
     - source: "Theorem A (fixed anchor)"
       lean: "GeneralizedStaffordChallenge.fixedAnchor"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
-    - source: "Corollary B, dimension part"
-      lean: "GeneralizedStaffordChallenge.corollaryB_dimension"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Corollary B for Theorem A"
@@ -269,14 +266,6 @@ alignment:
       status: "proved"
     - source: "Corollary C.2, two generators"
       lean: "GeneralizedStaffordChallenge.corollaryC2"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
-    - source: "Corollary C.3, lower bound"
-      lean: "GeneralizedStaffordChallenge.corollaryC3_lower"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
-    - source: "Corollary C.3, upper bound"
-      lean: "GeneralizedStaffordChallenge.corollaryC3_upper"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Weyl algebras: two generators, right ideals"
@@ -335,20 +324,12 @@ alignment:
       lean: "GeneralizedStaffordChallenge.filteredFixedIdeal"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "Filtered rings: Corollary B, dimension part, both sides"
-      lean: "GeneralizedStaffordChallenge.filteredCorollaryB"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
     - source: "Filtered rings: Corollary C.1, both sides"
       lean: "GeneralizedStaffordChallenge.filteredPrescribedCyclic"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Filtered rings: Corollary C.2, both sides"
       lean: "GeneralizedStaffordChallenge.filteredTwoGenerated"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
-    - source: "Filtered rings: Corollary C.3, both sides"
-      lean: "GeneralizedStaffordChallenge.filteredGeneratorBounds"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Filtered rings with domain associated graded ring: Theorem A for every nonzero anchor, both sides"
@@ -367,20 +348,12 @@ alignment:
       lean: "GeneralizedStaffordChallenge.envelopingFixedIdeal"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "Enveloping-algebra quotients: Corollary B, dimension part, both sides"
-      lean: "GeneralizedStaffordChallenge.envelopingCorollaryB"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
     - source: "Enveloping-algebra quotients: Corollary C.1, both sides"
       lean: "GeneralizedStaffordChallenge.envelopingPrescribedCyclic"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Enveloping-algebra quotients: Corollary C.2, both sides"
       lean: "GeneralizedStaffordChallenge.envelopingTwoGenerated"
-      module: "GeneralizedStaffordSolution"
-      status: "proved"
-    - source: "Enveloping-algebra quotients: Corollary C.3, both sides"
-      lean: "GeneralizedStaffordChallenge.envelopingGeneratorBounds"
       module: "GeneralizedStaffordSolution"
       status: "proved"
     - source: "Differential operators D_k(A): two generators, right ideals"
