@@ -12,7 +12,8 @@ statement about right ideals and right modules of `A` yields the same statement
 for left ideals and left modules, with no extra hypothesis on `A`.
 
 The results here are generic: they take the right-hand statement as a
-hypothesis. They are used for the Weyl algebra in `GeneralizedStafford.Weyl`.
+hypothesis. The two-generator transfer is used for the Weyl algebra in
+`GeneralizedStafford.Weyl`.
 -/
 
 universe u v
