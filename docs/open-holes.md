@@ -4,8 +4,9 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes among the 40 compared theorems of `comparator.json`. All 40 are proved
-and accepted by the local Comparator replay. Twenty-five are as before (fourteen via
+Status: no open holes among the 46 compared theorems of `comparator.json`. The first 40 are proved
+and were accepted by the local Comparator replay; the six differential-operator statements below are
+proved locally and await the Palomar replay. Twenty-five are as before (fourteen via
 `GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
 Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`). The eight filtered-ring
 statements below are proved in `GeneralizedStafford/Challenge/FilteredTransport.lean` from
@@ -41,6 +42,16 @@ with a surjective algebra map `U(𝔤) → R`, `𝔤` finite-dimensional, `k` in
 `envelopingGeneratorBounds` (C.3). They are proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`
 from `GeneralizedStafford/Enveloping.lean`, which uses the PBW symbol presentation of AlgebraicAnalysis
 (`pbwSymbolPresentation`, no PBW theorem beyond spanning), with no hypothesis beyond the statements.
+
+Solved differential-operator statements (`D_k(A)` for a field `k` of characteristic zero and a smooth
+domain `A` of finite type over `k`): `diffOpTwoGeneratedRight` and `diffOpTwoGeneratedLeft` (two
+generators for right and left ideals), `diffOpFixedAnchor` (Theorem A, right and left forms),
+`diffOpGlobalStafford` (the identity `1 = d R + F d S`), and `diffOpCyclicRight` and `diffOpCyclicLeft`
+(cyclicity of finitely generated torsion modules). They are proved in
+`GeneralizedStafford/Challenge/DiffOpTransport.lean` from `GeneralizedStafford/DifferentialOperators.lean`
+and the AlgebraicAnalysis differential operators (pin `71af6ec`). The bridge is `IsDifferentialOperator P`
+equals membership in AlgebraicAnalysis' `DifferentialOperators.algebra`, and `diffOps k A` equals that
+subalgebra. The closure proofs of `diffOps` are complete inside the challenge and are not compared.
 
 Add a solution theorem only when its proof is checked; never add `sorry`.
 When one is added, extend `Solution.lean`, `GeneralizedStaffordSolution.lean`,

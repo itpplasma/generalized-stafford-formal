@@ -2,6 +2,7 @@ import GeneralizedStafford.Challenge.Transport
 import GeneralizedStafford.Challenge.WeylTransport
 import GeneralizedStafford.Challenge.FilteredTransport
 import GeneralizedStafford.Challenge.EnvelopingTransport
+import GeneralizedStafford.Challenge.DiffOpTransport
 
 /-!
 # Solution: Theorem A', Theorem A and Corollaries B and C
@@ -13,12 +14,14 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All forty compared challenge theorems are solved: the thirty-three earlier compared theorems
+All forty-six compared challenge theorems are solved: the thirty-three earlier compared theorems
 (the fourteen Theorem A' / Theorem A and Corollary B and C statements, the two Weyl
 two-generation statements, the nine Weyl algebra statements, and the eight filtered-ring
 statements, proved in `GeneralizedStafford/Challenge/Transport.lean`, `WeylTransport.lean` and
 `FilteredTransport.lean`), and the seven simple-quotient statements of enveloping algebras,
-proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`.
+proved in `GeneralizedStafford/Challenge/EnvelopingTransport.lean`, and the six differential-operator
+statements of `D_k(A)`, proved in `GeneralizedStafford/Challenge/DiffOpTransport.lean` from
+`GeneralizedStafford/DifferentialOperators.lean` and the AlgebraicAnalysis differential operators.
 -/
 
 universe u v
@@ -185,5 +188,32 @@ theorem envelopingTwoGenerated : EnvelopingTwoGeneratedStatement.{u} :=
 /-- Simple quotients of enveloping algebras: Corollary C.3 on both sides. -/
 theorem envelopingGeneratorBounds : EnvelopingGeneratorBoundsStatement.{u, v} :=
   envelopingGeneratorBounds_proof.{u, v}
+
+
+/-! ## Differential operators on a smooth affine variety -/
+
+/-- Two generators for right ideals of `D_k(A)`. -/
+theorem diffOpTwoGeneratedRight : DiffOpTwoGeneratedRightStatement.{u} :=
+  diffOpTwoGeneratedRight_proof.{u}
+
+/-- Two generators for left ideals of `D_k(A)`. -/
+theorem diffOpTwoGeneratedLeft : DiffOpTwoGeneratedLeftStatement.{u} :=
+  diffOpTwoGeneratedLeft_proof.{u}
+
+/-- Theorem A for `D_k(A)`, right and left forms. -/
+theorem diffOpFixedAnchor : DiffOpFixedAnchorStatement.{u} :=
+  diffOpFixedAnchor_proof.{u}
+
+/-- The Global Stafford identity for `D_k(A)`. -/
+theorem diffOpGlobalStafford : DiffOpGlobalStaffordStatement.{u} :=
+  diffOpGlobalStafford_proof.{u}
+
+/-- Finitely generated torsion right `D_k(A)`-modules are cyclic. -/
+theorem diffOpCyclicRight : DiffOpCyclicRightStatement.{u, v} :=
+  diffOpCyclicRight_proof.{u, v}
+
+/-- Finitely generated torsion left `D_k(A)`-modules are cyclic. -/
+theorem diffOpCyclicLeft : DiffOpCyclicLeftStatement.{u, v} :=
+  diffOpCyclicLeft_proof.{u, v}
 
 end GeneralizedStaffordChallenge

@@ -41,7 +41,13 @@
     "GeneralizedStaffordChallenge.envelopingCorollaryB",
     "GeneralizedStaffordChallenge.envelopingPrescribedCyclic",
     "GeneralizedStaffordChallenge.envelopingTwoGenerated",
-    "GeneralizedStaffordChallenge.envelopingGeneratorBounds"
+    "GeneralizedStaffordChallenge.envelopingGeneratorBounds",
+    "GeneralizedStaffordChallenge.diffOpTwoGeneratedRight",
+    "GeneralizedStaffordChallenge.diffOpTwoGeneratedLeft",
+    "GeneralizedStaffordChallenge.diffOpFixedAnchor",
+    "GeneralizedStaffordChallenge.diffOpGlobalStafford",
+    "GeneralizedStaffordChallenge.diffOpCyclicRight",
+    "GeneralizedStaffordChallenge.diffOpCyclicLeft"
   ],
   "permitted_axioms": [
     "propext",

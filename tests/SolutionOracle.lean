@@ -3,7 +3,7 @@ import GeneralizedStaffordSolution
 /-!
 # Solution oracle
 
-Independent check of the forty solved Palomar theorems: the solution module is
+Independent check of the forty-six solved Palomar theorems: the solution module is
 imported alone, and each solved theorem is reported with `#print axioms`.
 The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 -/
@@ -48,3 +48,9 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 #print axioms GeneralizedStaffordChallenge.envelopingPrescribedCyclic
 #print axioms GeneralizedStaffordChallenge.envelopingTwoGenerated
 #print axioms GeneralizedStaffordChallenge.envelopingGeneratorBounds
+#print axioms GeneralizedStaffordChallenge.diffOpTwoGeneratedRight
+#print axioms GeneralizedStaffordChallenge.diffOpTwoGeneratedLeft
+#print axioms GeneralizedStaffordChallenge.diffOpFixedAnchor
+#print axioms GeneralizedStaffordChallenge.diffOpGlobalStafford
+#print axioms GeneralizedStaffordChallenge.diffOpCyclicRight
+#print axioms GeneralizedStaffordChallenge.diffOpCyclicLeft
