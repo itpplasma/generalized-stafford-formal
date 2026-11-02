@@ -14,7 +14,7 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All thirty-nine compared challenge theorems are solved: the eleven Theorem A' / Theorem A and
+All forty compared challenge theorems are solved: the twelve Theorem A' / Theorem A and
 Corollary B and C statements, the two Weyl two-generation statements and the nine Weyl algebra
 statements (proved in `GeneralizedStafford/Challenge/Transport.lean` and `WeylTransport.lean`),
 the six filtered-ring statements (`FilteredTransport.lean`), the five simple-quotient statements
@@ -70,6 +70,10 @@ theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} :=
 /-- Corollary C.2, every right ideal is two-generated. -/
 theorem corollaryC2 : CorollaryC2Statement.{u} :=
   corollaryC2_proof.{u}
+
+/-- Corollary C.2 under (H_omega). -/
+theorem corollaryC2_omega : CorollaryC2OmegaStatement.{u} :=
+  corollaryC2_omega_proof.{u}
 
 /-- Two generators for right ideals of the Weyl algebra `Aₙ(k)`. -/
 theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} :=

@@ -19,6 +19,7 @@ The permitted axioms are exactly `propext`, `Quot.sound` and `Classical.choice`.
 #print axioms GeneralizedStaffordChallenge.corollaryC2_fullRank
 #print axioms GeneralizedStaffordChallenge.corollaryC2_prescribed
 #print axioms GeneralizedStaffordChallenge.corollaryC2
+#print axioms GeneralizedStaffordChallenge.corollaryC2_omega
 #print axioms GeneralizedStaffordChallenge.weylTwoGeneratedRight
 #print axioms GeneralizedStaffordChallenge.weylTwoGeneratedLeft
 #print axioms GeneralizedStaffordChallenge.weylConjecture38
