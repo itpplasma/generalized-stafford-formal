@@ -1,29 +1,25 @@
 # Open holes for the Palomar challenge
 
-Status of `GeneralizedStaffordChallenge.lean` (copy `Challenge.lean`) against
-`GeneralizedStaffordSolution.lean`. The challenge keeps one deliberate `sorry`
-per compared theorem; the solution contains no `sorry`.
+Status of `GeneralizedStaffordChallenge.lean` (identical copy `Challenge.lean`)
+against `GeneralizedStaffordSolution.lean` (identical copy `Solution.lean`). The
+challenge keeps one deliberate `sorry` per compared theorem; the solution
+contains no `sorry`.
 
-## Solved (transported in `GeneralizedStafford/Challenge/Transport.lean`)
+## Solved (proved in `GeneralizedStafford/Challenge/Transport.lean`)
 
 `fixedIdeal`, `fixedAnchor`, `corollaryB_dimension`, `corollaryB_fixedAnchor`,
 `corollaryB_fixedIdeal`, `corollaryC1`, `corollaryC1_hAll`, `corollaryC1_omega`,
-`corollaryC2_prescribed`. These are the `theorem_names` of `comparator.json`.
+`corollaryC1_stable`, `corollaryC2_fullRank`, `corollaryC2_prescribed`,
+`corollaryC2`. These are the twelve `theorem_names` of `comparator.json`.
 
-## Not yet solved (absent from the solution; proved in other lanes)
+## Not yet solved (absent from the solution)
 
-| Challenge declaration | Paper statement | Proposed route (from the challenge notes) |
+| Challenge declaration | Paper statement | Status |
 | --- | --- | --- |
-| `corollaryC1_stable` | C.1 stable cyclicity, `prop:C1`(a) | `Regular.fixed_ideal` on `ker(r ↦ u r)` with offset 0 and tail `t b`, as in the manuscript proof; the computation is inside `Regular.prescribed_cyclic_aux` |
-| `corollaryC2_fullRank` | C.2, existence of `a ∈ I` with `aQ = IQ` (Lemma 6.3, first step) | not formalized |
-| `corollaryC2` | C.2, every right ideal two-generated | `corollaryC2_fullRank` with `corollaryC2_prescribed`; only domains are formalized in `Regular.two_generated_of_principal` |
-| `corollaryC3_lower` | C.3, `⌈ρ⌉ ≤ μ` | not formalized |
-| `corollaryC3_upper` | C.3, `μ ≤ ⌊ρ⌋ + 1` | not formalized |
+| `corollaryC3_lower` | C.3, `⌈ρ⌉ ≤ μ` (core Lemma 6.4; manuscript `prop:C3`) | uniform-dimension theory being built in another lane |
+| `corollaryC3_upper` | C.3, `μ ≤ ⌊ρ⌋ + 1` (core Lemma 6.4; manuscript `prop:C3`) | uniform-dimension theory being built in another lane |
 
 Add a solution theorem only when its proof is checked; do not add `sorry`.
-
-## TODO for the controller
-
-- `scripts/verify.sh` builds only `GeneralizedStafford`; the Challenge and
-  Solution targets are built by `scripts/verify-palomar.sh` and the commands in
-  the commit body.
+When one is added, extend `Solution.lean`, `GeneralizedStaffordSolution.lean`,
+`comparator.json`, the expected list in `scripts/verify-palomar.sh`,
+`tests/SolutionOracle.lean` and `docs/endpoints.txt` together.
