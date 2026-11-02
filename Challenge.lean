@@ -921,27 +921,27 @@ theorem endCommutator_zero (a : A) :
 theorem endCommutator_add (P Q : Module.End k A) (a : A) :
     GlobalStaffordChallenge.commutator (P + Q) a =
       GlobalStaffordChallenge.commutator P a + GlobalStaffordChallenge.commutator Q a := by
-  simp only [GlobalStaffordChallenge.commutator, add_mul, mul_add]; abel
-
+  simp only [GlobalStaffordChallenge.commutator, add_mul, mul_add, add_sub_add_comm]
 theorem endCommutator_mul (P Q : Module.End k A) (a : A) :
     GlobalStaffordChallenge.commutator (P * Q) a =
       P * GlobalStaffordChallenge.commutator Q a + GlobalStaffordChallenge.commutator P a * Q := by
-  simp only [GlobalStaffordChallenge.commutator, mul_sub, sub_mul, mul_assoc]; abel
-
-theorem isOrderLE_zero : ∀ n, IsOrderLE n (0 : Module.End k A)
-  | 0 => fun a => endCommutator_zero a
-  | n + 1 => fun a => by rw [endCommutator_zero]; exact isOrderLE_zero n
-
+  simp only [GlobalStaffordChallenge.commutator, mul_sub, sub_mul, mul_assoc, sub_add_sub_cancel]
+theorem isOrderLE_zero : ∀ n, IsOrderLE n (0 : Module.End k A) := by
+  intro n
+  induction n with
+  | zero => exact fun a => endCommutator_zero a
+  | succ n ih => exact fun a => by rw [endCommutator_zero]; exact ih
 theorem isOrderLE_add : ∀ {n} {P Q : Module.End k A},
-    IsOrderLE n P → IsOrderLE n Q → IsOrderLE n (P + Q)
-  | 0, _, _, hP, hQ => fun a => by rw [endCommutator_add, hP a, hQ a, add_zero]
-  | _ + 1, _, _, hP, hQ => fun a => by
-      rw [endCommutator_add]; exact isOrderLE_add (hP a) (hQ a)
-
-theorem isOrderLE_succ : ∀ {n} {P : Module.End k A}, IsOrderLE n P → IsOrderLE (n + 1) P
-  | 0, _, hP => fun a => by rw [hP a]; exact isOrderLE_zero 0
-  | _ + 1, _, hP => fun a => isOrderLE_succ (hP a)
-
+    IsOrderLE n P → IsOrderLE n Q → IsOrderLE n (P + Q) := by
+  intro n
+  induction n with
+  | zero => exact fun hP hQ a => by rw [endCommutator_add, hP a, hQ a, add_zero]
+  | succ n ih => exact fun hP hQ a => by rw [endCommutator_add]; exact ih (hP a) (hQ a)
+theorem isOrderLE_succ : ∀ {n} {P : Module.End k A}, IsOrderLE n P → IsOrderLE (n + 1) P := by
+  intro n
+  induction n with
+  | zero => exact fun hP a => by rw [hP a]; exact isOrderLE_zero 0
+  | succ n ih => exact fun hP a => ih (hP a)
 theorem isOrderLE_mono {m n : ℕ} {P : Module.End k A} (h : m ≤ n) (hP : IsOrderLE m P) :
     IsOrderLE n P := by
   induction n, h using Nat.le_induction with
@@ -950,21 +950,23 @@ theorem isOrderLE_mono {m n : ℕ} {P : Module.End k A} (h : m ≤ n) (hP : IsOr
 
 /-- Orders add under composition. -/
 theorem isOrderLE_mul : ∀ (N : ℕ) {m n : ℕ} {P Q : Module.End k A}, m + n = N →
-    IsOrderLE m P → IsOrderLE n Q → IsOrderLE N (P * Q)
-  | 0, m, n, P, Q, h, hP, hQ => by
-      obtain ⟨rfl, rfl⟩ : m = 0 ∧ n = 0 := by omega
-      intro a
+    IsOrderLE m P → IsOrderLE n Q → IsOrderLE N (P * Q) := by
+  intro N
+  induction N with
+  | zero =>
+      intro m n P Q h hP hQ a
+      obtain ⟨rfl, rfl⟩ := Nat.add_eq_zero_iff.mp h
       rw [endCommutator_mul, hP a, hQ a, mul_zero, zero_mul, add_zero]
-  | N + 1, m, n, P, Q, h, hP, hQ => fun a => by
+  | succ N ih =>
+      intro m n P Q h hP hQ a
       rw [endCommutator_mul]
       refine isOrderLE_add ?_ ?_
-      · match n, hQ with
-        | 0, hQ => rw [hQ a, mul_zero]; exact isOrderLE_zero N
-        | n + 1, hQ => exact isOrderLE_mul N (by omega) hP (hQ a)
-      · match m, hP with
-        | 0, hP => rw [hP a, zero_mul]; exact isOrderLE_zero N
-        | m + 1, hP => exact isOrderLE_mul N (by omega) (hP a) hQ
-
+      · cases n with
+        | zero => rw [hQ a, mul_zero]; exact isOrderLE_zero N
+        | succ n => exact ih (Nat.add_right_cancel ((Nat.add_assoc m n 1).trans h)) hP (hQ a)
+      · cases m with
+        | zero => rw [hP a, zero_mul]; exact isOrderLE_zero N
+        | succ m => exact ih (Nat.add_right_cancel ((Nat.add_right_comm m 1 n).symm.trans h)) (hP a) hQ
 end DiffOps
 
 /-- The `k`-subalgebra `D_k(A)` of `Module.End k A`: the finite-order differential operators,
