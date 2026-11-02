@@ -1,8 +1,12 @@
-import GeneralizedStafford.Challenge.Transport
-import GeneralizedStafford.Challenge.WeylTransport
-import GeneralizedStafford.Challenge.FilteredTransport
-import GeneralizedStafford.Challenge.EnvelopingTransport
-import GeneralizedStafford.Challenge.DiffOpTransport
+module
+
+public import GeneralizedStafford.Challenge.Transport
+public import GeneralizedStafford.Challenge.WeylTransport
+public import GeneralizedStafford.Challenge.FilteredTransport
+public import GeneralizedStafford.Challenge.EnvelopingTransport
+public import GeneralizedStafford.Challenge.DiffOpTransport
+
+@[expose] public section
 
 /-!
 # Solution: Theorem A', Theorem A and Corollaries B and C

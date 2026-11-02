@@ -1,8 +1,12 @@
-import GeneralizedStafford.CorollaryB
-import GeneralizedStafford.Modules
-import AlgebraicAnalysis.Filtration.Opposite
-import AlgebraicAnalysis.Filtration.SymbolNoetherian
-import AlgebraicAnalysis.RingTheory.InfiniteCenter
+module
+
+public import GeneralizedStafford.CorollaryB
+public import GeneralizedStafford.Modules
+public import AlgebraicAnalysis.Filtration.Opposite
+public import AlgebraicAnalysis.Filtration.SymbolNoetherian
+public import AlgebraicAnalysis.RingTheory.InfiniteCenter
+
+@[expose] public section
 
 /-!
 # Filtered rings with commutative Noetherian associated graded ring

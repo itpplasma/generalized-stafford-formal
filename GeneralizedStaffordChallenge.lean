@@ -1,17 +1,21 @@
-import Mathlib.RingTheory.SimpleRing.Basic
-import Mathlib.RingTheory.Noetherian.Defs
-import Mathlib.RingTheory.Finiteness.Defs
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.Algebra.Module.Opposite
-import Mathlib.Algebra.Ring.Subring.Basic
-import Mathlib.Algebra.RingQuot
-import Mathlib.Algebra.FreeAlgebra
-import Mathlib.LinearAlgebra.SymplecticGroup
-import Mathlib.RingTheory.GradedAlgebra.Basic
-import Mathlib.RingTheory.KrullDimension.Basic
-import Mathlib.Algebra.Lie.UniversalEnveloping
-import Mathlib.RingTheory.Smooth.Basic
-import Mathlib.Algebra.Module.LinearMap.End
+module
+
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.Noetherian.Defs
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.Algebra.Module.Opposite
+public import Mathlib.Algebra.Ring.Subring.Basic
+public import Mathlib.Algebra.RingQuot
+public import Mathlib.Algebra.FreeAlgebra
+public import Mathlib.LinearAlgebra.SymplecticGroup
+public import Mathlib.RingTheory.GradedAlgebra.Basic
+public import Mathlib.RingTheory.KrullDimension.Basic
+public import Mathlib.Algebra.Lie.UniversalEnveloping
+public import Mathlib.RingTheory.Smooth.Basic
+public import Mathlib.Algebra.Module.LinearMap.End
+
+@[expose] public section
 
 /-!
 # Affine generation over simple Noetherian rings with infinite centre

@@ -1,8 +1,12 @@
-import GeneralizedStafford.Challenge.Transport
-import GeneralizedStafford.Weyl
-import Mathlib.Algebra.RingQuot
-import Mathlib.Algebra.FreeAlgebra
-import Mathlib.LinearAlgebra.SymplecticGroup
+module
+
+public import GeneralizedStafford.Challenge.Transport
+public import GeneralizedStafford.Weyl
+public import Mathlib.Algebra.RingQuot
+public import Mathlib.Algebra.FreeAlgebra
+public import Mathlib.LinearAlgebra.SymplecticGroup
+
+@[expose] public section
 
 /-!
 # Challenge transport: the Weyl algebra statements

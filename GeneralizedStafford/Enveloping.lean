@@ -1,6 +1,10 @@
-import GeneralizedStafford.Filtered
-import AlgebraicAnalysis.Enveloping.Presentation
-import AlgebraicAnalysis.Filtration.Opposite
+module
+
+public import GeneralizedStafford.Filtered
+public import AlgebraicAnalysis.Enveloping.Presentation
+public import AlgebraicAnalysis.Filtration.Opposite
+
+@[expose] public section
 
 /-!
 # Simple quotients of enveloping algebras

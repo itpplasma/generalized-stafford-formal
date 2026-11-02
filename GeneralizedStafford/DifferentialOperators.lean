@@ -1,7 +1,11 @@
-import GeneralizedStafford.Challenge.FilteredTransport
-import GeneralizedStafford.Weyl
-import AlgebraicAnalysis.DifferentialOperators.SmoothOperators
-import AlgebraicAnalysis.Filtration.Opposite
+module
+
+public import GeneralizedStafford.Challenge.FilteredTransport
+public import GeneralizedStafford.Weyl
+public import AlgebraicAnalysis.DifferentialOperators.SmoothOperators
+public import AlgebraicAnalysis.Filtration.Opposite
+
+@[expose] public section
 
 /-!
 # Rings of differential operators `D_k(A)`

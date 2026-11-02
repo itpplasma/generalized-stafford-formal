@@ -1,6 +1,10 @@
-import Mathlib.Algebra.Module.Opposite
-import Mathlib.LinearAlgebra.Span.Defs
-import Mathlib.RingTheory.Finiteness.Defs
+module
+
+public import Mathlib.Algebra.Module.Opposite
+public import Mathlib.LinearAlgebra.Span.Defs
+public import Mathlib.RingTheory.Finiteness.Defs
+
+@[expose] public section
 
 /-!
 # Left statements from right statements

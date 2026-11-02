@@ -1,11 +1,15 @@
-import Mathlib.RingTheory.SimpleRing.Basic
-import Mathlib.RingTheory.Noetherian.Defs
-import Mathlib.RingTheory.Finiteness.Defs
-import Mathlib.LinearAlgebra.Quotient.Basic
-import Mathlib.Algebra.Module.Opposite
-import Mathlib.Algebra.Ring.Subring.Basic
+module
 
-import GeneralizedStafford.Modules
+public import Mathlib.RingTheory.SimpleRing.Basic
+public import Mathlib.RingTheory.Noetherian.Defs
+public import Mathlib.RingTheory.Finiteness.Defs
+public import Mathlib.LinearAlgebra.Quotient.Basic
+public import Mathlib.Algebra.Module.Opposite
+public import Mathlib.Algebra.Ring.Subring.Basic
+
+public import GeneralizedStafford.Modules
+
+@[expose] public section
 
 /-!
 # Challenge transport: the challenge definitions and their proofs

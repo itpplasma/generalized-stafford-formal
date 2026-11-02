@@ -1,6 +1,10 @@
-import GeneralizedStafford.Challenge.Transport
-import GeneralizedStafford.Filtered
-import AlgebraicAnalysis.Filtration.SymbolDomain
+module
+
+public import GeneralizedStafford.Challenge.Transport
+public import GeneralizedStafford.Filtered
+public import AlgebraicAnalysis.Filtration.SymbolDomain
+
+@[expose] public section
 
 /-!
 # Challenge transport: filtered rings

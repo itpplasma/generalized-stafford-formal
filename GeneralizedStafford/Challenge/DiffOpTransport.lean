@@ -1,6 +1,10 @@
-import GeneralizedStafford.DifferentialOperators
-import Mathlib.RingTheory.Smooth.Basic
-import Mathlib.Algebra.Module.LinearMap.End
+module
+
+public import GeneralizedStafford.DifferentialOperators
+public import Mathlib.RingTheory.Smooth.Basic
+public import Mathlib.Algebra.Module.LinearMap.End
+
+@[expose] public section
 
 /-!
 # Challenge transport: differential operators on a smooth affine variety

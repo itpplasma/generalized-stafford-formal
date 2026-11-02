@@ -1,10 +1,14 @@
-import GeneralizedStafford.Challenge.Transport
-import GeneralizedStafford.Opposite
-import AlgebraicAnalysis.Weyl.Simplicity
-import AlgebraicAnalysis.Weyl.BernsteinSymbol
-import AlgebraicAnalysis.Weyl.Transposition
-import AlgebraicAnalysis.Weyl.Domain
-import AlgebraicAnalysis.Ore.Noetherian
+module
+
+public import GeneralizedStafford.Challenge.Transport
+public import GeneralizedStafford.Opposite
+public import AlgebraicAnalysis.Weyl.Simplicity
+public import AlgebraicAnalysis.Weyl.BernsteinSymbol
+public import AlgebraicAnalysis.Weyl.Transposition
+public import AlgebraicAnalysis.Weyl.Domain
+public import AlgebraicAnalysis.Ore.Noetherian
+
+@[expose] public section
 
 /-!
 # The Weyl algebra `A_n(k)`

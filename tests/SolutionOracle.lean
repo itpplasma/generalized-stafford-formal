@@ -1,4 +1,8 @@
-import GeneralizedStaffordSolution
+module
+
+public import GeneralizedStaffordSolution
+
+@[expose] public section
 
 /-!
 # Solution oracle

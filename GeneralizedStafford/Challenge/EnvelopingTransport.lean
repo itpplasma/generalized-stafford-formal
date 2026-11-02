@@ -1,5 +1,9 @@
-import GeneralizedStafford.Challenge.FilteredTransport
-import GeneralizedStafford.Enveloping
+module
+
+public import GeneralizedStafford.Challenge.FilteredTransport
+public import GeneralizedStafford.Enveloping
+
+@[expose] public section
 
 /-!
 # Challenge transport: simple quotients of enveloping algebras
