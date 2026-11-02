@@ -25,7 +25,7 @@ theorem fixedIdeal : FixedIdealStatement.{u} :=
 theorem fixedAnchor : FixedAnchorStatement.{u} :=
   fixedAnchor_proof.{u}
 
-/-- Corollary B, dimension part (Lemma 6.1). -/
+/-- Corollary B, dimension part. -/
 theorem corollaryB_dimension : CorollaryBDimensionStatement.{u} :=
   corollaryB_dimension_proof.{u}
 

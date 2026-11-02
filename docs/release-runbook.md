@@ -11,7 +11,7 @@ authorization from Christopher Albert, given for that action.
 | Create a tag or GitHub release | not done |
 | Archive on Zenodo and mint a DOI | not done |
 | Register on Palomar | not done |
-| Submit the manuscript or contact anyone external | not done |
+| Submit the write-up for publication or contact anyone external | not done |
 | Add an author | not done |
 
 ## Before any of these actions

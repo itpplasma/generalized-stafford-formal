@@ -3,10 +3,8 @@
 This repository owns the Lean 4 formalization of Theorem A', Theorem A and
 Corollaries B, C.1-C.3, and their Palomar interface. `PLAN.md` is the only
 live status document; read it before any edit. The written proof lives in the
-private research repository `itpplasma/generalized-stafford`
-(`docs/core-theorem.md`, `docs/lane-C3-rank-without-morita.md`,
-`docs/manuscript/main.tex`). This repository does not import it and does not
-need it to build or verify.
+written proof is kept outside this repository. Nothing here imports it or
+needs it to build or verify.
 
 ## Non-negotiable rules
 
@@ -35,15 +33,16 @@ need it to build or verify.
 
 ## Style
 
-- Namespace `GeneralizedStafford`; one file per paper section.
-- Each module docstring names the paper section and statement. Corollary
-  files give the proof idea in a few sentences, because the paper cites them
-  as the proof.
+- Namespace `GeneralizedStafford`; one file per topic (conventions, germs,
+  descent, theorems, corollaries).
+- Each module docstring names the statements it proves. Corollary files give
+  the proof idea in a few sentences, because they are read as the proofs of
+  their corollaries.
 - Every public declaration has a docstring in plain mathematical English with
-  the paper's notation (`d, a, B, H, U, V, I, x, t`). In the library, (S) and
+  the standard notation (`d, a, B, H, U, V, I, x, t`). In the library, (S) and
   (N) are instance arguments (`[IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]`) and
   (Z) is an infinite central field `k` with `[Field k] [Infinite k]
-  [Algebra k R]`. Named hypotheses follow the paper: `hreg` (a regular
+  [Algebra k R]`. Named hypotheses: `hreg` (a regular
   element), `hfin` (finite deviation), `homega` (`Kdim R ≤ ω`) and `hall`
   ((H_all)).
 - Mathlib naming and sidedness conventions. `#print axioms` lines belong in
@@ -59,7 +58,7 @@ need it to build or verify.
 
 ## Publication policy
 
-No visibility change, tag, release, DOI, Palomar registration or manuscript
+No visibility change, tag, release, DOI, Palomar registration or journal
 submission without explicit human authorization. No person may be contacted
 and no author added without it. `docs/release-runbook.md` lists these human
 actions; agents prepare, humans execute.

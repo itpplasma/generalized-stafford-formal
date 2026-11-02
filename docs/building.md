@@ -51,9 +51,8 @@ solution.
 
 ## Making a change
 
-Find the affected declarations in
-[paper-lean-specification.md](paper-lean-specification.md), make the smallest
-change and rerun both verifiers. A changed challenge needs a new
+Find the affected declarations by searching for the challenge names, make the
+smallest change and rerun both verifiers. A changed challenge needs a new
 statement-faithfulness audit. When a compared theorem is added, extend
 `Solution.lean`, `GeneralizedStaffordSolution.lean`, `comparator.json`, the
 expected list in `scripts/verify-palomar.sh`, `tests/SolutionOracle.lean` and

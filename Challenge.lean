@@ -9,12 +9,10 @@ import Mathlib.Order.SupIndep
 /-!
 # Affine generation over simple Noetherian rings with infinite centre
 
-This file states Theorem A', Theorem A and Corollaries B and C of the research
-note `docs/core-theorem.md` (Sections 0, 1 and 6) and of the manuscript
-`docs/manuscript/main.tex` (introduction and Section 6, "Module
-consequences"). It imports only Mathlib and defines everything else inline.
+This file states Theorem A', Theorem A and Corollaries B and C (C.1, C.2 and
+C.3). It imports only Mathlib and defines everything else inline.
 
-## Conventions (core-theorem.md, C1--C5)
+## Conventions
 
 * Rings are associative and unital; `R` is nonzero because Mathlib's
   `IsSimpleRing` includes nontriviality.
@@ -26,12 +24,12 @@ consequences"). It imports only Mathlib and defines everything else inline.
   quotient `R ⧸ I` is the cyclic right module `R/I`.
 * Products in `R` are read in the displayed order: `(B + H * a) * d * V`
   is `(B + H a) d V`, never a reordering of it.
-* `IsRegularElement d` is two-sided regularity (C2): `d x = 0 → x = 0` and
+* `IsRegularElement d` is two-sided regularity: `d x = 0 → x = 0` and
   `x d = 0 → x = 0`. It is literally Mathlib's membership `d ∈ R⁰`
   (`mem_nonZeroDivisors_iff` holds by `Iff.rfl`); it is spelled out here so
   that a reader need not look up the sidedness of `nonZeroDivisors`.
 * `DevDimLE R M n` is the right **Gabriel--Rentschler (deviation)
-  dimension** bound `Kdim M ≤ n` of C3 (written `Kdim` in the paper; it is
+  dimension** bound `Kdim M ≤ n` (written `Kdim`; it is
   unrelated to Mathlib's `Order.KrullDimLE` and `Ring.KrullDimLE`), defined
   on the lattice of right submodules: `Kdim ≤ 0` means that every descending chain stabilizes, and
   `Kdim ≤ n + 1` means that for every descending chain
@@ -44,25 +42,23 @@ consequences"). It imports only Mathlib and defines everything else inline.
   and not Mathlib's `ringKrullDim`/`Module.length`; it is the deviation of
   the submodule poset. `DevDimLEOmega R M` is `Kdim M ≤ ω`: for every
   descending chain all but finitely many factors have finite dimension.
-* `IsGoldieTorsion R M` (C4): every `m` has `m s = 0` for some regular `s`.
+* `IsGoldieTorsion R M`: every `m` has `m s = 0` for some regular `s`.
 * (S) is Mathlib's `IsSimpleRing R` (nonzero, only the trivial two-sided
   ideals). (N) is `IsNoetherian Rᵐᵒᵖ R`: right ideals satisfy the ascending
   chain condition. (Z) is `Infinite (Subring.center R)`: the centre is
   infinite. Under (S) the centre is a field (Mathlib's
   `IsSimpleRing.isField_center`), so (Z) is the same as "`R` is an algebra
-  over an infinite central field", as remarked after C5.
+  over an infinite central field".
 * Finitely generated right modules are `[Module.Finite Rᵐᵒᵖ M]`.
 
 Rings live in universe `u` and modules in universe `v`; the theorems are
 stated for all universes. The compared theorems are the `theorem`s below;
 each `sorry` is a deliberate hole. The proofs are in
-`GeneralizedStaffordSolution.lean` (identical copy `Solution.lean`) of the
-repository `itpplasma/generalized-stafford-formal`; holes without a proof
-there are listed in its `docs/open-holes.md`.
+`GeneralizedStaffordSolution.lean` (identical copy `Solution.lean`) of this
+repository; holes without a proof there are listed in `docs/open-holes.md`.
 
 Opposite-side statements (left ideals, left modules) are not stated: they
-require the hypotheses for `Rᵐᵒᵖ` and are remarks, not corollaries
-(core-theorem.md Remark 6.5).
+require the hypotheses for `Rᵐᵒᵖ` and are remarks, not corollaries.
 -/
 
 universe u v
@@ -78,7 +74,7 @@ section Definitions
 variable (R : Type u) [Ring R]
 
 /-- An element `d` of `R` is **regular** if it is a two-sided non-zero-divisor:
-`d x = 0` implies `x = 0`, and `x d = 0` implies `x = 0` (convention C2).
+`d x = 0` implies `x = 0`, and `x d = 0` implies `x = 0` .
 This is definitionally Mathlib's `d ∈ R⁰`. -/
 def IsRegularElement {R : Type u} [Ring R] (d : R) : Prop :=
   (∀ x : R, d * x = 0 → x = 0) ∧ (∀ x : R, x * d = 0 → x = 0)
@@ -87,7 +83,7 @@ def IsRegularElement {R : Type u} [Ring R] (d : R) : Prop :=
 says that every descending chain in `α` stabilizes; `PosetDevLE (n + 1) α`
 says that for every descending chain `c₀ ≥ c₁ ≥ ⋯` all but finitely many
 closed intervals `[cᵢ₊₁, cᵢ]` satisfy `PosetDevLE n`, i.e. all but finitely
-many factors have deviation `< n + 1` (C3 with `α = n + 1`). -/
+many factors have deviation `< n + 1` . -/
 def PosetDevLE : (n : ℕ) → (α : Type v) → [PartialOrder α] → Prop
   | 0, α, _ => ∀ c : ℕ → α, Antitone c → ∃ N, ∀ i, N ≤ i → c i = c N
   | n + 1, α, _ => ∀ c : ℕ → α, Antitone c →
@@ -95,9 +91,9 @@ def PosetDevLE : (n : ℕ) → (α : Type v) → [PartialOrder α] → Prop
 
 variable (M : Type v) [AddCommGroup M] [Module Rᵐᵒᵖ M]
 
-/-- `DevDimLE R M n`: `Kdim M ≤ n` (written `Kdim` in the paper;
+/-- `DevDimLE R M n`: `Kdim M ≤ n` (written `Kdim`;
 Gabriel--Rentschler deviation, not classical Krull dimension). The right
-module `M` has right deviation dimension at most `n` (convention C3), defined
+module `M` has right deviation dimension at most `n` , defined
 on the lattice of right submodules of `M`. -/
 def DevDimLE (n : ℕ) : Prop :=
   PosetDevLE n (Submodule Rᵐᵒᵖ M)
@@ -114,14 +110,14 @@ def DevDimLEOmega : Prop :=
   ∀ c : ℕ → Submodule Rᵐᵒᵖ M, Antitone c → ∃ N, ∀ i, N ≤ i →
     ∃ n : ℕ, PosetDevLE n (Set.Icc (c (i + 1)) (c i))
 
-/-- `M` is **Goldie-torsion** (convention C4): every `m ∈ M` satisfies
+/-- `M` is **Goldie-torsion**: every `m ∈ M` satisfies
 `m s = 0` for some regular `s ∈ R`. -/
 def IsGoldieTorsion : Prop :=
   ∀ m : M, ∃ s : R, IsRegularElement s ∧ op s • m = 0
 
 /-- The Goldie-torsion part `t(M)` of `M`: the right submodule spanned by the
 elements `m` with `m s = 0` for some regular `s`. Under (S) and (N) these
-elements already form a submodule (Goldie's theorem, I1); the span is used so
+elements already form a submodule (Goldie's theorem); the span is used so
 that no closure proof enters the statement. -/
 def goldieTorsionPart : Submodule Rᵐᵒᵖ M :=
   Submodule.span Rᵐᵒᵖ {m : M | ∃ s : R, IsRegularElement s ∧ op s • m = 0}
@@ -156,7 +152,7 @@ end Definitions
 
 /-- **Theorem A' (fixed ideal).** Let `R` be a simple (S), right Noetherian (N)
 ring with infinite centre (Z). Let `I` be a right ideal containing a regular
-element (Reg_I) such that `Kdim(R/I)` is a finite integer (Fin_I). Then for
+element such that `Kdim(R/I)` is a finite integer. Then for
 every `x ∈ R` and every nonzero `t ∈ R` there is `H ∈ R` with
 `I + (x + H t)R = R`. -/
 def FixedIdealStatement : Prop :=
@@ -177,21 +173,21 @@ def FixedAnchorStatement : Prop :=
     ∀ a B : R, a ≠ 0 →
       ∃ H U V : R, 1 = d * U + (B + H * a) * d * V
 
-/-- Theorem A' (fixed ideal), core-theorem.md Section 1. -/
+/-- Theorem A' (fixed ideal). -/
 theorem fixedIdeal : FixedIdealStatement.{u} := by
   sorry
 
-/-- Theorem A (fixed anchor), core-theorem.md Section 1. -/
+/-- Theorem A (fixed anchor). -/
 theorem fixedAnchor : FixedAnchorStatement.{u} := by
   sorry
 
-/-! ## Corollary B (Lemma 6.1) -/
+/-! ## Corollary B -/
 
-/-- **Corollary B, dimension part (Lemma 6.1).** Let `R` be right Noetherian
+/-- **Corollary B, dimension part.** Let `R` be right Noetherian
 with `Kdim R ≤ ω` (H_omega). Then `δ(d) = Kdim(R/dR)` is a finite integer for
 every regular `d` (so (H_all) holds), and `Kdim(R/I)` is a finite integer for
-every right ideal `I` containing a regular element. The ordinal clause
-`δ(d) < Kdim R` of manuscript Lemma `lem:Hall` is deliberately not stated. -/
+every right ideal `I` containing a regular element. The ordinal refinement
+`δ(d) < Kdim R` is deliberately not stated. -/
 def CorollaryBDimensionStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsNoetherian Rᵐᵒᵖ R], HOmega R →
     HAll R ∧ ∀ I : Submodule Rᵐᵒᵖ R, (∃ s ∈ I, IsRegularElement s) →
@@ -216,7 +212,7 @@ def CorollaryBFixedIdealStatement : Prop :=
     ∀ x t : R, t ≠ 0 →
       ∃ H : R, I ⊔ Submodule.span Rᵐᵒᵖ {x + H * t} = ⊤
 
-/-- Corollary B, dimension part (Lemma 6.1). -/
+/-- Corollary B, dimension part. -/
 theorem corollaryB_dimension : CorollaryBDimensionStatement.{u} := by
   sorry
 
@@ -228,7 +224,7 @@ theorem corollaryB_fixedAnchor : CorollaryBFixedAnchorStatement.{u} := by
 theorem corollaryB_fixedIdeal : CorollaryBFixedIdealStatement.{u} := by
   sorry
 
-/-! ## Corollary C.1 (core Lemma 6.2; manuscript Proposition 6.2, `prop:C1`) -/
+/-! ## Corollary C.1 -/
 
 /-- **Corollary C.1 (prescribed cyclic generator).** Let `R` satisfy (S), (N),
 (Z) and let `M` be a finitely generated Goldie-torsion right module with
@@ -264,9 +260,9 @@ def CorollaryC1OmegaStatement : Prop :=
     ∀ (x : M) (t : R), t ≠ 0 →
       ∃ h : M, Submodule.span Rᵐᵒᵖ {x + op t • h} = ⊤
 
-/-- **Corollary C.1, stable cyclicity** (manuscript Proposition 6.2(a),
-`prop:C1`). Let `R` satisfy (S), (N), (Z), let `c, u` be Goldie-torsion elements of a right module
-`M` (each is killed by a regular element) with `Kdim(uR)` a finite integer.
+/-- **Corollary C.1, stable cyclicity.** Let `R` satisfy (S), (N), (Z), let `c, u`
+be Goldie-torsion elements of a right module `M` (each is killed by a regular
+element) with `Kdim(uR)` a finite integer.
 For every nonzero `t ∈ R` there is `H ∈ R` with `cR + uR = (c + u H t)R`. -/
 def CorollaryC1StableStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
@@ -278,7 +274,7 @@ def CorollaryC1StableStatement : Prop :=
     ∀ t : R, t ≠ 0 →
       ∃ H : R, Submodule.span Rᵐᵒᵖ {c, u} = Submodule.span Rᵐᵒᵖ {c + op (H * t) • u}
 
-/-- Corollary C.1 (finite dimension hypothesis), core-theorem.md Lemma 6.2. -/
+/-- Corollary C.1 (finite dimension hypothesis). -/
 theorem corollaryC1 : CorollaryC1Statement.{u, v} := by
   sorry
 
@@ -290,20 +286,20 @@ theorem corollaryC1_hAll : CorollaryC1HAllStatement.{u, v} := by
 theorem corollaryC1_omega : CorollaryC1OmegaStatement.{u, v} := by
   sorry
 
-/-- Corollary C.1, stable cyclicity (manuscript Proposition 6.2(a), `prop:C1`). -/
+/-- Corollary C.1, stable cyclicity. -/
 theorem corollaryC1_stable : CorollaryC1StableStatement.{u, v} := by
   sorry
 
-/-! ## Corollary C.2 (core Lemma 6.3; manuscript Proposition 6.3, `prop:C2`)
+/-! ## Corollary C.2
 
-The paper's condition `aQ = IQ` (with `Q` the classical right quotient ring)
+The condition `aQ = IQ` (with `Q` the classical right quotient ring)
 is stated elementwise: `a ∈ I` and every `y ∈ I` has a regular `s` with
 `y s ∈ aR`. Under (S), (N) these are equivalent: `aQ ⊆ IQ` because `a ∈ I`,
 and `y ∈ aQ` iff `y = a r s⁻¹` iff `y s = a r` for some `r` and regular `s`. -/
 
-/-- **Existence of a full-rank element** (first step of Lemma 6.3). Let `R`
+/-- **Existence of a full-rank element** (first step of Corollary C.2). Let `R`
 satisfy (S) and (N). Every right ideal `I` contains an `a` with `aQ = IQ`, that
-is, every `y ∈ I` has a regular `s` with `y s ∈ aR`. The paper states C.2
+is, every `y ∈ I` has a regular `s` with `y s ∈ aR`. Corollary C.2 is stated
 under (S), (N), (Z), (H_all); this step needs only (S) and (N) (Goldie's
 theorem), so the statement here has fewer hypotheses and is still true. -/
 def CorollaryC2FullRankStatement : Prop :=
@@ -332,11 +328,11 @@ def CorollaryC2Statement : Prop :=
     [Infinite (Subring.center R)], HAll R →
     ∀ I : Submodule Rᵐᵒᵖ R, ∃ a b : R, I = Submodule.span Rᵐᵒᵖ {a, b}
 
-/-- Existence of `a ∈ I` with `aQ = IQ` (Lemma 6.3, first step). -/
+/-- Existence of `a ∈ I` with `aQ = IQ` (first step of Corollary C.2). -/
 theorem corollaryC2_fullRank : CorollaryC2FullRankStatement.{u} := by
   sorry
 
-/-- Corollary C.2, prescribed form (Lemma 6.3). -/
+/-- Corollary C.2, prescribed form. -/
 theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} := by
   sorry
 
@@ -344,9 +340,9 @@ theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} := by
 theorem corollaryC2 : CorollaryC2Statement.{u} := by
   sorry
 
-/-! ## Corollary C.3 (core Lemma 6.4; manuscript Proposition 6.4, `prop:C3`)
+/-! ## Corollary C.3
 
-The paper writes the classical right quotient ring as `Q = M_s(D)` and sets
+The classical right quotient ring is `Q = M_s(D)`, and the normalized Goldie rank is
 `ρ(M) = length_Q(M ⊗_R Q) / s` for finitely generated `M`. Under (S) and (N)
 (Goldie's theorem) the two numbers are uniform dimensions:
 
@@ -371,7 +367,7 @@ and let `M` be a finitely generated right module. If `M` is generated by `m`
 elements, `M/t(M)` contains a direct sum of `ℓ` nonzero submodules and `R_R`
 contains no direct sum of `s + 1` nonzero right ideals, then `ℓ ≤ m s`.
 This is equivalent to `⌈ρ(M)⌉ ≤ μ(M)` given the classical identities
-`s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; [MR] 2.2--2.3); it
+`s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; McConnell--Robson, 2.2--2.3); it
 is not a literal formalization of `ρ`. -/
 def CorollaryC3LowerStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
@@ -385,8 +381,8 @@ def CorollaryC3LowerStatement : Prop :=
 contains no direct sum of `ℓ + 1` nonzero submodules, `R_R` contains a direct
 sum of `s` nonzero right ideals, and `ℓ < q s`, then `M` is generated by `q`
 elements. This is equivalent to `μ(M) ≤ ⌊ρ(M)⌋ + 1` given the classical
-identities `s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; [MR]
-2.2--2.3); it is not a literal formalization of `ρ`. -/
+identities `s = udim R_R` and `length_Q(M ⊗ Q) = udim(M/t(M))` (Goldie; McConnell--Robson, 2.2--2.3); it is not a literal
+formalization of `ρ`. -/
 def CorollaryC3UpperStatement : Prop :=
   ∀ (R : Type u) [Ring R] [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
     [Infinite (Subring.center R)], HAll R →
@@ -395,11 +391,11 @@ def CorollaryC3UpperStatement : Prop :=
       UDimLE R (M ⧸ goldieTorsionPart R M) ℓ → UDimGE R R s → ℓ < q * s →
         SpanRankLE R M q
 
-/-- Corollary C.3, lower bound (Lemma 6.4). -/
+/-- Corollary C.3, lower bound. -/
 theorem corollaryC3_lower : CorollaryC3LowerStatement.{u, v} := by
   sorry
 
-/-- Corollary C.3, upper bound (Lemma 6.4). -/
+/-- Corollary C.3, upper bound. -/
 theorem corollaryC3_upper : CorollaryC3UpperStatement.{u, v} := by
   sorry
 

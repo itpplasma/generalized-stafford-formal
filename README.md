@@ -81,29 +81,25 @@ Theorem A' for every such `I`.
 
 The challenge encodes C.3 without division or rounding, through uniform
 dimensions: `s = udim(R_R)` and `length_Q(M ⊗_R Q) = udim(M/t(M))`. These two
-classical identities (Goldie theory) connect the Lean statements to `rho`; see
-the [specification](docs/paper-lean-specification.md).
+classical identities (Goldie theory) connect the Lean statements to `rho`.
 
 The project declares no axioms. The only `sorry`s are the 14 deliberate
 placeholders in each challenge file. The endpoints depend only on `propext`,
 `Classical.choice` and `Quot.sound`.
 
-Not formalized: the ordinal clause `delta(d) < Kdim R` of the manuscript's
-dimension lemma, opposite-side statements, and the manuscript's results beyond
-`omega`, applications and examples.
+Not formalized: the ordinal refinement `delta(d) < Kdim R` in the dimension
+part of Corollary B, opposite-side statements, and results beyond `omega`,
+applications and examples.
 
-## Paper and Lean
+## Proof structure
 
-The manuscript (`docs/manuscript/main.tex` of the private research
-repository `itpplasma/generalized-stafford`) proves Theorem A' by a two-call
-descent on `Kdim(R/I)` and Theorem A from Theorem A', and gives the proofs of
-the corollaries in its Section 6; there the upper bound of C.3 uses a
-Morita (matrix-ring) transfer. The Lean proof of that bound instead follows
-the audited Morita-free note `docs/lane-C3-rank-without-morita.md` of the
-same repository (research commit `251049f`). A shortened paper may cite the
-Lean proofs of the corollaries, which are checked by the Lean kernel and in a
-local replay of the Palomar check. Each corollary file opens with a short
-account of its proof.
+Theorem A' is proved by a two-call descent on `Kdim(R/I)`: each step replaces
+the affine generator `x + H t` by one whose quotient `R/(I + fR)` has strictly
+smaller deviation, using Goldie's theorem and a good nonzero central scalar.
+Theorem A follows from Theorem A' with `I = dR`, `x = B d` and `t = a d`. The
+corollaries are proved in their own files, and each corollary file opens with a
+short account of its proof. The upper bound of C.3 is proved by induction on
+the number of generators `q`, without transferring the module to a matrix ring.
 
 ## Building and checking
 
@@ -125,8 +121,6 @@ Do not run `lake update`; it moves the pins. See
 
 ## Documentation
 
-- [Paper/Lean specification](docs/paper-lean-specification.md): statement
-  table, conventions and faithfulness choices.
 - [Literature](docs/literature.md): sources and the Lean modules that use them.
 - [Building](docs/building.md) and [verification](docs/verification.md).
 - [Release runbook](docs/release-runbook.md): actions reserved for humans.
@@ -140,7 +134,6 @@ Do not run `lake update`; it moves the pins. See
 - [stafford38-formal](https://github.com/itpplasma/stafford38-formal):
   Stafford's Conjecture 3.8 for Weyl algebras in characteristic zero. Related
   work, not a dependency.
-- The research repository with the written proof is private.
 
 ## Citing and license
 

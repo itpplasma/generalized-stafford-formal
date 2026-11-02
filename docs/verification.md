@@ -11,11 +11,11 @@ establishes. [PLAN.md](../PLAN.md) holds the current gate states.
 | Build | `lake build` | The library and the solution compile at the pins. |
 | Axiom audit | `scripts/verify.sh` | Every name in [endpoints.txt](endpoints.txt) exists and depends only on `propext`, `Classical.choice` and `Quot.sound`, checked with `--trust=0`. |
 | Palomar check (local replay) | `scripts/verify-palomar.sh` | The challenge and solution copies are byte-identical, the challenge has exactly 14 `sorry` holes; the solution proves each theorem of `comparator.json` with the challenge's exact name and type; the challenge imports only Mathlib; the solution does not import the challenge; NanoDa and the Lean kernel accept the solution. |
-| Statement faithfulness | independent audit, durable record `docs/lane-palomar-statement-audit.md` of the research repository at commit `1f05218` (frozen challenge sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`; later changes name/docstring-only, confirmed by the final review), summarized in [paper-lean-specification.md](paper-lean-specification.md) | The challenge statements say what the paper says. |
+| Statement faithfulness | independent statement-faithfulness audit (2 November 2026) passed; audited challenge sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`; later changes name/docstring-only, confirmed by the final review | The challenge statements say what the written theorems say. |
 | Human review | none yet | Required before any claim of human verification. |
 
 Machine checks establish that the Lean proofs are correct for the Lean
-statements. Whether those statements match the paper is the separate
+statements. Whether those statements match the intended mathematics is the separate
 statement-faithfulness question. Neither check is human review, and none of
 them is publication.
 
@@ -73,5 +73,5 @@ registered entry was inspected.
 ## Earlier records
 
 Verification records of the pre-Palomar development (87 and 170 endpoint
-audits, the paper/Lean map checker, the projective-width extension) apply to
+audits, the statement-map checker, the projective-width extension) apply to
 the tree on branch `archive/pre-palomar-2026-11-02` only.

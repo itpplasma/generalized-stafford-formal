@@ -9,29 +9,26 @@ public import Mathlib.Algebra.Algebra.Opposite
 /-!
 # Germs and source selection
 
-Paper: `docs/core-theorem.md`, Section 3 (Lemmas 3.1--3.6); manuscript
-`docs/manuscript/main.tex`, Section 3 (`sec:germs`).
-
 The Gabriel quotient `F_e` and its germs are represented concretely by the
 germ calculus of `AlgebraicAnalysis.Module.Germ`: a germ of level `e` of a
 module `X` is an element of `Section R e X = Hom Rᵐᵒᵖ e R X`, i.e. a partial
 map from a submodule of `R` with small cokernel, modulo maps that agree on a
 dense submodule; `Hom.Epic w` is "`w` is epic modulo `Kdim < e`".
 
-* **Central scalars (E1).** A central `λ ∈ k` acts on sections of a critical
+* **Central scalars.** A central `λ ∈ k` acts on sections of a critical
   module through the centre of its Schur division ring
   (`section_central_scalar`).
-* **Lemma 3.1 (unit germs).** `q_J r` is epic iff `Kdim R/(J + rR) < e`
+* **Unit germs.** `q_J r` is epic iff `Kdim R/(J + rR) < e`
   (`smul_mkQ_epic_iff`).
-* **Lemmas 3.2, 3.3 (epic criterion, pencils) and pencil stability.** An epic
+* **Epic criterion, pencils and pencil stability.** An epic
   germ `v` stays epic along `v + u λ` for all but finitely many `λ`
   (`germ_pencil_finite`).
-* **Lemmas 3.4, 3.5 (escape, maximal rank).** These are
+* **Escape and maximal rank.** These are
   `AlgebraicAnalysis.Goldie.IsGoldieTorsion.exists_smul_mul_not_mem` and
   `IsGoldieTorsion.exists_injective_right_mul`; together with the pencil lemma
   they give finite affine source selection in Goldie-torsion bimodules
   (`exists_affine_source_of_goldie`).
-* **Lemma 3.6 (source selection).** A *test* (`GermTest`) is
+* **Source selection.** A *test* (`GermTest`) is
   `(e, V, q, z, c)` with `q` an epic germ and `c` regular; `f` satisfies it if
   `z + q f c` is epic. Every finite family of tests is satisfied by some
   `f = x + H t` (`GermTest.exists_affine_satisfied`), and a satisfied test stays
@@ -46,7 +43,7 @@ open AlgebraicAnalysis.DenominatorTorsion
 
 universe u v
 
-/-! ## Central scalars (E1) -/
+/-! ## Central scalars -/
 
 section CentralScalars
 
@@ -58,8 +55,7 @@ def oppositeCentralField (k : Type*) [Field k] [Algebra k R] : k →+* Subring.c
     Subring.mem_center_iff.mpr fun r => (Algebra.commutes c r).symm)
 
 /-- Right multiplication of a section by a central scalar `λ` is the left
-action of the Schur endomorphism `φ_λ` (core-theorem.md Section 3, "Central
-scalars"), also for germs defined only on a dense submodule. -/
+action of the Schur endomorphism `φ_λ` , also for germs defined only on a dense submodule. -/
 theorem section_central_scalar (a : Subring.center Rᵐᵒᵖ) (w : Section R e C) :
     a.val • w = End.centralMap (R := Rᵐᵒᵖ) (e := e) (C := C) a • w := by
   have he : Hom.reducedMap (e := e) (End.centralScalar (C := C) a) =
@@ -89,7 +85,7 @@ theorem section_central_scalar (a : Subring.center Rᵐᵒᵖ) (w : Section R e 
 
 end CentralScalars
 
-/-! ## Lemma 3.1: unit germs -/
+/-! ## Unit germs -/
 
 section UnitGerms
 
@@ -108,7 +104,7 @@ theorem quotient_section_epic_iff (J : Submodule Rᵐᵒᵖ R) (x : R) :
   exact Module.small_linearEquiv_iff e
     (Submodule.quotientQuotientEquivQuotientSup J (principalRightIdeal x))
 
-/-- **Lemma 3.1 (unit germs).** For the unit germ `q_J` of `R/J` and `x ∈ R`,
+/-- **Unit germs.** For the unit germ `q_J` of `R/J` and `x ∈ R`,
 the germ `q_J x` is epic iff `Kdim R/(J + xR) < e`. -/
 theorem smul_mkQ_epic_iff (J : Submodule Rᵐᵒᵖ R) (x : R) :
     Hom.Epic (op x • Hom.ofLinearMap (e := e) J.mkQ) ↔
@@ -123,7 +119,7 @@ theorem smul_mkQ_epic_iff (J : Submodule Rᵐᵒᵖ R) (x : R) :
 
 end UnitGerms
 
-/-! ## Pencil stability (Lemmas 3.2, 3.3 and the first part of Lemma 3.6) -/
+/-! ## Pencil stability -/
 
 section Stability
 
@@ -132,10 +128,10 @@ variable {R : Type u} [Ring R] {M : Type v} [AddCommGroup M] [Module Rᵐᵒᵖ 
 
 /-- **Pencil stability.** If `v` is an epic germ of a module `M` with
 `Kdim M ≤ e` and `u` is any germ, then `v + u λ` is epic for all but finitely
-many `λ ∈ k`. Proof: by the epic criterion (Lemma 3.2) it suffices to test the
+many `λ ∈ k`. Proof: by the epic criterion it suffices to test the
 finitely many critical top factors `C` of a critical filtration; on each,
 `h ↦ h(v + u λ) = P_v h + φ_λ P_u h` is a central pencil with `P_v` injective,
-so it is injective for almost all `λ` (Lemma 3.3). -/
+so it is injective for almost all `λ`. -/
 theorem germ_pencil_finite (hM : Module.DevLE Rᵐᵒᵖ e M)
     (F : Module.CriticalFiltration Rᵐᵒᵖ e M) (v u : Section R e M) (hv : Hom.Epic v) :
     {c : k | ¬ Hom.Epic (v + op (algebraMap k R c) • u)}.Finite := by
@@ -175,7 +171,7 @@ theorem germ_pencil_finite (hM : Module.DevLE Rᵐᵒᵖ e M)
 
 end Stability
 
-/-! ## Affine selection in Goldie-torsion bimodules (Lemmas 3.4, 3.5) -/
+/-! ## Affine selection in Goldie-torsion bimodules -/
 
 section FiniteSelection
 
@@ -189,13 +185,13 @@ variable [∀ i, AddCommGroup (Wᵢ i)] [∀ i, Module (Eᵢ i) (Wᵢ i)]
 variable [∀ i, Module Rᵐᵒᵖ (Wᵢ i)] [∀ i, SMulCommClass Rᵐᵒᵖ (Eᵢ i) (Wᵢ i)]
 
 /-- Finite affine selection in Goldie-torsion bimodules, direction form
-(Lemma 3.6, Steps 1--2). Let `Pᵢ` be injective maps from finite-dimensional
+(Steps 1 and 2 below). Let `Pᵢ` be injective maps from finite-dimensional
 spaces into Goldie-torsion bimodules `Wᵢ`, `Zᵢ` arbitrary, `a ≠ 0` and `bᵢ`
 regular. There is a direction `H` such that `d ↦ Zᵢ d + Pᵢ(d) (B + σ(c) H a) bᵢ`
 is injective for all `i` and all but finitely many central scalars `c`.
-Step 1 combines maximal rank (Lemma 3.5) for each `i` by ordinary pencils
+Step 1 combines maximal rank for each `i` by ordinary pencils
 (AlgebraicAnalysis `exists_simultaneously_injective`); Step 2 is a reversed
-pencil (Lemma 3.3, AlgebraicAnalysis `reversed_centralPencil_injective_finite`). -/
+pencil (AlgebraicAnalysis `reversed_centralPencil_injective_finite`). -/
 theorem exists_affine_direction_of_goldie
     (hW : ∀ i, IsGoldieTorsion R (Wᵢ i))
     (σ : k →+* R) (κ : ∀ i, k →+* Eᵢ i)
@@ -265,7 +261,7 @@ end FiniteSelection
 
 /-! ## Tests -/
 
-/-- A **test** `(e, V, q, z, c)` of core-theorem.md Section 3: a Noetherian
+/-- A **test** `(e, V, q, z, c)`: a Noetherian
 Goldie-torsion module `V` (the target) with `Kdim V ≤ e`, an epic germ `q`, an
 arbitrary germ `z` (the offset) and a regular tail `c`. -/
 structure GermTest (R : Type u) [Ring R] where
@@ -304,7 +300,7 @@ def GermTest.Satisfied (τ : GermTest R) (f : R) : Prop :=
 
 end Tests
 
-/-! ## Lemma 3.6: source selection for germ tests -/
+/-! ## Source selection for germ tests -/
 
 section Selection
 
@@ -354,10 +350,10 @@ theorem exists_affine_germ_tests
       (Hom.comp_assoc h (q i) (Hom.ofLinearMap (Section.leftMul _))).symm)
 
 include k in
-/-- **Lemma 3.6 (source selection), epic form.** For finitely many
+/-- **Source selection, epic form.** For finitely many
 Goldie-torsion modules `Mᵢ` with `Kdim Mᵢ ≤ eᵢ`, epic germs `qᵢ`, offsets `zᵢ`
 and regular tails `bᵢ`, and for `a ≠ 0` and `B`, some `H` makes every germ
-`zᵢ + qᵢ (B + H a) bᵢ` epic. By the epic criterion (Lemma 3.2) it suffices to
+`zᵢ + qᵢ (B + H a) bᵢ` epic. By the epic criterion it suffices to
 satisfy the critical tests of the finitely many top factors. -/
 theorem exists_affine_epic_tests
     {ι : Type*} [Fintype ι] (e : ι → ℕ) (M : ι → Type u)
@@ -405,7 +401,7 @@ theorem test_pencil_identity {M : Type u} [AddCommGroup M] [Module Rᵐᵒᵖ M]
     rw [add_mul, mul_assoc, hlam]
   rw [he, op_add, add_smul, ← add_assoc, Section.right_action_assoc]
 
-/-- **Lemma 3.6, stability for tests.** If `f` satisfies a test, then so does
+/-- **Stability for tests.** If `f` satisfies a test, then so does
 `f + λ g` for all but finitely many central `λ ∈ k`. -/
 theorem GermTest.pencil_finite {k : Type*} [Field k] [Algebra k R]
     (τ : GermTest R) {f : R} (hf : τ.Satisfied f) (g : R) :
@@ -417,7 +413,7 @@ theorem GermTest.pencil_finite {k : Type*} [Field k] [Algebra k R]
   simpa only [GermTest.Satisfied,
     test_pencil_identity _ _ _ _ _ _ (fun x => (Algebra.commutes _ x))] using hfin
 
-/-- **Lemma 3.6, selection for tests.** Assume (S), (N), (Z). For every `x`,
+/-- **Selection for tests.** Assume (S), (N), (Z). For every `x`,
 every `t ≠ 0` and every finite family of tests, some `f = x + H t` satisfies
 all of them. -/
 theorem GermTest.exists_affine_satisfied [IsSimpleRing R] [IsNoetherian Rᵐᵒᵖ R]
@@ -431,7 +427,7 @@ theorem GermTest.exists_affine_satisfied [IsSimpleRing R] [IsNoetherian Rᵐᵒ�
     (fun i => (tests i).tail) (fun i => (tests i).tail_reg) ht x
 
 /-- The **unit test** `(e, R/J, q_J, 0, 1)` of a Goldie-torsion quotient `R/J`
-with `Kdim R/J ≤ e` (core-theorem.md Section 4, step 3). -/
+with `Kdim R/J ≤ e`. -/
 def unitTest [IsNoetherian Rᵐᵒᵖ R] (J : Submodule Rᵐᵒᵖ R) (e : ℕ)
     (hJ : Module.DevLE Rᵐᵒᵖ e (R ⧸ J)) (hT : IsGoldieTorsion R (R ⧸ J)) :
     GermTest R where
@@ -445,7 +441,7 @@ def unitTest [IsNoetherian Rᵐᵒᵖ R] (J : Submodule Rᵐᵒᵖ R) (e : ℕ)
   tail := 1
   tail_reg := Submonoid.one_mem _
 
-/-- `f` satisfies the unit test of `R/J` iff `Kdim R/(J + fR) < e` (Lemma 3.1). -/
+/-- `f` satisfies the unit test of `R/J` iff `Kdim R/(J + fR) < e`. -/
 theorem unitTest_satisfied_iff [IsNoetherian Rᵐᵒᵖ R] (J : Submodule Rᵐᵒᵖ R) (e : ℕ)
     (hJ : Module.DevLE Rᵐᵒᵖ e (R ⧸ J)) (hT : IsGoldieTorsion R (R ⧸ J)) (f : R) :
     (unitTest J e hJ hT).Satisfied f ↔

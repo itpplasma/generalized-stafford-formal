@@ -13,21 +13,16 @@ public import GeneralizedStafford.GeneratorBounds
 /-!
 # Affine generation over simple Noetherian rings with infinite centre
 
-Theorem A' (fixed ideal), Theorem A (fixed anchor), Corollary B and
-Corollary C.1, C.1 stable, C.2 and C.3 of `docs/core-theorem.md`, for simple right
-Noetherian rings with an infinite central field; zero divisors are allowed.
+Theorem A' (fixed ideal), Theorem A (fixed anchor), Corollary B, and Corollaries
+C.1, C.1 (stable form), C.2 and C.3, for simple right Noetherian rings with an
+infinite central field; zero divisors are allowed.
 
-Paths such as `docs/core-theorem.md` and `docs/manuscript/main.tex` in the
-module docstrings refer to the private research repository
-`itpplasma/generalized-stafford`, not to this repository.
-
-* `GeneralizedStafford.Basic`: conventions and deviation facts (Section 0).
-* `GeneralizedStafford.Germs`: germs and source selection (Section 3).
-* `GeneralizedStafford.Descent`: the two-call descent (Section 4).
-* `GeneralizedStafford.TheoremA`: Theorems A' and A (Section 1).
-* `GeneralizedStafford.CorollaryB`: Corollary B (Lemma 6.1).
-* `GeneralizedStafford.Modules`: Corollary C.1, C.1 stable, C.2
-  (Lemmas 6.2, 6.3).
-* `GeneralizedStafford.GeneratorBounds`: Corollary C.3, generator bounds by
-  the normalized Goldie rank (Lemma 6.4).
+* `GeneralizedStafford.Basic`: conventions and deviation facts.
+* `GeneralizedStafford.Germs`: germs, central scalars and source selection.
+* `GeneralizedStafford.Descent`: the two-call descent, proving Theorem A'.
+* `GeneralizedStafford.TheoremA`: Theorems A' and A.
+* `GeneralizedStafford.CorollaryB`: Corollary B.
+* `GeneralizedStafford.Modules`: Corollary C.1, C.1 stable form, C.2.
+* `GeneralizedStafford.GeneratorBounds`: Corollary C.3, generator bounds by the
+  normalized Goldie rank.
 -/

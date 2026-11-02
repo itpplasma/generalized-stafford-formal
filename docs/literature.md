@@ -5,8 +5,7 @@ them. Paths starting with `AlgebraicAnalysis/` are in the pinned
 [AlgebraicAnalysis](https://github.com/itpplasma/algebraic-analysis) library;
 the others are in this repository. This index makes no novelty or priority
 claim; literature that was not found is not evidence of originality.
-Item numbers in [MR] follow the research note, which marks them as still to be
-checked against the book.
+Section numbers cited for [MR] have not yet been checked against the book.
 
 ## Sources used by the proof
 
@@ -14,17 +13,17 @@ checked against the book.
 | --- | --- | --- |
 | Right Gabriel-Rentschler (deviation) dimension; `Kdim` of exact sequences; Noetherian modules have `Kdim` | [GR67]; [MR] 6.1, 6.2.3 | `AlgebraicAnalysis/Module/Deviation.lean`, `AlgebraicAnalysis/Module/DeviationOmega.lean`; inline `PosetDevLE` in the challenge |
 | Critical modules and critical filtrations | [GoR73]; [MR] 6.2.10 | `AlgebraicAnalysis/Module/Critical.lean`, `AlgebraicAnalysis/Module/CriticalFiltration.lean` |
-| Gabriel quotient by `Kdim < e` and finite top strata (core I2, I3), represented by germs | [Gab62] Ch. III; [Rob76]; [GoR73] | `AlgebraicAnalysis/Module/Germ.lean`, `AlgebraicAnalysis/Module/GermSchur.lean`, `AlgebraicAnalysis/Module/DualSeparationGeneral.lean`; `GeneralizedStafford/Germs.lean` |
-| Linear algebra over the Schur division ring; central pencils (core I4) | standard | `AlgebraicAnalysis/Module/TorsionEscape.lean`; `GeneralizedStafford/Germs.lean` |
-| Goldie's theorem for simple right Noetherian rings: regular elements form a right Ore set; Goldie torsion; common regular annihilators; elements of full rank (core I1) | [Gol58], [Gol60]; [MR] 2.1, 2.3 | `AlgebraicAnalysis/RingTheory/Goldie/Basic.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Torsion.lean`; `GeneralizedStafford/Descent.lean`, `GeneralizedStafford/Modules.lean` |
+| Gabriel quotient by `Kdim < e` and finite top strata, represented by germs | [Gab62] Ch. III; [Rob76]; [GoR73] | `AlgebraicAnalysis/Module/Germ.lean`, `AlgebraicAnalysis/Module/GermSchur.lean`, `AlgebraicAnalysis/Module/DualSeparationGeneral.lean`; `GeneralizedStafford/Germs.lean` |
+| Linear algebra over the Schur division ring; central pencils | standard | `AlgebraicAnalysis/Module/TorsionEscape.lean`; `GeneralizedStafford/Germs.lean` |
+| Goldie's theorem for simple right Noetherian rings: regular elements form a right Ore set; Goldie torsion; common regular annihilators; elements of full rank | [Gol58], [Gol60]; [MR] 2.1, 2.3 | `AlgebraicAnalysis/RingTheory/Goldie/Basic.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Torsion.lean`; `GeneralizedStafford/Descent.lean`, `GeneralizedStafford/Modules.lean` |
 | Classical right quotient ring `Q = M_s(D)` (Wedderburn-Artin from Mathlib) | [Gol58]; [MR] 2.3 | `AlgebraicAnalysis/RingTheory/Goldie/QuotientRing.lean` |
 | Uniform dimension; Ore localization of modules and its exactness; Goldie rank `length_Q(M ⊗ Q)` (C.3) | [MR] 2.2, 2.3; Goodearl-Warfield, Ch. 5 (cited in AlgebraicAnalysis) | `AlgebraicAnalysis/Module/UniformDimension.lean`, `AlgebraicAnalysis/Ore/ModuleLocalization.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Rank.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Idempotents.lean`; `GeneralizedStafford/GeneratorBounds.lean` |
 
 The two-call descent (`GeneralizedStafford/Descent.lean`), its assembly into
 Theorems A' and A (`GeneralizedStafford/TheoremA.lean`) and the corollary
 proofs (`GeneralizedStafford/CorollaryB.lean`, `GeneralizedStafford/Modules.lean`
-and `GeneralizedStafford/GeneratorBounds.lean`) follow the research note `docs/core-theorem.md` and, for
-the C.3 upper bound, `docs/lane-C3-rank-without-morita.md`.
+and `GeneralizedStafford/GeneratorBounds.lean`) are the proofs recorded in those
+files. The C.3 upper bound uses induction on the number of generators.
 
 ## Context
 
@@ -60,6 +59,5 @@ them.
 - [Sta81] J. T. Stafford, Generating modules efficiently: algebraic K-theory for noncommutative Noetherian rings, J. Algebra 69 (1981), 312-346; corrigendum J. Algebra 82 (1983), 294-296.
 - [Sta82] J. T. Stafford, Generating modules efficiently over noncommutative rings, Lecture Notes in Math. 924, Springer (1982), 72-88.
 
-Bibliographic data follow the manuscript's bibliography. Entries marked there
-for verification (Robson 1976, Stafford 1978b, Stafford 1982) are not yet
-checked against the publications.
+Robson 1976, Stafford 1978b and Stafford 1982 are not yet checked against the
+publications; the other bibliographic data are taken from the publications.

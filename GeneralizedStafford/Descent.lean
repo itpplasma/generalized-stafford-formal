@@ -7,25 +7,22 @@ public import GeneralizedStafford.Germs
 /-!
 # The two-call descent
 
-Paper: `docs/core-theorem.md`, Section 4 (proof of Theorem A'); manuscript
-`docs/manuscript/main.tex`, Section 4 (`sec:descent`).
-
 Fix a right ideal `I` containing a regular element `s`. With `N = Kdim(R/I)`,
-the assertion `P(h)` of the paper is `IdealBound I e` for `e = N - h + 1`: for
+the assertion `P(h)` is `IdealBound I e` for `e = N - h + 1`: for
 all `x`, all `t ≠ 0` and every finite family of tests there is `f = x + H t`
 satisfying the tests with `Kdim R/(I + fR) < e`. (The strict stratum
 `Kdim < e` is `Module.Small Rᵐᵒᵖ e`, so `Kdim ≤ N - h` is `Small (N - h + 1)`.)
 
-* **Base `P(0)`** (`idealBound_initial`): source selection, Lemma 3.6.
-* **Step `P(h) → P(h+1)`** (`idealBound_step`): the eight steps of Section 4.
+* **Base `P(0)`** (`idealBound_initial`): source selection (`GermTest.exists_affine_satisfied`).
+* **Step `P(h) → P(h+1)`** (`idealBound_step`): the eight steps proved in `idealBound_step`.
   The first call gives `f = x + H t` and `J = I + fR`; a regular `b` with
-  `f b ∈ I` exists by Goldie (I1); the second call, for the same `I`, with
+  `f b ∈ I` exists by Goldie's theorem; the second call, for the same `I`, with
   offset `0`, tail `t b` and the single unit test of `R/J`, gives `g b` with
   `Q = I + g b R`; then `q_Q f` is epic, a good nonzero central `λ` keeps
   `q_Q (f + λ g)` epic and all old tests satisfied, the inclusion (4.2) gives
   `Q ⊆ I + (f + λ g)R`, so the dimension drops, and
   `f + λ g = x + (H + λ H₂) t`.
-* **Termination (E2)** (`idealBound_zero`): `N + 1` steps reach `P(N+1)`,
+* **Termination** (`idealBound_zero`): `N + 1` steps reach `P(N+1)`,
   i.e. `Kdim R/(I + fR) < 0`.
 -/
 
@@ -38,7 +35,7 @@ universe u
 
 variable {R : Type u} [Ring R]
 
-/-- The induction assertion `P(h)` of Section 4, with `e = N - h + 1`: for all
+/-- The induction assertion `P(h)`, with `e = N - h + 1`: for all
 `x`, all `t ≠ 0` and every finite family of tests there is `H` such that
 `f = x + H t` satisfies the tests and `Kdim R/(I + fR) < e`. -/
 def IdealBound (I : Submodule Rᵐᵒᵖ R) (e : ℕ) : Prop :=
@@ -46,7 +43,7 @@ def IdealBound (I : Submodule Rᵐᵒᵖ R) (e : ℕ) : Prop :=
     ∃ H : R, Module.Small Rᵐᵒᵖ e (R ⧸ (I ⊔ principalRightIdeal (x + H * t))) ∧
       ∀ i, (tests i).Satisfied (x + H * t)
 
-/-- **The inclusion (4.2).** If `f b ∈ I` and `λ` is a central unit, then
+/-- **The pencil inclusion.** If `f b ∈ I` and `λ` is a central unit, then
 `g b ∈ I + (f + λ g)R`, since `g b λ = (f + λ g) b - f b`. -/
 theorem mul_mem_sup_pencil {I : Submodule Rᵐᵒᵖ R} {f g b lam : R}
     (hfb : f * b ∈ I) (hlam : ∀ x : R, lam * x = x * lam) (hu : IsUnit lam) :
@@ -65,7 +62,7 @@ theorem mul_mem_sup_pencil {I : Submodule Rᵐᵒᵖ R} {f g b lam : R}
   rwa [h5] at h4
 
 /-- The central correction stays in the affine coset:
-`(x + H t) + λ (H₂ t) = x + (H + λ H₂) t` (Section 4, step 8). -/
+`(x + H t) + λ (H₂ t) = x + (H + λ H₂) t` (Step 8 of the descent). -/
 theorem affine_update (x H H₂ t lam : R) :
     (x + H * t) + lam * (H₂ * t) = x + (H + lam * H₂) * t := by
   simp only [add_mul, mul_assoc, add_assoc]
@@ -75,7 +72,7 @@ variable {k : Type*} [Field k] [Infinite k] [Algebra k R]
 
 include k in
 /-- **Base `P(0)`.** If `Kdim R/I ≤ N`, then `IdealBound I (N + 1)`: source
-selection (Lemma 3.6) gives the tests, and `R/(I + fR)` is a quotient of
+selection gives the tests, and `R/(I + fR)` is a quotient of
 `R/I`. -/
 theorem idealBound_initial {I : Submodule Rᵐᵒᵖ R} {N : ℕ}
     (hfin : Module.DevLE Rᵐᵒᵖ N (R ⧸ I)) : IdealBound I (N + 1) := by
@@ -88,19 +85,17 @@ include k in
 /-- **The two-call step `P(h) → P(h+1)`** for a right ideal `I` containing a
 regular element `s`: `IdealBound I (e + 1)` implies `IdealBound I e`.
 
-The proof follows steps 1--8 of core Section 4, marked by comments in the
-proof. One difference from the paper: core step 1 splits into the case
-`Kdim R/J < e`, where `f` already proves `P(h+1)`, and the case
-`Kdim R/J = e`. The Lean proof makes no case split. The unit test
+The proof follows Steps 1--8, marked by comments in the proof. It makes no
+case split on whether `Kdim R/J < e` (where `f` already proves `P(h+1)`) or
+`Kdim R/J = e`. The unit test
 `(e, V_J, q_J, 0, 1)` (`unitTest`) is formed at level `e` whenever
 `Kdim R/J ≤ e`, and steps 2--8 then go through uniformly; in the first case
 the top `F_e(R/J)` is zero and the unit test is vacuous.
 
-The two hypotheses enter as in core Section 5. **E1** (infinite centre)
-enters in steps 5--7 only: step 5 needs a nonzero central `λ` outside a finite
+The two hypotheses enter as follows. **Infinite centre**
+enters in Steps 5--7 only: step 5 needs a nonzero central `λ` outside a finite
 exceptional set, which exists because `k` is infinite; steps 6 and 7 use that
-`λ` is a central unit (`mul_mem_sup_pencil`, `test_pencil_identity`). **E2**
-(finite deviation) is not used here; it enters only in the termination
+`λ` is a central unit (`mul_mem_sup_pencil`, `test_pencil_identity`). **Finite deviation** is not used here; it enters only in the termination
 `idealBound_zero`, where `Kdim R/I ≤ N` bounds the number of steps. -/
 theorem idealBound_step {I : Submodule Rᵐᵒᵖ R} {s : R} (hsI : s ∈ I) (hs : s ∈ R⁰)
     (e : ℕ) (hbound : IdealBound I (e + 1)) : IdealBound I e := by
@@ -110,7 +105,7 @@ theorem idealBound_step {I : Submodule Rᵐᵒᵖ R} {s : R} (hsI : s ∈ I) (hs
   obtain ⟨H, hJ, htests⟩ := hbound x t ht tests
   set f := x + H * t with hf
   set J := I ⊔ principalRightIdeal f with hJdef
-  -- Step 2 (torsion equation): a regular `b` with `f b ∈ I` (Goldie, I1).
+  -- Step 2 (torsion equation): a regular `b` with `f b ∈ I` (Goldie's theorem).
   obtain ⟨b, hb, hfb⟩ := exists_mul_mem_of_mem_nonZeroDivisors hsI hs f
   have htb : t * b ≠ 0 := fun h0 => ht (hb.2 t h0)
   -- Step 3 (second call, same `I`): offset `0`, tail `t b`, the unit test of `R/J`.
@@ -147,7 +142,7 @@ theorem idealBound_step {I : Submodule Rᵐᵒᵖ R} {s : R} (hsI : s ∈ I) (hs
     intro i
     by_contra hn
     exact hc (Set.mem_union_left _ (Set.mem_union_right _ (Set.mem_iUnion.mpr ⟨i, hn⟩)))
-  -- Step 6 (inclusion (4.2)): `Q ⊆ J' = I + (f + λ g)R`.
+  -- Step 6 (pencil inclusion): `Q ⊆ J' = I + (f + λ g)R`.
   have hideal : Q ⊔ principalRightIdeal (f + lam * g) =
       I ⊔ principalRightIdeal (f + lam * g) := by
     apply le_antisymm
@@ -168,7 +163,7 @@ theorem idealBound_step {I : Submodule Rᵐᵒᵖ R} {s : R} (hsI : s ∈ I) (hs
   exact ⟨H + lam * H₂, hsmall, hkeep⟩
 
 include k in
-/-- **Termination (E2).** If `I` contains a regular element and
+/-- **Termination.** If `I` contains a regular element and
 `Kdim R/I ≤ N`, then `IdealBound I 0`: the `N + 1` steps from `P(0)` reach
 `P(N+1)`. -/
 theorem idealBound_zero {I : Submodule Rᵐᵒᵖ R} (hreg : ∃ s ∈ I, s ∈ R⁰)

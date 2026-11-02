@@ -8,20 +8,17 @@ public import AlgebraicAnalysis.RingTheory.Goldie.Torsion
 /-!
 # Conventions and the deviation facts used throughout
 
-Paper: `docs/core-theorem.md`, Section 0 (conventions C1--C5) and Section 2
-(imported inputs I1, I3); manuscript `docs/manuscript/main.tex`, Section 2.
-
 * Modules are **right** modules: a right `R`-module `M` is `[Module Rᵐᵒᵖ M]`,
   and `m r` is written `op r • m`. A right ideal is a `Submodule Rᵐᵒᵖ R`;
   `principalRightIdeal x` is `xR` and `I ⊔ J` is `I + J`.
 * (S) is `[IsSimpleRing R]`, (N) is `[IsNoetherian Rᵐᵒᵖ R]`, and (Z) is
   supplied as an infinite field `k` with `[Algebra k R]`, i.e. `k` is central.
-* A regular element is a two-sided non-zero-divisor, `d ∈ R⁰` (C2).
-* `Kdim M ≤ n` is the deviation bound `Module.DevLE Rᵐᵒᵖ n M` (C3), and the
+* A regular element is a two-sided non-zero-divisor, `d ∈ R⁰`.
+* `Kdim M ≤ n` is the deviation bound `Module.DevLE Rᵐᵒᵖ n M`, and the
   strict stratum `Kdim M < e` is `Module.Small Rᵐᵒᵖ e M`; so `Small (n + 1)` is
   `DevLE n` and `Small 0` means `M = 0`.
-* Goldie torsion (C4) is `AlgebraicAnalysis.Goldie.IsGoldieTorsion`; Goldie's
-  theorem (input I1) is proved in `AlgebraicAnalysis.RingTheory.Goldie`.
+* Goldie torsion is `AlgebraicAnalysis.Goldie.IsGoldieTorsion`; Goldie's
+  theorem is proved in `AlgebraicAnalysis.RingTheory.Goldie`.
 
 This file states the hypothesis (H_all) and collects the elementary deviation
 facts used by several sections: quotients of `R/dR` inherit its bound, a cyclic

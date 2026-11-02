@@ -7,9 +7,6 @@ public import GeneralizedStafford.TheoremA
 /-!
 # Corollary B: rings of deviation at most `ω`
 
-Paper: `docs/core-theorem.md`, Corollary B (Section 1) and Lemma 6.1;
-manuscript `docs/manuscript/main.tex`, Corollary B and Lemma `lem:Hall`.
-
 **Statement.** If `R` is right Noetherian with `Kdim R ≤ ω`, then
 `δ(d) = Kdim(R/dR)` is finite for every regular `d`, and `Kdim(R/I)` is finite
 for every right ideal `I` containing a regular element; hence Theorems A and
@@ -31,7 +28,7 @@ universe u
 
 variable {R : Type u} [Ring R]
 
-/-- **Lemma 6.1, principal quotients.** If `Kdim R ≤ ω`, then `R/dR` has
+/-- **Principal quotients.** If `Kdim R ≤ ω`, then `R/dR` has
 finite deviation for every regular `d`. -/
 theorem principal_quotient_finite_of_omega (homega : Module.DevLEOmega Rᵐᵒᵖ R)
     {d : R} (hd : d ∈ R⁰) : ∃ N, Module.DevLE Rᵐᵒᵖ N (R ⧸ principalRightIdeal d) :=
@@ -41,12 +38,12 @@ theorem principal_quotient_finite_of_omega (homega : Module.DevLEOmega Rᵐᵒ�
       exact sub_eq_zero.mpr hxy
     exact sub_eq_zero.mp (hd.1 _ h)
 
-/-- **Lemma 6.1, (H_all).** If `Kdim R ≤ ω`, then (H_all) holds. -/
+/-- **Hypothesis (H_all).** If `Kdim R ≤ ω`, then (H_all) holds. -/
 theorem principalQuotientsFinite_of_devLE_omega (homega : Module.DevLEOmega Rᵐᵒᵖ R) :
     PrincipalQuotientsFinite R :=
   fun _ hd => principal_quotient_finite_of_omega homega hd
 
-/-- **Lemma 6.1, ideals.** If `Kdim R ≤ ω`, then `R/I` has finite deviation for
+/-- **Right ideals.** If `Kdim R ≤ ω`, then `R/I` has finite deviation for
 every right ideal `I` containing a regular element. -/
 theorem quotient_finite_of_omega (homega : Module.DevLEOmega Rᵐᵒᵖ R)
     {I : Submodule Rᵐᵒᵖ R} (hreg : ∃ s ∈ I, s ∈ R⁰) :

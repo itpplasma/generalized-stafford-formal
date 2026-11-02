@@ -7,13 +7,9 @@ public import GeneralizedStafford.Descent
 /-!
 # Theorem A' (fixed ideal) and Theorem A (fixed anchor)
 
-Paper: `docs/core-theorem.md`, Section 1 (statements) and Section 4;
-manuscript `docs/manuscript/main.tex`, Theorems A' and A (introduction) and
-Section 4 (`sec:descent`, proofs of Theorem A' and Theorem A).
-
 Assume (S) `R` simple, (N) right Noetherian, and (Z) `k` an infinite central
-field. Zero divisors are allowed: the anchor `d` and the element witnessing
-(Reg_I) are regular, while the tails `t` and `a` need only be nonzero.
+field. Zero divisors are allowed: the anchor `d` and the regular element of `I`
+are regular, while the tails `t` and `a` need only be nonzero.
 
 * **Theorem A'** (`fixed_ideal`) is `P(N+1)` of the two-call descent with the
   empty family of tests: `Kdim R/(I + fR) < 0`, i.e. `I + fR = R`.
@@ -33,7 +29,7 @@ variable {k : Type*} [Field k] [Infinite k] [Algebra k R]
 
 include k in
 /-- **Theorem A' (fixed ideal).** Let `I` be a right ideal containing a
-regular element (Reg_I) with `Kdim(R/I) ≤ N` finite (Fin_I). For every `x ∈ R`
+regular element with `Kdim(R/I) ≤ N` finite. For every `x ∈ R`
 and every `t ≠ 0` there is `H ∈ R` with `I + (x + H t)R = R`. -/
 theorem fixed_ideal {I : Submodule Rᵐᵒᵖ R} (hreg : ∃ s ∈ I, s ∈ R⁰)
     {N : ℕ} (hfin : Module.DevLE Rᵐᵒᵖ N (R ⧸ I)) (x : R) {t : R} (ht : t ≠ 0) :

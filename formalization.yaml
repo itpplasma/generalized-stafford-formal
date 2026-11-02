@@ -48,18 +48,11 @@ sources:
     type: "original-proof"
     relationship: "other"
     location: >-
-      itpplasma/generalized-stafford (private): docs/core-theorem.md, Sections
-      0-6; docs/lane-C3-rank-without-morita.md (upper bound of C.3);
-      docs/manuscript/main.tex, Sections 1-6
+      project proof record by the authors
     note: >-
       Project-written proof with independent agent proof-audits; not
       human-reviewed. The label original-proof classifies the source; it is not
-      a novelty or priority claim. The manuscript proves Theorems A' and A and
-      gives the corollary proofs in its Section 6, with the C.3 upper bound by a
-      Morita (matrix-ring) transfer. The Lean proof of that bound follows the
-      audited Morita-free note docs/lane-C3-rank-without-morita.md (research
-      commit 251049f). A shortened paper may cite the Lean proofs of the
-      corollaries.
+      a novelty or priority claim.
     author_endorsement: "participated"
   - title: "Module structure of Weyl algebras"
     authors:
@@ -125,7 +118,6 @@ related_formalizations:
 
 verification:
   commit: "2feca230956005cffb79f577f1c882dabce4b044"
-  statement_correspondence: "docs/paper-lean-specification.md"
   literature_review: "docs/literature.md"
   allowed_axioms: ["propext", "Classical.choice", "Quot.sound"]
 
@@ -135,9 +127,8 @@ status:
     Mathlib-only challenge (14 compared theorems) and proved in the solution by
     transport from the library, and accepted in a local replay of the Palomar
     check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
-    mode). The statement-faithfulness audit passed
-    (itpplasma/generalized-stafford docs/lane-palomar-statement-audit.md at
-    commit 1f05218). Human review is open. Not registered on Palomar.
+    mode). An independent statement-faithfulness audit (2 November 2026)
+    passed. Human review is open. Not registered on Palomar.
   sorry_count: 28
   sorry_in_definitions: 0
   axioms:
@@ -192,7 +183,7 @@ automation:
         spend_usd: "not tracked"
         hardware: "local workstation and cloud containers"
       prompting_notes: >-
-        Tasks name the paper statement, allowed files and the verification
+        Tasks name the target statement, allowed files and the verification
         commands; audits receive a frozen candidate and named scopes.
   spend_usd: "not tracked"
   notes: >-
@@ -207,8 +198,8 @@ fidelity:
     stated through uniform dimensions without division or rounding; its
     identification with rho uses s = udim(R_R) and
     length_Q(M (x) Q) = udim(M/t(M)). The C.2 full-rank existence statement
-    assumes only (S), (N). The ordinal clause of the dimension lemma and
-    opposite-side statements are omitted.
+    assumes only (S), (N). The ordinal refinement delta(d) < Kdim R of the
+    dimension part of Corollary B and the opposite-side statements are omitted.
 
 review:
   status: "agent-reviewed"
@@ -216,65 +207,64 @@ review:
   notes: >-
     The written proof passed independent agent proof-audits. The challenge
     statements passed an independent statement-faithfulness audit
-    (research repository docs/lane-palomar-statement-audit.md at commit
-    1f05218; summary in docs/paper-lean-specification.md). Human expert review is open.
+    (2 November 2026). Human expert review is open.
 
 alignment:
   namespace: "GeneralizedStafford"
   statements:
-    - source: "core-theorem.md, Theorem A' (fixed ideal)"
+    - source: "Theorem A' (fixed ideal)"
       lean: "GeneralizedStaffordChallenge.fixedIdeal"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Theorem A (fixed anchor)"
+    - source: "Theorem A (fixed anchor)"
       lean: "GeneralizedStaffordChallenge.fixedAnchor"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary B and Lemma 6.1"
+    - source: "Corollary B, dimension part"
       lean: "GeneralizedStaffordChallenge.corollaryB_dimension"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary B for Theorem A"
+    - source: "Corollary B for Theorem A"
       lean: "GeneralizedStaffordChallenge.corollaryB_fixedAnchor"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary B for Theorem A'"
+    - source: "Corollary B for Theorem A'"
       lean: "GeneralizedStaffordChallenge.corollaryB_fixedIdeal"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.1 and Lemma 6.2"
+    - source: "Corollary C.1"
       lean: "GeneralizedStaffordChallenge.corollaryC1"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.1 under (H_all)"
+    - source: "Corollary C.1 under (H_all)"
       lean: "GeneralizedStaffordChallenge.corollaryC1_hAll"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.1 under (H_omega)"
+    - source: "Corollary C.1 under (H_omega)"
       lean: "GeneralizedStaffordChallenge.corollaryC1_omega"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "main.tex, Proposition prop:C1(a) (stable cyclicity)"
+    - source: "Corollary C.1, stable cyclicity"
       lean: "GeneralizedStaffordChallenge.corollaryC1_stable"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Lemma 6.3, existence of a with aQ = IQ"
+    - source: "Corollary C.2, existence of a with aQ = IQ"
       lean: "GeneralizedStaffordChallenge.corollaryC2_fullRank"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.2, prescribed form"
+    - source: "Corollary C.2, prescribed form"
       lean: "GeneralizedStaffordChallenge.corollaryC2_prescribed"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.2, two generators"
+    - source: "Corollary C.2, two generators"
       lean: "GeneralizedStaffordChallenge.corollaryC2"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.3 and Lemma 6.4, lower bound"
+    - source: "Corollary C.3, lower bound"
       lean: "GeneralizedStaffordChallenge.corollaryC3_lower"
       module: "GeneralizedStaffordSolution"
       status: "proved"
-    - source: "core-theorem.md, Corollary C.3; lane-C3 note, upper bound"
+    - source: "Corollary C.3, upper bound"
       lean: "GeneralizedStaffordChallenge.corollaryC3_upper"
       module: "GeneralizedStaffordSolution"
       status: "proved"
