@@ -15,7 +15,7 @@ import Mathlib.RingTheory.KrullDimension.Basic
 # Affine generation over simple Noetherian rings with infinite centre
 
 This file states Theorem A', Theorem A and Corollaries B and C (C.1, C.2 and
-C.3), and the two-generation statements for the Weyl algebra (last section).
+C.3), and the two-generation statements for the Weyl algebra (and filtered rings in the last section).
 It imports only Mathlib and defines everything else inline.
 
 ## Conventions
@@ -63,8 +63,7 @@ each `sorry` is a deliberate hole. The proofs are in
 `GeneralizedStaffordSolution.lean` (identical copy `Solution.lean`) of this
 repository; holes without a proof there are listed in `docs/open-holes.md`.
 
-Left-ideal statements are stated only for the Weyl algebra (last section): there
-the left case is the right case transported by the transposition anti-automorphism.
+Left-handed statements are stated for the Weyl algebra and, through the opposite ring `Rᵐᵒᵖ`, for filtered rings (last section); for the Weyl algebra the left case is the right case transported by the transposition anti-automorphism.
 -/
 
 universe u v
@@ -651,7 +650,7 @@ theorem weylPrescribedTwoGeneratedLeft : GeneralizedStaffordWeylChallenge.Prescr
 
 end GeneralizedStaffordChallenge
 
-/-! ## Filtered rings (Proposition `prop:filtered`)
+/-! ## Filtered rings
 
 The hypothesis "`gr R` is commutative Noetherian of finite Krull dimension" is
 stated through an identification of `gr R = ⨁ₙ Fₙ/Fₙ₋₁` with a commutative
@@ -668,10 +667,7 @@ their sum is a graded ring isomorphism `gr R ≅ G`. Being Noetherian and the
 Krull dimension (`ringKrullDim`, chains of prime ideals) are invariant under
 ring isomorphism. So the existential hypothesis below holds iff `gr R` is
 commutative Noetherian of Krull dimension `≤ m`. The ring `G` is taken in the
-universe of `R`, where `gr R` lives. The structures mirror
-`AlgebraicAnalysis.RingFiltration` and
-`AlgebraicAnalysis.RingFiltration.GradedSymbol` field by field (here with
-elementwise multiplicativity and exhaustiveness). -/
+universe of `R`, where `gr R` lives. Multiplicativity of the filtration is stated elementwise. -/
 
 namespace GeneralizedStaffordChallenge
 
