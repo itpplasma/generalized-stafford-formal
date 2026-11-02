@@ -11,6 +11,38 @@ log_dir=.lake/verification
 mkdir -p "$log_dir"
 python3 scripts/check-submission-modules.py >"$log_dir/module-resolution.log" 2>&1
 
+# The duplicate challenge and solution files must stay byte-identical.
+cmp Challenge.lean GeneralizedStaffordChallenge.lean
+cmp Solution.lean GeneralizedStaffordSolution.lean
+
+# The challenge has exactly one deliberate `sorry` per compared theorem.
+python3 - <<'PY'
+import re
+from pathlib import Path
+
+text = Path("GeneralizedStaffordChallenge.lean").read_text(encoding="utf-8")
+out, i, depth = [], 0, 0
+while i < len(text):
+    if text.startswith("/-", i):
+        depth += 1
+        i += 2
+    elif depth and text.startswith("-/", i):
+        depth -= 1
+        i += 2
+    elif depth:
+        i += 1
+    elif text.startswith("--", i):
+        j = text.find("\n", i)
+        i = len(text) if j < 0 else j
+    else:
+        out.append(text[i])
+        i += 1
+holes = len(re.findall(r"(?<![\w.'])sorry(?![\w'])", "".join(out)))
+if holes != 14:
+    raise SystemExit(f"challenge has {holes} sorry holes outside comments, expected 14")
+print("Challenge: exactly 14 sorry holes outside comments")
+PY
+
 for tool in comparator lean4export nanoda landrun; do
   if [ ! -x "$bin_root/$tool" ]; then
     echo "missing $bin_root/$tool; run scripts/bootstrap-palomar-tools.sh" >&2
@@ -67,6 +99,7 @@ PY
 
 lake build GeneralizedStaffordChallenge >"$log_dir/challenge-build.log" 2>&1
 lake build GeneralizedStaffordSolution >"$log_dir/solution-build.log" 2>&1
+lake build Challenge Solution >"$log_dir/duplicate-build.log" 2>&1
 bash scripts/check-import-closure.sh GeneralizedStaffordChallenge
 bash scripts/check-import-closure.sh GeneralizedStaffordSolution
 

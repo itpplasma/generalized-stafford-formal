@@ -18,12 +18,12 @@ checked against the book.
 | Linear algebra over the Schur division ring; central pencils (core I4) | standard | `AlgebraicAnalysis/Module/TorsionEscape.lean`; `GeneralizedStafford/Germs.lean` |
 | Goldie's theorem for simple right Noetherian rings: regular elements form a right Ore set; Goldie torsion; common regular annihilators; elements of full rank (core I1) | [Gol58], [Gol60]; [MR] 2.1, 2.3 | `AlgebraicAnalysis/RingTheory/Goldie/Basic.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Torsion.lean`; `GeneralizedStafford/Descent.lean`, `GeneralizedStafford/Modules.lean` |
 | Classical right quotient ring `Q = M_s(D)` (Wedderburn-Artin from Mathlib) | [Gol58]; [MR] 2.3 | `AlgebraicAnalysis/RingTheory/Goldie/QuotientRing.lean` |
-| Uniform dimension; Ore localization of modules and its exactness; Goldie rank `length_Q(M ⊗ Q)` (C.3) | [MR] 2.2, 2.3; Goodearl-Warfield, Ch. 5 (cited in AlgebraicAnalysis) | `AlgebraicAnalysis/Module/UniformDimension.lean`, `AlgebraicAnalysis/Ore/ModuleLocalization.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Rank.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Idempotents.lean`; the C.3 module of this repository |
+| Uniform dimension; Ore localization of modules and its exactness; Goldie rank `length_Q(M ⊗ Q)` (C.3) | [MR] 2.2, 2.3; Goodearl-Warfield, Ch. 5 (cited in AlgebraicAnalysis) | `AlgebraicAnalysis/Module/UniformDimension.lean`, `AlgebraicAnalysis/Ore/ModuleLocalization.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Rank.lean`, `AlgebraicAnalysis/RingTheory/Goldie/Idempotents.lean`; `GeneralizedStafford/GeneratorBounds.lean` |
 
 The two-call descent (`GeneralizedStafford/Descent.lean`), its assembly into
 Theorems A' and A (`GeneralizedStafford/TheoremA.lean`) and the corollary
 proofs (`GeneralizedStafford/CorollaryB.lean`, `GeneralizedStafford/Modules.lean`
-and the C.3 module) follow the research note `docs/core-theorem.md` and, for
+and `GeneralizedStafford/GeneratorBounds.lean`) follow the research note `docs/core-theorem.md` and, for
 the C.3 upper bound, `docs/lane-C3-rank-without-morita.md`.
 
 ## Context

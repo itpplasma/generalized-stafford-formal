@@ -13,10 +13,15 @@ project:
     generators of finite Goldie-torsion modules (C.1); two-generated right
     ideals (C.2); and ceil(rho M) <= mu(M) <= floor(rho M) + 1 for the
     normalized Goldie rank rho (C.3).
+  # Authors and maintainers use the structured {name, orcid} form of
+  # itpplasma/global-stafford-formal, even if the current upstream schema
+  # prefers plain strings.
   authors:
-    - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+    - name: "Christopher Albert"
+      orcid: "0000-0003-4773-416X"
   responsible_maintainers:
-    - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+    - name: "Christopher Albert"
+      orcid: "0000-0003-4773-416X"
   license: "Apache-2.0"
 
 repository:
@@ -38,7 +43,8 @@ classification:
 sources:
   - title: "Theorem A: affine generation over simple Noetherian rings with infinite centre"
     authors:
-      - "Christopher Albert (ORCID 0000-0003-4773-416X)"
+      - name: "Christopher Albert"
+        orcid: "0000-0003-4773-416X"
     type: "original-proof"
     relationship: "other"
     location: >-
@@ -48,9 +54,12 @@ sources:
     note: >-
       Project-written proof with independent agent proof-audits; not
       human-reviewed. The label original-proof classifies the source; it is not
-      a novelty or priority claim. The manuscript contains the core proof
-      (Theorems A' and A); the corollary proofs are the Lean proofs of this
-      repository.
+      a novelty or priority claim. The manuscript proves Theorems A' and A and
+      gives the corollary proofs in its Section 6, with the C.3 upper bound by a
+      Morita (matrix-ring) transfer. The Lean proof of that bound follows the
+      audited Morita-free note docs/lane-C3-rank-without-morita.md (research
+      commit 251049f). A shortened paper may cite the Lean proofs of the
+      corollaries.
     author_endorsement: "participated"
   - title: "Module structure of Weyl algebras"
     authors:
@@ -59,11 +68,11 @@ sources:
     id: "https://doi.org/10.1112/jlms/s2-18.3.429"
     location: >-
       Journal of the London Mathematical Society (2) 18 (1978), 429-442,
-      Theorem 3.1 and Conjecture 3.8
+      Conjecture 3.8
     relationship: "background"
     note: >-
-      Source of the identity R = dR + HdR for Weyl algebras, the case a = 1,
-      B = 0 of Theorem A.
+      Conjecture 3.8 states the identity R = dR + HdR for Weyl algebras, the
+      case a = 1, B = 0 of Theorem A.
   - title: "Module structure of Weyl algebras"
     authors:
       - "Gwyn Bellamy"
@@ -124,8 +133,11 @@ status:
   scope: >-
     Theorem A', Theorem A and Corollaries B, C.1, C.2 and C.3 are stated in the
     Mathlib-only challenge (14 compared theorems) and proved in the solution by
-    transport from the library. The statement-faithfulness audit passed. Human
-    review is open. Not registered on Palomar.
+    transport from the library, and accepted in a local replay of the Palomar
+    check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort
+    mode). The statement-faithfulness audit passed
+    (itpplasma/generalized-stafford docs/lane-palomar-statement-audit.md at
+    commit 1f05218). Human review is open. Not registered on Palomar.
   sorry_count: 28
   sorry_in_definitions: 0
   axioms:
@@ -204,7 +216,8 @@ review:
   notes: >-
     The written proof passed independent agent proof-audits. The challenge
     statements passed an independent statement-faithfulness audit
-    (docs/paper-lean-specification.md). Human expert review is open.
+    (research repository docs/lane-palomar-statement-audit.md at commit
+    1f05218; summary in docs/paper-lean-specification.md). Human expert review is open.
 
 alignment:
   namespace: "GeneralizedStafford"

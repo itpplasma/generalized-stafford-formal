@@ -12,9 +12,12 @@ lists the classical sources and the modules that use them.
 - `docs/lane-C3-rank-without-morita.md` of the same repository, cited as
   "lane-C3". It replaces the matrix-ring transfer in the upper bound of C.3 and
   is the frozen written source for the Lean proof of that bound.
-- Manuscript `docs/manuscript/main.tex`, cited by `\label`. It contains the
-  core proof only: Theorem A' by the two-call descent and Theorem A from A'.
-  The corollary proofs are the Lean proofs listed below.
+- Manuscript `docs/manuscript/main.tex`, cited by `\label`. It proves
+  Theorem A' by the two-call descent and Theorem A from A', and gives the
+  corollary proofs in its Section 6, where the upper bound of C.3 uses a
+  Morita (matrix-ring) transfer. The Lean proof of that bound follows the
+  audited Morita-free note lane-C3 instead (research commit `251049f`). A
+  shortened paper may cite the Lean proofs of the corollaries listed below.
 
 Namespaces: `GeneralizedStafford` (library), `AlgebraicAnalysis` (pinned
 dependency), `GeneralizedStaffordChallenge` (Palomar challenge and solution).
@@ -37,10 +40,10 @@ the same row, and restated under `<name>` in `GeneralizedStaffordSolution.lean`
 | Corollary B for Theorem A' | `corollaryB_fixedIdeal` | `fixed_ideal_of_devLE_omega` | `GeneralizedStafford/CorollaryB.lean` |
 | C.1, stable form; manuscript `prop:C1`(a) | `corollaryC1_stable` | `span_pair_eq_span_affine` | `GeneralizedStafford/Modules.lean` |
 | C.1; core Lemma 6.2; `prop:C1`(b) | `corollaryC1` | `prescribed_cyclic` | `GeneralizedStafford/Modules.lean` |
-| C.1 under (H_all); core Lemma 6.2, last sentence | `corollaryC1_hAll` | `prescribed_cyclic_of_principal` | `GeneralizedStafford/Modules.lean` |
+| C.1 under (H_all); core Lemma 6.2, last sentence | `corollaryC1_hAll` | `prescribed_cyclic_of_hAll` | `GeneralizedStafford/Modules.lean` |
 | C.1 under (H_omega); core Corollary C.1 | `corollaryC1_omega` | `prescribed_cyclic_of_devLE_omega` | `GeneralizedStafford/Modules.lean` |
 | C.2, existence of `a` with `aQ = IQ`; core Lemma 6.3, first step | `corollaryC2_fullRank` | `AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem` | AlgebraicAnalysis `RingTheory/Goldie/Basic.lean` |
-| C.2, prescribed form; core Lemma 6.3; `prop:C2` | `corollaryC2_prescribed` | `two_generated_of_principal` | `GeneralizedStafford/Modules.lean` |
+| C.2, prescribed form; core Lemma 6.3; `prop:C2` | `corollaryC2_prescribed` | `two_generated_prescribed` | `GeneralizedStafford/Modules.lean` |
 | C.2, two generators; core Corollary C.2 | `corollaryC2` | `two_generated` | `GeneralizedStafford/Modules.lean` |
 | C.3, lower bound `ceil(rho M) <= mu(M)`; core Lemma 6.4; `prop:C3` | `corollaryC3_lower` | `le_mul_of_span_eq_top` (from AlgebraicAnalysis `Goldie.le_mul_of_uniformDim`) | `GeneralizedStafford/GeneratorBounds.lean` |
 | C.3, upper bound `mu(M) <= floor(rho M) + 1`; lane-C3; `prop:C3` | `corollaryC3_upper` | `exists_span_eq_top_of_lt_mul` (rank form `spanRank_le_of_goldieRank_lt`, base case `cyclic_of_goldieRank_lt`) | `GeneralizedStafford/GeneratorBounds.lean` |
@@ -92,8 +95,13 @@ for all universes.
 
 ## Statement-faithfulness audit
 
-An independent audit (`review1`, 2 November 2026) compared the challenge with
-core Sections 0, 1, 6 and the manuscript. It compiled the candidate and a
+An independent audit (2 November 2026) compared the challenge with core
+Sections 0, 1, 6 and the manuscript. Its durable record is
+`docs/lane-palomar-statement-audit.md` of the research repository at commit
+`1f05218`, with the audited challenge frozen at sha256
+`4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`. Later
+changes to the challenge are renames and docstrings only, as confirmed by
+the final review of 2 November 2026. The audit compiled the candidate and a
 sanity file checking the right-module encoding by `rfl`,
 `IsRegularElement d ↔ d ∈ R⁰`, that `PosetDevLE 0 ℕᵒᵈ` fails (the bound is
 not trivially true), that the zero module satisfies every bound, and that
@@ -108,7 +116,7 @@ not trivially true), that the zero module satisfies every bound, and that
 | 5. Readability | REPAIR: renames `KrullDimLE` → `DevDimLE`, `HasFiniteKrullDim` → `HasFiniteDevDim`, `KrullDimLEOmega` → `DevDimLEOmega`, `GeneratedBy` → `SpanRankLE`, and docstring additions. Applied without statement change. |
 
 The audit covers statement faithfulness only. It does not audit the proofs;
-the Lean kernel and the Palomar comparator check those.
+the Lean kernel and the local replay of the Palomar check verify those.
 
 ## Proof steps
 
@@ -121,7 +129,7 @@ the Lean kernel and the Palomar comparator check those.
 | core §0 C3, `Kdim M ≤ n`, `Kdim M ≤ ω` | `Module.DevLE Rᵐᵒᵖ n M`, `Module.DevLEOmega Rᵐᵒᵖ M` (AlgebraicAnalysis); `DevDimLE`, `HasFiniteDevDim`, `DevDimLEOmega` (challenge) | AlgebraicAnalysis `Module/Deviation.lean`, `Module/DeviationOmega.lean`; `Challenge.lean` |
 | core §0 C4, Goldie torsion | `AlgebraicAnalysis.Goldie.IsGoldieTorsion`; `IsGoldieTorsion` (challenge) | AlgebraicAnalysis `RingTheory/Goldie/Torsion.lean`; `Challenge.lean` |
 | core §0 (Z), infinite centre | infinite field `k` with `[Algebra k R]` (library); `Infinite (Subring.center R)` (challenge); bridge `withCentre` | `GeneralizedStafford/Challenge/Transport.lean` |
-| (H_all) | `PrincipalQuotientsFinite`; `HAll` (challenge); bridge `hAll_iff` | `GeneralizedStafford/Basic.lean`; `Challenge.lean`; `GeneralizedStafford/Challenge/Transport.lean` |
+| (H_all) | `PrincipalQuotientsFinite` (the name `HAll` is kept for the challenge's copy); `HAll` (challenge); bridge `hAll_iff` | `GeneralizedStafford/Basic.lean`; `Challenge.lean`; `GeneralizedStafford/Challenge/Transport.lean` |
 | (H_omega) | `Module.DevLEOmega Rᵐᵒᵖ R`; `HOmega` (challenge); bridge `hOmega_iff` | `Challenge.lean`; `GeneralizedStafford/Challenge/Transport.lean` |
 | core §2 I1 (Goldie): regular `b` with `f b ∈ I` | `AlgebraicAnalysis.Goldie.exists_mul_mem_of_mem_nonZeroDivisors` | AlgebraicAnalysis `RingTheory/Goldie/Basic.lean` |
 | core §2 I1: `R/I` Goldie-torsion under (Reg_I) | `AlgebraicAnalysis.Goldie.isGoldieTorsion_quotient` | AlgebraicAnalysis `RingTheory/Goldie/Torsion.lean` |
@@ -173,10 +181,10 @@ the Lean kernel and the Palomar comparator check those.
 | Corollary B for Theorem A' | `fixed_ideal_of_devLE_omega` | `corollaryB_fixedIdeal` | `GeneralizedStafford/CorollaryB.lean` |
 | C.1 stable cyclicity: manuscript `prop:C1`(a) | `span_pair_eq_span_affine` | `corollaryC1_stable` | `GeneralizedStafford/Modules.lean` |
 | C.1: core Lemma 6.2; manuscript `prop:C1`(b) | `prescribed_cyclic` (induction `prescribed_cyclic_aux`, `prescribed_cyclic_of_cyclic`) | `corollaryC1` | `GeneralizedStafford/Modules.lean` |
-| C.1 under (H_all): core Lemma 6.2, last sentence; `prop:C1`, last sentence | `prescribed_cyclic_of_principal` | `corollaryC1_hAll` | `GeneralizedStafford/Modules.lean` |
+| C.1 under (H_all): core Lemma 6.2, last sentence; `prop:C1`, last sentence | `prescribed_cyclic_of_hAll` | `corollaryC1_hAll` | `GeneralizedStafford/Modules.lean` |
 | C.1 under (H_omega): core Corollary C.1 | `prescribed_cyclic_of_devLE_omega` | `corollaryC1_omega` | `GeneralizedStafford/Modules.lean` |
 | C.2, full-rank element `aQ = IQ`: core Lemma 6.3, first step; `prop:C2`, first sentence | `AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem` | `corollaryC2_fullRank` | AlgebraicAnalysis `RingTheory/Goldie/Basic.lean` |
-| C.2, prescribed form: core Lemma 6.3; `prop:C2` | `two_generated_of_principal` | `corollaryC2_prescribed` | `GeneralizedStafford/Modules.lean` |
+| C.2, prescribed form: core Lemma 6.3; `prop:C2` | `two_generated_prescribed` | `corollaryC2_prescribed` | `GeneralizedStafford/Modules.lean` |
 | C.2, every right ideal two-generated: core Corollary C.2; `prop:C2` | `two_generated` | `corollaryC2` | `GeneralizedStafford/Modules.lean` |
 | C.3, lower bound `⌈ρ⌉ ≤ μ`: core Lemma 6.4; `prop:C3` | `le_mul_of_span_eq_top` (from AlgebraicAnalysis `Goldie.le_mul_of_uniformDim`) | `corollaryC3_lower` | `GeneralizedStafford/GeneratorBounds.lean` |
 | C.3, upper bound `μ ≤ ⌊ρ⌋ + 1`: core Lemma 6.4 (case `l < s`) and `lane-C3-rank-without-morita.md` (induction on `q`); `prop:C3` | `exists_span_eq_top_of_lt_mul` (rank form `spanRank_le_of_goldieRank_lt`, base case `cyclic_of_goldieRank_lt`) | `corollaryC3_upper` | `GeneralizedStafford/GeneratorBounds.lean` |

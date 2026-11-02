@@ -16,9 +16,12 @@ authorization from Christopher Albert, given for that action.
 
 ## Before any of these actions
 
-1. Fix the target commit on `main` and confirm the gates in `PLAN.md`: build,
-   axiom audit and Palomar comparator passed at that commit; statement
-   faithfulness audited for the current challenge bytes.
+1. Fix the target commit on `main`. The reviewed work is on branch
+   `palomar`; the target commit is on `main` after the controller
+   fast-forwards `main` to the reviewed `palomar` head. Confirm the gates in
+   `PLAN.md`: build, axiom audit and the local replay of the Palomar check
+   passed at that commit; statement faithfulness audited for the current
+   challenge bytes.
 2. If Lean sources, pins, challenge or solution bytes, `comparator.json` or the
    verifier scripts changed since the recorded run, rerun `scripts/verify.sh`
    and `scripts/verify-palomar.sh` and record the new run in

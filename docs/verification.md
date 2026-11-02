@@ -10,8 +10,8 @@ establishes. [PLAN.md](../PLAN.md) holds the current gate states.
 | Pins | `scripts/check-pins.py` (run by `scripts/verify.sh`) | `lean-toolchain`, `lakefile.toml` and `lake-manifest.json` match `dependency-pins.json`; one shared Mathlib package. |
 | Build | `lake build` | The library and the solution compile at the pins. |
 | Axiom audit | `scripts/verify.sh` | Every name in [endpoints.txt](endpoints.txt) exists and depends only on `propext`, `Classical.choice` and `Quot.sound`, checked with `--trust=0`. |
-| Palomar comparator | `scripts/verify-palomar.sh` | The solution proves each theorem of `comparator.json` with the challenge's exact name and type; the challenge imports only Mathlib; the solution does not import the challenge; NanoDa and the Lean kernel accept the solution. |
-| Statement faithfulness | independent audit `review1`, summarized in [paper-lean-specification.md](paper-lean-specification.md) | The challenge statements say what the paper says. |
+| Palomar check (local replay) | `scripts/verify-palomar.sh` | The challenge and solution copies are byte-identical, the challenge has exactly 14 `sorry` holes; the solution proves each theorem of `comparator.json` with the challenge's exact name and type; the challenge imports only Mathlib; the solution does not import the challenge; NanoDa and the Lean kernel accept the solution. |
+| Statement faithfulness | independent audit, durable record `docs/lane-palomar-statement-audit.md` of the research repository at commit `1f05218` (frozen challenge sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`; later changes name/docstring-only, confirmed by the final review), summarized in [paper-lean-specification.md](paper-lean-specification.md) | The challenge statements say what the paper says. |
 | Human review | none yet | Required before any claim of human verification. |
 
 Machine checks establish that the Lean proofs are correct for the Lean

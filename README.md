@@ -5,7 +5,7 @@ Noetherian rings with infinite centre, and of its module corollaries. The
 case `a = 1`, `B = 0` of Theorem A is the identity `R = dR + HdR`, which
 Stafford conjectured for the Weyl algebras (Conjecture 3.8 of Stafford 1978).
 
-Status: all 14 challenge theorems are proved and accepted by the Palomar comparator (NanoDa and Lean kernels); independent human review is pending; not registered on Palomar.
+Status: all 14 challenge theorems are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. Independent human review is pending.
 
 ## The theorem
 
@@ -94,11 +94,16 @@ dimension lemma, opposite-side statements, and the manuscript's results beyond
 
 ## Paper and Lean
 
-The manuscript gives the core proof: Theorem A' by a two-call descent on
-`Kdim(R/I)`, and Theorem A from Theorem A'. The proofs of the corollaries and
-of routine lemmas are not written out in the manuscript. They are the Lean
-proofs in this repository, checked by the Lean kernel and by the Palomar
-comparator. Each corollary file opens with a short account of its proof.
+The manuscript (`docs/manuscript/main.tex` of the private research
+repository `itpplasma/generalized-stafford`) proves Theorem A' by a two-call
+descent on `Kdim(R/I)` and Theorem A from Theorem A', and gives the proofs of
+the corollaries in its Section 6; there the upper bound of C.3 uses a
+Morita (matrix-ring) transfer. The Lean proof of that bound instead follows
+the audited Morita-free note `docs/lane-C3-rank-without-morita.md` of the
+same repository (research commit `251049f`). A shortened paper may cite the
+Lean proofs of the corollaries, which are checked by the Lean kernel and in a
+local replay of the Palomar check. Each corollary file opens with a short
+account of its proof.
 
 ## Building and checking
 

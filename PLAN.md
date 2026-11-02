@@ -23,11 +23,17 @@ each statement to its challenge name and library declaration.
 | --- | --- | --- |
 | Build | PASSED | `lake build` of `GeneralizedStafford` and `GeneralizedStaffordSolution` at the release commit. |
 | Axiom audit | PASSED (46 endpoint reports) | `scripts/verify.sh`: pins, build and `#print axioms` for every name in `docs/endpoints.txt` with `--trust=0`; only `propext`, `Classical.choice`, `Quot.sound`. |
-| Palomar comparator | PASSED (14 theorems) | `scripts/verify-palomar.sh`: Comparator with NanoDa and the Lean kernel, sandboxed by Landrun; see [verification](docs/verification.md). The run of 2 November 2026 at `2539e681d971` covered all 14 theorems. |
-| Statement faithfulness | PASS | Independent audit `review1` of the challenge: definitions, hypotheses, statements and the C.3 encoding PASS; readability REPAIR (renames and docstrings) applied without statement change. |
+| Palomar check (local replay) | PASSED (14 theorems) | `scripts/verify-palomar.sh`: accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. See [verification](docs/verification.md). |
+| Statement faithfulness | PASS | Independent audit, durable record `docs/lane-palomar-statement-audit.md` of the research repository at commit `1f05218` (frozen challenge sha256 `4cb2cd5e7a6043f4c38fecddb78850d6f8012048c91a7de7e188d18598dc9e95`): definitions, hypotheses, statements and the C.3 encoding PASS; readability REPAIR (renames and docstrings) applied without statement change. Later challenge changes are name/docstring-only, confirmed by the final review of 2 November 2026. |
 | Human review | OPEN | Agent audits are not human review. |
 | Palomar registration | NOT DONE | Requires explicit human authorization ([runbook](docs/release-runbook.md)). |
 | Release, DOI, visibility change | NOT DONE | Requires explicit human authorization. |
+
+## Pending
+
+- Move the application-independent section *Auxiliary module theory (to be
+  upstreamed to AlgebraicAnalysis)* of `GeneralizedStafford/GeneratorBounds.lean`
+  to AlgebraicAnalysis, following its rules, and re-pin.
 
 ## Non-claims
 
