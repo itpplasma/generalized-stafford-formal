@@ -1,7 +1,7 @@
 import GeneralizedStafford.Challenge.Transport
 
 /-!
-# Solution: Theorem A', Theorem A and Corollaries B, C.1 and C.2
+# Solution: Theorem A', Theorem A and Corollaries B and C
 
 Palomar solution module for `GeneralizedStaffordChallenge.lean`. The definitions
 of the challenge are restated verbatim in
@@ -10,8 +10,7 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-Two challenge statements are not solved yet and are deliberately absent here:
-`corollaryC3_lower` and `corollaryC3_upper` (see `docs/open-holes.md`).
+All fourteen compared challenge theorems are solved.
 -/
 
 universe u v
@@ -65,5 +64,13 @@ theorem corollaryC2_prescribed : CorollaryC2PrescribedStatement.{u} :=
 /-- Corollary C.2, every right ideal is two-generated. -/
 theorem corollaryC2 : CorollaryC2Statement.{u} :=
   corollaryC2_proof.{u}
+
+/-- Corollary C.3, lower bound `⌈ρ(M)⌉ ≤ μ(M)`. -/
+theorem corollaryC3_lower : CorollaryC3LowerStatement.{u, v} :=
+  corollaryC3_lower_proof.{u, v}
+
+/-- Corollary C.3, upper bound `μ(M) ≤ ⌊ρ(M)⌋ + 1`. -/
+theorem corollaryC3_upper : CorollaryC3UpperStatement.{u, v} :=
+  corollaryC3_upper_proof.{u, v}
 
 end GeneralizedStaffordChallenge

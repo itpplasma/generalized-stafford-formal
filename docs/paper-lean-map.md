@@ -21,9 +21,14 @@ repository. Namespaces: `GeneralizedStafford` (library), `AlgebraicAnalysis`
 | core §2 I1 (Goldie): regular `b` with `f b ∈ I` | `AlgebraicAnalysis.Goldie.exists_mul_mem_of_mem_nonZeroDivisors` | AlgebraicAnalysis `RingTheory/Goldie/Basic.lean` |
 | core §2 I1: `R/I` Goldie-torsion under (Reg_I) | `AlgebraicAnalysis.Goldie.isGoldieTorsion_quotient` | AlgebraicAnalysis `RingTheory/Goldie/Torsion.lean` |
 | core §2 I1: common regular annihilator | `AlgebraicAnalysis.Goldie.IsGoldieTorsion.exists_common_regular_annihilator` | AlgebraicAnalysis `RingTheory/Goldie/Torsion.lean` |
-| core §2 I1(b): Goldie's theorem, `Q` simple Artinian (not used by the proofs below) | `AlgebraicAnalysis.Goldie.exists_ringEquiv_matrix_divisionRing` | AlgebraicAnalysis `RingTheory/Goldie/QuotientRing.lean` |
+| core §2 I1(b): Goldie's theorem, `Q` simple Artinian (used only for C.3) | `AlgebraicAnalysis.Goldie.exists_ringEquiv_matrix_divisionRing` | AlgebraicAnalysis `RingTheory/Goldie/QuotientRing.lean` |
 | core §2 I2, I3 (Gabriel quotient, finite top strata) | germ calculus `Module.Germ.Hom`, `Hom.Epic`, `Module.CriticalFiltration`, `Hom.finite_of_devLE`, `Hom.epic_iff_injective_comp_topFactors` | AlgebraicAnalysis `Module/Germ.lean`, `Module/GermSchur.lean`, `Module/DualSeparationGeneral.lean` |
 | core §2 I4 (central eigenvalues, pencils) | `AlgebraicAnalysis.TorsionEscape.centralPencil_injective_finite`, `reversed_centralPencil_injective_finite` | AlgebraicAnalysis `Module/TorsionEscape.lean` |
+| core §2 I1, I5 for C.3: `M_Q`, `t(M)`, Goldie rank `l(M) = length_Q(M_Q)`, `s = l(R_R)`, additivity | `Goldie.FractionModule`, `Goldie.goldieTorsionPart`, `Goldie.goldieRank`, `Goldie.goldieRank_eq_add_of_exact`, `Goldie.goldieRank_self` | AlgebraicAnalysis `RingTheory/Goldie/Rank.lean` |
+| C.3 note B1--B7: `s = udim(R_R)`, `l(M) = udim(M/t(M))`; `udim` | `Goldie.uniformDimGE_quotient_iff`, `uniformDimLE_quotient_iff`, `uniformDimGE_self_iff`, `uniformDimLE_self_iff`; `Module.UniformDimGE`, `UniformDimLE`; `UDimGE`, `UDimLE` (challenge), bridges `uDimGE_iff`, `uDimLE_iff`, `goldieTorsionPart_eq` | AlgebraicAnalysis `RingTheory/Goldie/Rank.lean`, `Module/UniformDimension.lean`; `GeneralizedStafford/Challenge/Transport.lean` |
+| core Lemma 6.4 (case `l < s`): idempotents of `Q` with common denominators `f_i`, `r_i` | `Goldie.exists_idempotent_denominators` | AlgebraicAnalysis `RingTheory/Goldie/Idempotents.lean` |
+| core Lemma 6.4 (case `l < s`): successive choice, simplicity argument | `exists_span_fraction_eq_top`, `eq_top_of_forall_toFractionModule_smul_mem` | `GeneralizedStafford/GeneratorBounds.lean` |
+| C.3 note U3--U9: `Q_Q ↪ M_Q`, `pR ≅ R_R`, `l(M/pR) = l(M) - s` | `exists_injective_smul_of_length_le`, `exists_injective_toSpanSingleton`, `exists_goldieRank_eq_add_quotient` | `GeneralizedStafford/GeneratorBounds.lean` |
 | elementary: `R/X` quotient of `R/dR`; `uR ≅ R/ann(u)`; `R/J = 0 ⇒ J = R` | `devLE_quotient_of_le`, `principalRightIdeal_le`, `cyclicMap`, `devLE_quotient_ker_cyclicMap_iff`, `eq_top_of_small_zero` | `GeneralizedStafford/Basic.lean` |
 
 ## Section 3: germs and source selection (manuscript `sec:germs`)
@@ -68,8 +73,8 @@ repository. Namespaces: `GeneralizedStafford` (library), `AlgebraicAnalysis`
 | C.2, full-rank element `aQ = IQ`: core Lemma 6.3, first step; `prop:C2`, first sentence | `AlgebraicAnalysis.Goldie.exists_mem_forall_exists_mul_mem` | `corollaryC2_fullRank` | AlgebraicAnalysis `RingTheory/Goldie/Basic.lean` |
 | C.2, prescribed form: core Lemma 6.3; `prop:C2` | `two_generated_of_principal` | `corollaryC2_prescribed` | `GeneralizedStafford/Modules.lean` |
 | C.2, every right ideal two-generated: core Corollary C.2; `prop:C2` | `two_generated` | `corollaryC2` | `GeneralizedStafford/Modules.lean` |
-| C.3, lower bound: core Lemma 6.4; `prop:C3` | not formalized | `corollaryC3_lower` (open) | `Challenge.lean`; see `docs/open-holes.md` |
-| C.3, upper bound: core Lemma 6.4; `prop:C3` | not formalized | `corollaryC3_upper` (open) | `Challenge.lean`; see `docs/open-holes.md` |
+| C.3, lower bound `⌈ρ⌉ ≤ μ`: core Lemma 6.4; `prop:C3` | `le_mul_of_span_eq_top` (from AlgebraicAnalysis `Goldie.le_mul_of_uniformDim`) | `corollaryC3_lower` | `GeneralizedStafford/GeneratorBounds.lean` |
+| C.3, upper bound `μ ≤ ⌊ρ⌋ + 1`: core Lemma 6.4 (case `l < s`) and `lane-C3-rank-without-morita.md` (induction on `q`); `prop:C3` | `exists_span_eq_top_of_lt_mul` (rank form `spanRank_le_of_goldieRank_lt`, base case `cyclic_of_goldieRank_lt`) | `corollaryC3_upper` | `GeneralizedStafford/GeneratorBounds.lean` |
 
 Each challenge name `<name>` is proved as `<name>_proof` in
 `GeneralizedStafford/Challenge/Transport.lean` from the library declaration

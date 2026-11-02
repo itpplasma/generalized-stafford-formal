@@ -6,7 +6,7 @@ import Mathlib.Algebra.Module.Opposite
 import Mathlib.Algebra.Ring.Subring.Basic
 import Mathlib.Order.SupIndep
 
-import GeneralizedStafford.Modules
+import GeneralizedStafford.GeneratorBounds
 
 /-!
 # Challenge transport: the challenge definitions and their proofs
@@ -26,8 +26,10 @@ library: `Submodule.span Rᵐᵒᵖ {d}` is `principalRightIdeal d`
 (`span_singleton_eq`), `IsRegularElement d` is `d ∈ R⁰` (`isRegular_iff`), the
 deviation bounds are AlgebraicAnalysis' `Module.DevLE` and `Module.DevLEOmega`
 (`devDimLE_iff`, `hOmega_iff`), (H_all) is `PrincipalQuotientsFinite`
-(`hAll_iff`), and the infinite centre becomes an infinite central field
-(`withCentre`).
+(`hAll_iff`), the infinite centre becomes an infinite central field
+(`withCentre`), and the uniform-dimension predicates and the Goldie-torsion
+part are AlgebraicAnalysis' `Module.UniformDimGE`, `Module.UniformDimLE` and
+`Goldie.goldieTorsionPart` (`uDimGE_iff`, `uDimLE_iff`, `goldieTorsionPart_eq`).
 -/
 
 universe u v
@@ -360,6 +362,23 @@ theorem hAll_iff {R : Type u} [Ring R] : HAll R ↔ PrincipalQuotientsFinite R :
   refine forall₂_congr fun d _ => ?_
   rw [span_singleton_eq]
 
+/-- `UDimGE R M n` is AlgebraicAnalysis' `Module.UniformDimGE Rᵐᵒᵖ M n`. -/
+theorem uDimGE_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M] [Module Rᵐᵒᵖ M]
+    (n : ℕ) : UDimGE R M n ↔ AlgebraicAnalysis.Module.UniformDimGE Rᵐᵒᵖ M n :=
+  Iff.rfl
+
+/-- `UDimLE R M n` is AlgebraicAnalysis' `Module.UniformDimLE Rᵐᵒᵖ M n`. -/
+theorem uDimLE_iff {R : Type u} [Ring R] {M : Type v} [AddCommGroup M] [Module Rᵐᵒᵖ M]
+    (n : ℕ) : UDimLE R M n ↔ AlgebraicAnalysis.Module.UniformDimLE Rᵐᵒᵖ M n :=
+  Iff.rfl
+
+/-- The challenge's Goldie-torsion part is AlgebraicAnalysis' `Goldie.goldieTorsionPart`. -/
+theorem goldieTorsionPart_eq {R : Type u} [Ring R] {M : Type v} [AddCommGroup M]
+    [Module Rᵐᵒᵖ M] :
+    GeneralizedStaffordChallenge.goldieTorsionPart R M =
+      AlgebraicAnalysis.Goldie.goldieTorsionPart R M :=
+  rfl
+
 /-- The centre of a simple ring is a field, so (Z) provides an infinite
 central field `k` with `[Algebra k R]`, as the library assumes. -/
 theorem withCentre (R : Type u) [Ring R] [IsSimpleRing R] [Infinite (Subring.center R)]
@@ -461,5 +480,16 @@ theorem corollaryC2_proof : CorollaryC2Statement.{u} := by
   refine ⟨a, b, ?_⟩
   rw [Submodule.span_insert, span_singleton_eq, span_singleton_eq]
   exact hI
+
+/-- Corollary C.3, lower bound, from `GeneralizedStafford.le_mul_of_span_eq_top`. -/
+theorem corollaryC3_lower_proof : CorollaryC3LowerStatement.{u, v} := by
+  intro R _ _ _ M _ _ _ m ℓ s ⟨g, hg, hspan⟩ hℓ hs
+  exact le_mul_of_span_eq_top g hg hspan hℓ hs
+
+/-- Corollary C.3, upper bound, from `GeneralizedStafford.exists_span_eq_top_of_lt_mul`. -/
+theorem corollaryC3_upper_proof : CorollaryC3UpperStatement.{u, v} := by
+  intro R _ _ _ _ hall M _ _ _ q ℓ s hℓ hs hq
+  refine withCentre R _ fun k _ _ _ => ?_
+  exact exists_span_eq_top_of_lt_mul (k := k) (hAll_iff.mp hall) hℓ hs hq
 
 end GeneralizedStaffordChallenge
