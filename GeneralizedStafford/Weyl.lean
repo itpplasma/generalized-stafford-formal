@@ -3,6 +3,7 @@ import GeneralizedStafford.Opposite
 import AlgebraicAnalysis.Weyl.Simplicity
 import AlgebraicAnalysis.Weyl.BernsteinSymbol
 import AlgebraicAnalysis.Weyl.Transposition
+import AlgebraicAnalysis.Weyl.Domain
 import AlgebraicAnalysis.Ore.Noetherian
 
 /-!
@@ -17,11 +18,10 @@ for `A_n(k)`:
 * unconditionally, every right ideal and every left ideal of `A_n(k)` is
   two-generated (Corollary C.2), with the left case transferred from the right
   case by the transposition anti-automorphism;
-* the nonzero-divisor property of `A_n(k)`, `NoZeroDivisorsWeyl`, is the one
-  Weyl fact that AlgebraicAnalysis does not yet provide. It is a hypothesis of
-  the other consequences (Theorem A, Theorem A', Corollary C.1 and the
-  prescribed-generator form of Corollary C.2), each of which needs that every
-  nonzero element is regular.
+* the Weyl algebra is a domain (AlgebraicAnalysis `Weyl.isDomain`), so every
+  nonzero element is regular; this is the input of the regular-element
+  consequences below (Theorem A, Theorem A', Corollary C.1 and the
+  prescribed-generator form of Corollary C.2).
 -/
 
 universe u v
@@ -63,80 +63,61 @@ theorem infinite_center (k : Type u) [Field k] [CharZero k] (n : ℕ) :
       Subring.mem_center_iff.mpr fun z => (Algebra.commutes c z).symm⟩
   exact Infinite.of_injective f fun a b hab => hinj (congrArg Subtype.val hab)
 
-/-! ## The one missing Weyl fact -/
-
-/-- `A_n(k)` has no zero divisors: a product of nonzero elements is nonzero.
-This is the statement that `A_n(k)` is a domain. AlgebraicAnalysis does not yet
-prove it, so every consequence that needs regular elements takes it as an
-explicit hypothesis. -/
-def NoZeroDivisorsWeyl (k : Type u) [Field k] (n : ℕ) : Prop :=
-  ∀ a b : WeylAlg k n, a ≠ 0 → b ≠ 0 → a * b ≠ 0
-
-/-! ## Generic consequences of a nonzero-divisor property -/
+/-! ## Consequences of the domain property -/
 
 section FromDomain
 
 variable {A : Type u} [Ring A]
 
-/-- A nonzero element of a ring without zero divisors is regular. -/
-theorem isRegular_of_mul_ne_zero (hD : ∀ a b : A, a ≠ 0 → b ≠ 0 → a * b ≠ 0)
-    {d : A} (hd : d ≠ 0) : IsRegularElement d :=
-  ⟨fun x hx => by_contra fun hx0 => hD d x hd hx0 hx,
-   fun x hx => by_contra fun hx0 => hD x d hx0 hd hx⟩
+/-- A nonzero element of a domain is regular. -/
+theorem isRegular_of_ne_zero [IsDomain A] {d : A} (hd : d ≠ 0) : IsRegularElement d :=
+  ⟨fun _ hx => (mul_eq_zero.mp hx).resolve_left hd,
+   fun _ hx => (mul_eq_zero.mp hx).resolve_right hd⟩
 
-/-- Theorem A for a ring without zero divisors: the nonzero anchor `d`, `a` and
-`B` satisfy `1 = d U + (B + H a) d V`. -/
+/-- Theorem A for a domain (the Weyl algebra, by AlgebraicAnalysis): the nonzero
+anchor `d`, `a` and `B` satisfy `1 = d U + (B + H a) d V`. -/
 theorem affine_of_domain [IsSimpleRing A] [IsNoetherian Aᵐᵒᵖ A]
-    [Infinite (Subring.center A)] (hO : HOmega A)
-    (hD : ∀ a b : A, a ≠ 0 → b ≠ 0 → a * b ≠ 0) (d a B : A) (hd : d ≠ 0) (ha : a ≠ 0) :
+    [Infinite (Subring.center A)] [IsDomain A] (hO : HOmega A)
+    (d a B : A) (hd : d ≠ 0) (ha : a ≠ 0) :
     ∃ H U V : A, 1 = d * U + (B + H * a) * d * V :=
-  corollaryB_fixedAnchor_proof A hO d a B (isRegular_of_mul_ne_zero hD hd) ha
+  corollaryB_fixedAnchor_proof A hO d a B (isRegular_of_ne_zero hd) ha
 
-/-- Theorem A' for a ring without zero divisors: for a nonzero right ideal `I`,
-`I + (x + H t) A = A`. -/
+/-- Theorem A' for a domain: for a nonzero right ideal `I`, `I + (x + H t) A = A`. -/
 theorem fixedIdeal_of_domain [IsSimpleRing A] [IsNoetherian Aᵐᵒᵖ A]
-    [Infinite (Subring.center A)] (hO : HOmega A)
-    (hD : ∀ a b : A, a ≠ 0 → b ≠ 0 → a * b ≠ 0) (I : Submodule Aᵐᵒᵖ A) (hI : I ≠ ⊥)
+    [Infinite (Subring.center A)] [IsDomain A] (hO : HOmega A)
+    (I : Submodule Aᵐᵒᵖ A) (hI : I ≠ ⊥)
     (x t : A) (ht : t ≠ 0) : ∃ H : A, I ⊔ Submodule.span Aᵐᵒᵖ {x + H * t} = ⊤ := by
   obtain ⟨s, hs, hs0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hI
-  exact corollaryB_fixedIdeal_proof A hO I ⟨s, hs, isRegular_of_mul_ne_zero hD hs0⟩ x t ht
+  exact corollaryB_fixedIdeal_proof A hO I ⟨s, hs, isRegular_of_ne_zero hs0⟩ x t ht
 
-/-- Corollary C.1 for a ring without zero divisors: a finitely generated module
+/-- Corollary C.1 for a domain: a finitely generated module
 killed by nonzero scalars has a prescribed cyclic generator. -/
 theorem prescribedCyclic_of_domain [IsSimpleRing A] [IsNoetherian Aᵐᵒᵖ A]
-    [Infinite (Subring.center A)] (hO : HOmega A)
-    (hD : ∀ a b : A, a ≠ 0 → b ≠ 0 → a * b ≠ 0)
+    [Infinite (Subring.center A)] [IsDomain A] (hO : HOmega A)
     (M : Type v) [AddCommGroup M] [Module Aᵐᵒᵖ M] [Module.Finite Aᵐᵒᵖ M]
     (hM : ∀ m : M, ∃ d : A, d ≠ 0 ∧ op d • m = 0) (x : M) (t : A) (ht : t ≠ 0) :
     ∃ h : M, Submodule.span Aᵐᵒᵖ {x + op t • h} = ⊤ :=
   corollaryC1_omega_proof A hO M (by
     intro m
     obtain ⟨d, hd, hdm⟩ := hM m
-    exact ⟨d, isRegular_of_mul_ne_zero hD hd, hdm⟩) x t ht
+    exact ⟨d, isRegular_of_ne_zero hd, hdm⟩) x t ht
 
-/-- Corollary C.2 for a ring without zero divisors: a nonzero element `a` of a
+/-- Corollary C.2 for a domain: a nonzero element `a` of a
 right ideal `I` is the first generator of a two-generated presentation. -/
 theorem prescribedTwoGenerated_of_domain [IsSimpleRing A] [IsNoetherian Aᵐᵒᵖ A]
-    [Infinite (Subring.center A)] (hO : HOmega A)
-    (hD : ∀ a b : A, a ≠ 0 → b ≠ 0 → a * b ≠ 0)
+    [Infinite (Subring.center A)] [IsDomain A] (hO : HOmega A)
     (I : Submodule Aᵐᵒᵖ A) (a : A) (haI : a ∈ I) (ha : a ≠ 0) (y : A) (hy : y ∈ I)
     (t : A) (ht : t ≠ 0) :
     ∃ h ∈ I, I = Submodule.span Aᵐᵒᵖ {a} ⊔ Submodule.span Aᵐᵒᵖ {y + h * t} := by
-  have : IsDomain A := by
-    have : NoZeroDivisors A := ⟨fun {a b} hab => by
-      by_contra hne
-      push Not at hne
-      exact hD a b hne.1 hne.2 hab⟩
-    exact NoZeroDivisors.to_isDomain A
   refine corollaryC2_prescribed_proof A (corollaryB_dimension_proof A hO).1
     I a haI ?_ y hy t ht
   intro z _
   by_cases hz : z = 0
-  · exact ⟨1, isRegular_of_mul_ne_zero hD one_ne_zero, by simp [hz]⟩
+  · exact ⟨1, isRegular_of_ne_zero one_ne_zero, by simp [hz]⟩
   obtain ⟨r, s, hrs, _⟩ :=
     AlgebraicAnalysis.OreRightIntersection.rightOreCondition_of_isNoetherian ha hz
   have hs : s ≠ 0 := by rintro rfl; simp_all
-  refine ⟨s, isRegular_of_mul_ne_zero hD hs, ?_⟩
+  refine ⟨s, isRegular_of_ne_zero hs, ?_⟩
   rw [← hrs, Submodule.mem_span_singleton]
   exact ⟨op r, by simp⟩
 
@@ -163,5 +144,109 @@ theorem twoGeneratedLeft (I : Submodule (WeylAlg k n) (WeylAlg k n)) :
   twoGeneratedLeft_of_right (transposeRingEquiv k n) (twoGeneratedRight k n) I
 
 end TwoGenerated
+
+/-! ## Statements of the Weyl algebra (unconditional)
+
+Each statement is proved for `A_n(k)` of AlgebraicAnalysis, which the challenge
+statements use after unfolding the presentation. The domain property is the
+AlgebraicAnalysis instance `Weyl.isDomain`, so no hypothesis remains. -/
+
+section Statements
+
+variable (k : Type u) [Field k] [CharZero k] (n : ℕ)
+
+/-- Stafford's Conjecture 3.8 for `A_n(k)`: `1 = d R + F d S` for every nonzero `d`,
+from the affine form with `a = 1` and `B = 0`. -/
+theorem conjecture38 (d : WeylAlg k n) (hd : d ≠ 0) :
+    ∃ F R S : WeylAlg k n, (1 : WeylAlg k n) = d * R + F * d * S := by
+  have := isSimpleRing k n
+  have := isNoetherian k n
+  have := infinite_center k n
+  obtain ⟨H, U, V, h⟩ := affine_of_domain (hOmega k n) d 1 0 hd one_ne_zero
+  exact ⟨H, U, V, by simpa using h⟩
+
+/-- Theorem A for `A_n(k)`: for `d, a ≠ 0` and any `B` there are `H, U, V`
+with `1 = d U + (B + H a) d V`. -/
+theorem affineForm (d a B : WeylAlg k n) (hd : d ≠ 0) (ha : a ≠ 0) :
+    ∃ H U V : WeylAlg k n, 1 = d * U + (B + H * a) * d * V := by
+  have := isSimpleRing k n
+  have := isNoetherian k n
+  have := infinite_center k n
+  exact affine_of_domain (hOmega k n) d a B hd ha
+
+/-- Theorem A' for `A_n(k)`: for a nonzero right ideal `I`, `x` and `t ≠ 0`
+there is `H` with `I + (x + H t) A_n(k) = A_n(k)`. -/
+theorem fixedIdealForm (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n)) (hI : I ≠ ⊥)
+    (x t : WeylAlg k n) (ht : t ≠ 0) :
+    ∃ H : WeylAlg k n, I ⊔ Submodule.span (WeylAlg k n)ᵐᵒᵖ {x + H * t} = ⊤ := by
+  have := isSimpleRing k n
+  have := isNoetherian k n
+  have := infinite_center k n
+  exact fixedIdeal_of_domain (hOmega k n) I hI x t ht
+
+/-- Corollary C.1 for right modules over `A_n(k)`: a finitely generated torsion
+right module has, for every `x` and `t ≠ 0`, an `h` with `M = (x + h t)A_n(k)`. -/
+theorem prescribedCyclicRight (M : Type v) [AddCommGroup M]
+    [Module (WeylAlg k n)ᵐᵒᵖ M] [Module.Finite (WeylAlg k n)ᵐᵒᵖ M]
+    (hM : ∀ m : M, ∃ d : WeylAlg k n, d ≠ 0 ∧ op d • m = 0)
+    (x : M) (t : WeylAlg k n) (ht : t ≠ 0) :
+    ∃ h : M, Submodule.span (WeylAlg k n)ᵐᵒᵖ {x + op t • h} = ⊤ := by
+  have := isSimpleRing k n
+  have := isNoetherian k n
+  have := infinite_center k n
+  exact prescribedCyclic_of_domain (hOmega k n) M hM x t ht
+
+/-- Corollary C.1 for left modules over `A_n(k)`, transferred from the right case
+by the transposition anti-automorphism. -/
+theorem prescribedCyclicLeft (M : Type v) [AddCommGroup M]
+    [Module (WeylAlg k n) M] [Module.Finite (WeylAlg k n) M]
+    (hM : ∀ m : M, ∃ d : WeylAlg k n, d ≠ 0 ∧ d • m = 0)
+    (x : M) (t : WeylAlg k n) (ht : t ≠ 0) :
+    ∃ h : M, Submodule.span (WeylAlg k n) {x + t • h} = ⊤ := by
+  refine prescribedCyclicLeft_of_right (M := M) (transposeRingEquiv k n) ?_ hM x t ht
+  intro M _ _ _ hM x t ht
+  exact prescribedCyclicRight k n M hM x t ht
+
+/-- Torsion cyclicity for right modules: a finitely generated torsion right
+`A_n(k)`-module is cyclic (the case `x = 0`, `t = 1` of the prescribed form). -/
+theorem torsionCyclicRight (M : Type v) [AddCommGroup M]
+    [Module (WeylAlg k n)ᵐᵒᵖ M] [Module.Finite (WeylAlg k n)ᵐᵒᵖ M]
+    (hM : ∀ m : M, ∃ d : WeylAlg k n, d ≠ 0 ∧ op d • m = 0) :
+    ∃ z : M, Submodule.span (WeylAlg k n)ᵐᵒᵖ ({z} : Set M) = ⊤ := by
+  have := isSimpleRing k n
+  obtain ⟨h, hh⟩ := prescribedCyclicRight k n M hM 0 1 one_ne_zero
+  exact ⟨h, by simpa using hh⟩
+
+/-- Torsion cyclicity for left modules over `A_n(k)`. -/
+theorem torsionCyclicLeft (M : Type v) [AddCommGroup M]
+    [Module (WeylAlg k n) M] [Module.Finite (WeylAlg k n) M]
+    (hM : ∀ m : M, ∃ d : WeylAlg k n, d ≠ 0 ∧ d • m = 0) :
+    ∃ z : M, Submodule.span (WeylAlg k n) ({z} : Set M) = ⊤ := by
+  have := isSimpleRing k n
+  obtain ⟨h, hh⟩ := prescribedCyclicLeft k n M hM 0 1 one_ne_zero
+  exact ⟨h, by simpa using hh⟩
+
+/-- Corollary C.2, prescribed first generator, for right ideals of `A_n(k)`. -/
+theorem prescribedTwoGeneratedRight (I : Submodule (WeylAlg k n)ᵐᵒᵖ (WeylAlg k n))
+    (a : WeylAlg k n) (haI : a ∈ I) (ha : a ≠ 0) (y : WeylAlg k n) (hy : y ∈ I)
+    (t : WeylAlg k n) (ht : t ≠ 0) :
+    ∃ h ∈ I, I = Submodule.span (WeylAlg k n)ᵐᵒᵖ {a} ⊔
+      Submodule.span (WeylAlg k n)ᵐᵒᵖ {y + h * t} := by
+  have := isSimpleRing k n
+  have := isNoetherian k n
+  have := infinite_center k n
+  exact prescribedTwoGenerated_of_domain (hOmega k n) I a haI ha y hy t ht
+
+/-- Corollary C.2, prescribed first generator, for left ideals of `A_n(k)`. -/
+theorem prescribedTwoGeneratedLeft (I : Submodule (WeylAlg k n) (WeylAlg k n))
+    (a : WeylAlg k n) (haI : a ∈ I) (ha : a ≠ 0) (y : WeylAlg k n) (hy : y ∈ I)
+    (t : WeylAlg k n) (ht : t ≠ 0) :
+    ∃ h ∈ I, I = Submodule.span (WeylAlg k n) {a} ⊔
+      Submodule.span (WeylAlg k n) {y + t * h} := by
+  refine prescribedTwoGeneratedLeft_of_right (transposeRingEquiv k n) ?_ I a haI ha y hy t ht
+  intro J a haJ ha y hy t ht
+  exact prescribedTwoGeneratedRight k n J a haJ ha y hy t ht
+
+end Statements
 
 end GeneralizedStafford.Weyl
