@@ -15,7 +15,9 @@
     "GeneralizedStaffordChallenge.corollaryC2_prescribed",
     "GeneralizedStaffordChallenge.corollaryC2",
     "GeneralizedStaffordChallenge.corollaryC3_lower",
-    "GeneralizedStaffordChallenge.corollaryC3_upper"
+    "GeneralizedStaffordChallenge.corollaryC3_upper",
+    "GeneralizedStaffordChallenge.weylTwoGeneratedRight",
+    "GeneralizedStaffordChallenge.weylTwoGeneratedLeft"
   ],
   "permitted_axioms": [
     "propext",

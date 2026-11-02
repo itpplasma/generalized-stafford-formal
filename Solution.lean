@@ -1,4 +1,5 @@
 import GeneralizedStafford.Challenge.Transport
+import GeneralizedStafford.Challenge.WeylTransport
 
 /-!
 # Solution: Theorem A', Theorem A and Corollaries B and C
@@ -10,7 +11,9 @@ does not import the challenge. Each theorem below has the exact name and type of
 the compared challenge declaration and is the proof `<name>_proof` of the
 transport file.
 
-All fourteen compared challenge theorems are solved.
+All sixteen compared challenge theorems are solved: the fourteen Theorem A' / Theorem A
+and Corollary B and C statements, and the two Weyl algebra two-generation statements
+(proved in `GeneralizedStafford/Challenge/WeylTransport.lean`).
 -/
 
 universe u v
@@ -72,5 +75,13 @@ theorem corollaryC3_lower : CorollaryC3LowerStatement.{u, v} :=
 /-- Corollary C.3, upper bound `μ(M) ≤ ⌊ρ(M)⌋ + 1`. -/
 theorem corollaryC3_upper : CorollaryC3UpperStatement.{u, v} :=
   corollaryC3_upper_proof.{u, v}
+
+/-- Two generators for right ideals of the Weyl algebra `Aₙ(k)`. -/
+theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} :=
+  weylTwoGeneratedRight_proof.{u}
+
+/-- Two generators for left ideals of the Weyl algebra `Aₙ(k)`. -/
+theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} :=
+  weylTwoGeneratedLeft_proof.{u}
 
 end GeneralizedStaffordChallenge

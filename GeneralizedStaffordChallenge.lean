@@ -5,12 +5,16 @@ import Mathlib.LinearAlgebra.Quotient.Basic
 import Mathlib.Algebra.Module.Opposite
 import Mathlib.Algebra.Ring.Subring.Basic
 import Mathlib.Order.SupIndep
+import Mathlib.Algebra.RingQuot
+import Mathlib.Algebra.FreeAlgebra
+import Mathlib.LinearAlgebra.SymplecticGroup
 
 /-!
 # Affine generation over simple Noetherian rings with infinite centre
 
 This file states Theorem A', Theorem A and Corollaries B and C (C.1, C.2 and
-C.3). It imports only Mathlib and defines everything else inline.
+C.3), and the two-generation statements for the Weyl algebra (last section).
+It imports only Mathlib and defines everything else inline.
 
 ## Conventions
 
@@ -57,8 +61,8 @@ each `sorry` is a deliberate hole. The proofs are in
 `GeneralizedStaffordSolution.lean` (identical copy `Solution.lean`) of this
 repository; holes without a proof there are listed in `docs/open-holes.md`.
 
-Opposite-side statements (left ideals, left modules) are not stated: they
-require the hypotheses for `Rᵐᵒᵖ` and are remarks, not corollaries.
+Left-ideal statements are stated only for the Weyl algebra (last section): there
+the left case is the right case transported by the transposition anti-automorphism.
 -/
 
 universe u v
@@ -397,6 +401,77 @@ theorem corollaryC3_lower : CorollaryC3LowerStatement.{u, v} := by
 
 /-- Corollary C.3, upper bound. -/
 theorem corollaryC3_upper : CorollaryC3UpperStatement.{u, v} := by
+  sorry
+
+end GeneralizedStaffordChallenge
+
+/-! ## Weyl algebra: two-generated one-sided ideals
+
+The Weyl algebra `A_n(k)` is the presented algebra of the registered Stafford 3.8
+challenge. The definitions `Stafford.freeWeylRelation`, `Stafford.FreeWeyl`,
+`Stafford38Challenge.PhaseVar` and `Stafford38Challenge.WeylAlg` are copied
+verbatim from `stafford38-formal/Stafford38/ChallengeDefinitions.lean`; only the
+`import`s differ. -/
+
+namespace Stafford
+
+variable {k ι : Type*} [Field k]
+
+/-- The commutator relations presenting a Weyl-type algebra. -/
+def freeWeylRelation (omega : Matrix ι ι k)
+    (a b : FreeAlgebra k ι) : Prop :=
+  ∃ i j,
+    a = FreeAlgebra.ι k i * FreeAlgebra.ι k j -
+      FreeAlgebra.ι k j * FreeAlgebra.ι k i ∧
+    b = algebraMap k (FreeAlgebra k ι) (omega i j)
+
+/-- The free algebra modulo the commutator relations encoded by `omega`. -/
+abbrev FreeWeyl (k : Type*) [Field k] (ι : Type*)
+    (omega : Matrix ι ι k) := RingQuot (freeWeylRelation omega)
+
+end Stafford
+
+namespace Stafford38Challenge
+
+/-- Index type of the coordinate and momentum generators. -/
+abbrev PhaseVar (n : ℕ) := Fin n ⊕ Fin n
+
+/-- The standard presented Weyl algebra, shared with the substantive proof. -/
+abbrev WeylAlg (k : Type*) [Field k] (n : ℕ) :=
+  Stafford.FreeWeyl k (PhaseVar n) (Matrix.J (Fin n) k)
+
+end Stafford38Challenge
+
+namespace GeneralizedStaffordChallenge
+
+/-- **Two generators, right ideals of the Weyl algebra.** For every field `k` of
+characteristic zero and every `n`, every right ideal `I` of `Aₙ(k)` is generated
+by two elements: `I = a Aₙ(k) + b Aₙ(k)`. -/
+def WeylTwoGeneratedRightStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (Stafford38Challenge.WeylAlg k n)ᵐᵒᵖ (Stafford38Challenge.WeylAlg k n)),
+    ∃ a b : Stafford38Challenge.WeylAlg k n,
+      I = Submodule.span (Stafford38Challenge.WeylAlg k n)ᵐᵒᵖ {a, b}
+
+/-- **Two generators, left ideals of the Weyl algebra.** For every field `k` of
+characteristic zero and every `n`, every left ideal `I` of `Aₙ(k)` is generated
+by two elements: `I = Aₙ(k) a + Aₙ(k) b`. -/
+def WeylTwoGeneratedLeftStatement : Prop :=
+  ∀ (k : Type u) [Field k] [CharZero k] (n : ℕ)
+    (I : Submodule (Stafford38Challenge.WeylAlg k n) (Stafford38Challenge.WeylAlg k n)),
+    ∃ a b : Stafford38Challenge.WeylAlg k n,
+      I = Submodule.span (Stafford38Challenge.WeylAlg k n) {a, b}
+
+end GeneralizedStaffordChallenge
+
+namespace GeneralizedStaffordChallenge
+
+/-- Two generators for right ideals of the Weyl algebra `Aₙ(k)`. -/
+theorem weylTwoGeneratedRight : WeylTwoGeneratedRightStatement.{u} := by
+  sorry
+
+/-- Two generators for left ideals of the Weyl algebra `Aₙ(k)`. -/
+theorem weylTwoGeneratedLeft : WeylTwoGeneratedLeftStatement.{u} := by
   sorry
 
 end GeneralizedStaffordChallenge
