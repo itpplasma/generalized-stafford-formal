@@ -24,12 +24,6 @@ Add a solution theorem only when its proof is checked; do not add `sorry`.
 
 ## TODO for the controller
 
-- Palomar tool pins: `scripts/bootstrap-palomar-tools.sh` and the expected
-  revisions in `scripts/verify-palomar.sh` are copied from the model project
-  (Lean v4.33.0, comparator toolchain v4.34.0-rc1). This project uses Lean
-  v4.35.0-rc3. Choose matching Comparator, lean4export, NanoDa and Landrun
-  revisions, then update both scripts. Not done here: the revisions were not
-  guessed.
 - `scripts/verify.sh` builds only `GeneralizedStafford`; the Challenge and
   Solution targets are built by `scripts/verify-palomar.sh` and the commands in
   the commit body.

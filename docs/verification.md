@@ -105,3 +105,49 @@ review separately, including partial statements and unformalized extensions.
 No concrete geometric adapter, effective algorithm, literature originality,
 human review or Palomar registration follows from these checks. Native
 validation is local; this private repository has no heavy Actions workflow.
+
+## Palomar comparator run, 2026-11-02
+
+Tool revisions (`scripts/bootstrap-palomar-tools.sh`, checked by
+`scripts/verify-palomar.sh`), all for Lean `leanprover/lean4:v4.35.0-rc3`:
+
+| Tool | Exact revision |
+| --- | --- |
+| Comparator | `fd5d5bcf14177b187f66d4502071268d877887c3` (tag `v4.35.0-rc3`; its `lean-toolchain` is v4.35.0-rc3) |
+| lean4export | `66f1fb4bc256072069767fce52d39480e4524869` (tag `v4.35.0-rc3`; the revision Comparator's manifest pins) |
+| NanoDa | `8de7e0c4ed3052745a7f8725164efd9e76d84c56` (head of the default branch on 2026-11-02; no toolchain pin upstream) |
+| Landrun | `811cfff51ceaf3d9843708aa6d22e9b84ccac8b4` (on `main`; no Lean dependency) |
+
+Commands, from the repository root with `~/.elan/bin` on `PATH`:
+
+```sh
+scripts/bootstrap-palomar-tools.sh   # CARGO_BUILD_JOBS=2; built the four tools under .lake/palomar-tools
+scripts/verify-palomar.sh
+```
+
+Outcome: both commands exited 0. `verify-palomar.sh` built `GeneralizedStaffordChallenge`
+and `GeneralizedStaffordSolution`, passed both import-closure checks, and printed
+`nanoda kernel accepts the solution`, `Lean default kernel accepts the solution`
+and `Your solution is okay!`. Its log is `.lake/verification/comparator.log`
+(untracked).
+
+Landrun ran in this container with `--best-effort`, which the Comparator
+always passes. The kernel offers Landlock ABI v7, below the v9 that Landrun
+asks for, so Landrun enforces filesystem restrictions only: a probe showed
+unlisted paths unreadable and unwritable, while the rules that need the newer
+ABI (the V9 profile's network and scope rules) are not applied. A strict run without `--best-effort` fails at sandbox setup.
+A second Comparator run through a logging shim confirmed that the sandboxed
+steps (lake builds and `lean4export`) went through `scripts/landrun-wrapper.sh`.
+No unsandboxed diagnostic run of Comparator was needed.
+
+Palomar's About page says records verified with a Lean toolchain's own
+`lake comparator` cite the toolchain commit and bundled-tool digests, and
+only earlier records cite standalone Comparator, lean4export and Landrun
+revisions. This run used the standalone tools. The toolchain's `lake comparator`
+was tried once as a diagnostic and stopped at `bwrap` not being installed; it
+was not installed here. The Palomar pages do not state a required tool version.
+The registry entry pages are JavaScript-rendered, so no registered-entry
+check was made here.
+
+The pins above describe the Lean v4.35.0-rc3 tool set only. The consumed
+mathematics pins and the release record in this file above are unchanged.

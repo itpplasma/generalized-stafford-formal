@@ -19,14 +19,14 @@ for tool in comparator lean4export nanoda landrun; do
 done
 bin_root=$(cd "$bin_root" && pwd)
 
-# TODO(controller): the tool revisions below are the model's (Lean v4.33.0 release
-# verifier). Re-pin them for this project's Lean v4.35.0-rc3 before a Palomar run.
-expected_revisions='Comparator 575674928e239f5bc452aab72d1dd7b0f1326494
-ComparatorLean leanprover/lean4:v4.34.0-rc1
-lean4export 15f6055e299ad5b89345e533cc2192f4cc00f659
-NanoDa 68d5ca9db226849b41a6fff59d796ff19d0a8840
+# Tool revisions for the Lean v4.35.0-rc3 release verifier; they must match
+# scripts/bootstrap-palomar-tools.sh.
+expected_revisions='Comparator fd5d5bcf14177b187f66d4502071268d877887c3
+ComparatorLean leanprover/lean4:v4.35.0-rc3
+lean4export 66f1fb4bc256072069767fce52d39480e4524869
+NanoDa 8de7e0c4ed3052745a7f8725164efd9e76d84c56
 Landrun 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
-Lean leanprover/lean4:v4.33.0'
+Lean leanprover/lean4:v4.35.0-rc3'
 actual_revisions=$(cat "$tool_root/revisions.txt")
 if [ "$actual_revisions" != "$expected_revisions" ]; then
   echo "Palomar tool revision record does not match the release verifier" >&2

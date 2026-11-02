@@ -10,14 +10,17 @@ source_root=$tool_root/src
 bin_root=$tool_root/bin
 mkdir -p "$source_root" "$bin_root"
 
-# TODO(controller): these pins are copied from the model project (Lean v4.33.0,
-# comparator toolchain v4.34.0-rc1). They do not match this project's Lean
-# v4.35.0-rc3. Choose the Comparator, lean4export, NanoDa and Landrun revisions
-# that match v4.35.0-rc3, then update verify-palomar.sh's expected revisions.
-lean_toolchain=leanprover/lean4:v4.33.0
-comparator_rev=575674928e239f5bc452aab72d1dd7b0f1326494
-lean4export_rev=15f6055e299ad5b89345e533cc2192f4cc00f659
-nanoda_rev=68d5ca9db226849b41a6fff59d796ff19d0a8840
+# Exact revisions for this project's Lean toolchain. Comparator and lean4export
+# are the commits tagged v4.35.0-rc3 upstream (Comparator's lean-toolchain is
+# v4.35.0-rc3 and its manifest pins lean4export 66f1fb4). NanoDa has no
+# toolchain; 8de7e0c is the head of its default branch when this was pinned and
+# reads the standard lean4export JSON format, which is unchanged between v4.33.0
+# and v4.35.0-rc3 (only the partial-declaration filter changed). Landrun has no
+# Lean dependency; 811cfff is on its main branch.
+lean_toolchain=leanprover/lean4:v4.35.0-rc3
+comparator_rev=fd5d5bcf14177b187f66d4502071268d877887c3
+lean4export_rev=66f1fb4bc256072069767fce52d39480e4524869
+nanoda_rev=8de7e0c4ed3052745a7f8725164efd9e76d84c56
 landrun_rev=811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
 
 checkout_exact() {
@@ -59,8 +62,8 @@ cp "$source_root/lean4export/.lake/build/bin/lean4export" "$bin_root/lean4export
   cd "$source_root/comparator"
   # Comparator's own kernel API follows its pinned repository toolchain.
   # The exporter separately uses the submission's exact Lean toolchain.
-  test "$(tr -d '\r\n' < lean-toolchain)" = "leanprover/lean4:v4.34.0-rc1"
-  ELAN_TOOLCHAIN=leanprover/lean4:v4.34.0-rc1 lake build comparator
+  test "$(tr -d '\r\n' < lean-toolchain)" = "$lean_toolchain"
+  ELAN_TOOLCHAIN=$lean_toolchain lake build comparator
 )
 cp "$source_root/comparator/.lake/build/bin/comparator" "$bin_root/comparator"
 
@@ -81,7 +84,7 @@ done
 
 cat >"$tool_root/revisions.txt" <<EOF
 Comparator $comparator_rev
-ComparatorLean leanprover/lean4:v4.34.0-rc1
+ComparatorLean $lean_toolchain
 lean4export $lean4export_rev
 NanoDa $nanoda_rev
 Landrun $landrun_rev
