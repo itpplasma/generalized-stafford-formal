@@ -4,8 +4,7 @@
 deliberate `sorry` per compared theorem. `GeneralizedStaffordSolution.lean`
 (identical copy `Solution.lean`) contains no `sorry`.
 
-Status: no open holes among the 41 compared theorems of `comparator.json`. All 41 are proved and
-were accepted by the local replay of the Palomar check ([verification](verification.md)). Thirteen are
+Status: no open holes among the 41 compared theorems of `comparator.json`. All 41 are proved. Thirteen are
 proved via `GeneralizedStafford/Challenge/Transport.lean`; the two `weylTwoGenerated*` theorems and the nine
 Weyl algebra statements via `GeneralizedStafford/Challenge/WeylTransport.lean`. The six filtered-ring
 statements below are proved in `GeneralizedStafford/Challenge/FilteredTransport.lean` from

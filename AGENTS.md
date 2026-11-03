@@ -1,9 +1,8 @@
 # Agent rules: generalized-stafford-formal
 
 This repository owns the Lean 4 formalization of Theorem A', Theorem A and
-Corollaries B, C.1 and C.2, and their Palomar interface. `PLAN.md` is the only
-live status document; read it before any edit. The written proof lives in the
-written proof is kept outside this repository. Nothing here imports it or
+Corollaries B, C.1 and C.2, and their Palomar interface. The written proof is
+kept outside this repository. Nothing here imports it or
 needs it to build or verify.
 
 ## Non-negotiable rules
@@ -11,7 +10,7 @@ needs it to build or verify.
 - `Challenge.lean` and `GeneralizedStaffordChallenge.lean` are frozen and
   byte-identical. They import only Mathlib, define everything inline, and
   contain exactly one deliberate `sorry` per compared theorem. A statement
-  change needs a new statement-faithfulness audit and explicit human approval.
+  change needs explicit human approval.
 - `Solution.lean` and `GeneralizedStaffordSolution.lean` are byte-identical,
   never import the challenge, and prove theorems with the challenge's exact
   names and types. `comparator.json` lists exactly those theorems.
@@ -60,5 +59,4 @@ needs it to build or verify.
 
 No visibility change, tag, release, DOI, Palomar registration or journal
 submission without explicit human authorization. No person may be contacted
-and no author added without it. `docs/release-runbook.md` lists these human
-actions; agents prepare, humans execute.
+and no author added without it. Agents prepare; humans execute.

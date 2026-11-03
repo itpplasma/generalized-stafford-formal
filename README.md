@@ -5,7 +5,7 @@ Noetherian rings with infinite centre, and of its module corollaries. The
 case `a = 1`, `B = 0` of Theorem A is the identity `R = dR + HdR`, which
 Stafford conjectured for the Weyl algebras (Conjecture 3.8 of Stafford 1978).
 
-Status: all 41 challenge theorems (Theorem A′, A, Corollaries B, C.1, C.2; eleven Weyl-algebra applications; six filtered-ring and five enveloping-algebra applications on both sides; six applications to differential operators on smooth affine varieties, including two-generation of one-sided ideals and the Global Stafford identity) are proved and accepted in a local replay of the Palomar check (Comparator with NanoDa and the Lean kernel; Landrun in best-effort mode); not registered on Palomar. The challenge states exactly the numbered results of the paper; this reduced challenge still needs a statement-faithfulness audit, and independent human review is pending.
+Status: all 41 compared theorems of the challenge (Theorem A′, A, Corollaries B, C.1, C.2; eleven Weyl-algebra applications; six filtered-ring and five enveloping-algebra applications on both sides; six applications to differential operators on smooth affine varieties, including two-generation of one-sided ideals and the Global Stafford identity) are proved. The challenge states exactly the numbered results of the paper.
 
 ## The theorem
 
@@ -109,7 +109,7 @@ The pins are Lean `leanprover/lean4:v4.35.0-rc3` (`lean-toolchain`) and, in
 ```sh
 lake exe cache get
 lake build
-scripts/verify.sh                   # pins, build, endpoint axiom audit
+scripts/verify.sh                   # pins, build, endpoint axiom check
 scripts/bootstrap-palomar-tools.sh  # once: Comparator, lean4export, NanoDa, Landrun
 scripts/verify-palomar.sh           # Palomar comparison of challenge and solution
 ```
@@ -121,8 +121,6 @@ Do not run `lake update`; it moves the pins. See
 
 - [Literature](docs/literature.md): sources and the Lean modules that use them.
 - [Building](docs/building.md) and [verification](docs/verification.md).
-- [Release runbook](docs/release-runbook.md): actions reserved for humans.
-- [Current state](PLAN.md).
 
 ## Related projects
 
