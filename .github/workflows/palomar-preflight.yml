@@ -1,0 +1,36 @@
+name: Palomar mechanical preflight
+run-name: Palomar preflight for ${{ inputs.commit }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Full immutable source commit to verify
+        required: true
+        type: string
+      authorization_relationship:
+        description: The dispatching person's relationship to the formalization
+        required: true
+        type: choice
+        default: I am a responsible author or maintainer
+        options:
+          - I am a responsible author or maintainer
+          - I have approval from a responsible author or maintainer
+
+permissions:
+  contents: read
+
+# Advisory preflight with Palomar's pinned workflow; it does not submit or register.
+jobs:
+  verify:
+    uses: PalomarRegistry/PalomarSubmission/.github/workflows/submission.yml@65f0154ed776cd26c224254aa57b379137f28b0d
+    with:
+      repository: ${{ github.repository }}
+      commit: ${{ inputs.commit }}
+      pipeline_commit: 65f0154ed776cd26c224254aa57b379137f28b0d
+      request_id: gstafford001
+      mode: full
+      # itpplasma has no Namespace runners, so use Palomar's GitHub-hosted profile.
+      execution_profile: palomar-standard-v1
+      options: >-
+        {"comparator_config_path":"comparator.json","authorization_relationship":"${{ inputs.authorization_relationship }}"}
